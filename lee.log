@@ -1,0 +1,87 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdftex 2015.10.3)  3 OCT 2015 19:11
+entering extended mode
+**E:/4-2/latex/lee.bib
+(E:/4-2/latex/lee.bib
+Overfull \hbox (49.274pt too wide) in paragraph at lines 1--20
+\tenrm pages = 1372--1375, year = 2013, cross-ref = DBLP:conf/icde/2013, url = 
+http://dx.doi.org/10.1109/ICDE.2013.6544947,|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm p
+.\tenrm a
+.\tenrm g
+.\tenrm e
+.\tenrm s
+.etc.
+
+
+Overfull \hbox (189.10637pt too wide) in paragraph at lines 21--35
+\tenrm tralia, April 8-12, 2013, pub-lisher = IEEE Com-puter So-ci-ety, year = 
+2013, url = http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=6530811
+,|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm t
+.\tenrm r
+.\tenrm a
+.\tenrm l
+.\tenrm i
+.etc.
+
+
+Overfull \hbox (95.4407pt too wide) in paragraph at lines 21--35
+\tenrm isbn = 978-1-4673-4909-3, times-tamp = Tue, 02 Jul 2013 13:09:52 +0200, 
+biburl = http://dblp.uni-trier.de/rec/bib/conf/icde/2013,|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm i
+.\tenrm s
+.\tenrm b
+.\tenrm n
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+
+Overfull \hbox (103.3296pt too wide) in paragraph at lines 52--91
+\tenrm TX, USA, Novem-ber 4-7, 2014, pages = 481--484, pub-lisher = ACM, year =
+ 2014, url = http://doi.acm.org/10.1145/2666310.2666484,|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm T
+.\tenrm X
+.\tenrm ,
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm U
+.etc.
+
+
+Overfull \hbox (34.77281pt too wide) in paragraph at lines 52--91
+\tenrm pages = 207--214, pub-lisher = IEEE Com-puter So-ci-ety, year = 2009, ur
+l = http://dx.doi.org/10.1109/ICDCS.2009.25,|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm p
+.\tenrm a
+.\tenrm g
+.\tenrm e
+.\tenrm s
+.etc.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.113 ...p://dx.doi.org/10.1007/978-3-540-24741-8_
+                                                  22},
+? 
+! Emergency stop.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.113 ...p://dx.doi.org/10.1007/978-3-540-24741-8_
+                                                  22},
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

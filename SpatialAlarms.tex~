@@ -1,0 +1,620 @@
+% This is "sig-alternate.tex" V2.0 May 2012
+% This file should be compiled with V2.5 of "sig-alternate.cls" May 2012
+%
+% This example file demonstrates the use of the 'sig-alternate.cls'
+% V2.5 LaTeX2e document class file. It is for those submitting
+% articles to ACM Conference Proceedings WHO DO NOT WISH TO
+% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
+% The 'sig-alternate.cls' file will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+%
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V2.5) produces:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) thru' 3) above.
+%
+% Using 'sig-alternate.cls' you have control, however, from within
+% the source .tex file, over both the CopyrightYear
+% (defaulted to 200X) and the ACM Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% e.g.
+% \CopyrightYear{2007} will cause 2007 to appear in the copyright line.
+% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
+%
+% ---------------------------------------------------------------------------------------------------------------
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% ================= IF YOU HAVE QUESTIONS =======================
+% Questions regarding the SIGS styles, SIGS policies and
+% procedures, Conferences etc. should be sent to
+% Adrienne Griscti (griscti@acm.org)
+%
+% Technical questions _only_ to
+% Gerald Murray (murray@hq.acm.org)
+% ===============================================================
+%
+% For tracking purposes - this is V2.0 - May 2012
+
+\documentclass{sig-alternate}
+\usepackage{fixltx2e,algpseudocode,pifont,graphicx}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\algrenewcommand\Return{\State \algorithmicreturn{} }%
+
+\begin{document}
+%
+% --- Author Metadata here ---
+\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+%\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{Spatial Alarms In Obstructed Space\titlenote{(Produces the permission block, and
+copyright information). For use with
+SIG-ALTERNATE.CLS. Supported by ACM.}}
+%\subtitle{[Extended Abstract]
+%\titlenote{A full version of this paper is available as
+%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
+%\LaTeX$2_\epsilon$\ and BibTeX} at
+%\texttt{www.acm.org/eaddress.htm}}}
+%
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{3} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+Dr. Tanzima Hashem\\
+       \affaddr{Department of Computer Science}\\
+       \affaddr{Bangladesh University of Engineering and Technology}\\
+       \affaddr{Dhaka,Bangladesh}\\
+       \email{tanzimahashem@gmail.com}
+% 2nd. author
+\alignauthor
+Md. Touhiduzzaman \\
+       \affaddr{Department of Computer Science}\\
+       \affaddr{Bangladesh University of Engineering and Technology}\\
+       \affaddr{Dhaka,Bangladesh}\\
+       \email{tz08128@gmail.com}
+% 3rd. author
+\alignauthor
+Sezana Fahmida \\
+       \affaddr{Department of Computer Science}\\
+       \affaddr{Bangladesh University of Engineering and Technology}\\
+       \affaddr{Dhaka,Bangladesh}\\
+       \email{sezanafahmida@gmail.com}
+%\and  % use '\and' if you need 'another row' of author names
+% 4th. author
+%\alignauthor Lawrence P. Leipuner\\
+ %      \affaddr{Brookhaven Laboratories}\\
+  %     \affaddr{Brookhaven National Lab}\\
+   %    \affaddr{P.O. Box 5000}\\
+    %   \email{lleipuner@researchlabs.org}
+% 5th. author
+%\alignauthor Sean Fogarty\\
+ %      \affaddr{NASA Ames Research Center}\\
+  %     \affaddr{Moffett Field}\\
+   %    \affaddr{California 94035}\\
+    %   \email{fogartys@amesres.org}
+% 6th. author
+%\alignauthor Charles Palmer\\
+ %      \affaddr{Palmer Research Laboratories}\\
+  %     \affaddr{8600 Datapoint Drive}\\
+   %    \affaddr{San Antonio, Texas 78229}\\
+    %   \email{cpalmer@prl.com}
+}
+% There's nothing stopping you putting the seventh, eighth, etc.
+% author on the opening page (as the 'third row') but we ask,
+% for aesthetic reasons that you place these 'additional authors'
+% in the \additional authors block, viz.
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+%\date{30 July 1999}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
+
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+% A category with the (minimum) three required fields
+\category{H.4}{Information Systems Applications}{Miscellaneous}
+%A category including the fourth, optional field follows...
+\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+\terms{Theory}
+
+\keywords{Spatial Alarm, Obstructed Space}
+%\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section] % reset theorem numbering for each chapter
+
+%\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition} % definition numbers are dependent on theorem numbers
+\newtheorem{exmp}[thm]{Example} % same for example numbers
+
+\section{Introduction}
+The high availability of smart phones has led to the proliferation of location based services. According to many, the next step in location based services is Spatial Alarms. Many believe this particular feature is going to dominate the future mobile-phone computing systems. Spatial alarms are an extension of time-based alarms. It is, however, triggered by a specific location irrespective of time."Remind me if I'm within 100 meters of a pharmacy" is a possible example of a spatial alarm. It is a personalized location based service which can vary from user to user. Existing research has categorized spatial alarms into three types: public, shared and private. Public alarms are alarms which are active for every user within the system, such as an alarm must be sent to everyone within 100 meters of a building on fire. Private alarms are user defined alarms which can be viewed by the user, such as a user might set an alarm to alert her if she is within 100 meters of her favorite coffee shop. Shared alarms are shared between specific groups of people. In the previous example if a user chooses to share the alarm for the coffee shop with some of her friends it becomes a shared spatial alarm.\\
+It is noteworthy that spatial alarms are quite dissimilar to spatial range query. Spatial alarms are based on a fixed location thus applying the techniques that are used in answering spatial range queries is both inefficient and wasteful for the two dominating reasons, Firstly, in spatial range query as the user is the main point of interest, continuous re-evaluation of her location is needed in case of a mobile user. In contrast, spatial alarms need only be re-evaluated when the user in approaching a specific location. Secondly, in spatial alarm, the main point of interest is a static location. So the user's location is not relevant at all times. It is quite clear that applying spatial range query techniques in evaluating spatial alarms is going to result in wastage of resources. If we start to evaluate spatial alarms as soon as the user is on the move even if the user is far away from her desired location our efforts will be futile. \\
+Existing work in this area has focused mainly on Euclidean distance and road network models, to the best of our knowledge; no work is yet done on spatial alarms in obstructed space. Spatial alarm evaluation in obstructed space is different than road network or Euclidean space as it considers the obstacles in the path to the location of alarm. It is better approximated by a pedestrian scenario while road networks are approximated by vehicle scenarios. A vehicle can only go to a specific location following a predefined road, but a pedestrian's path is not limited by roads. However, a pedestrian is obstructed by various obstacles such as buildings or trees. So while calculating the distance from spatial alarms, we have to consider the obstructed distance.\\
+Spatial alarms are location-based, user-defined triggers which will possibly shape the future mobile application computations. They are distinct from spatial range query and do not need immediate evaluation after the user has activated them.The spatial alarm evaluation strategies are judged based on two features, High accuracy and High system scalability. High accuracy refers to the quality that guaranties no alarms are missed. And High scalability is the feature that ensures that the system can adapt to a large number of spatial alarms.
+In this paper, We propose a novel approach to evaluate spatial alarms in obstructed space which ensures both high accuracy and high scalability.
+\section{Problem Setup}
+\textit{Obstructed Space Route Problem} denotes the problem of finding the shortest route between two query-points  in Obstructed Space where non-intersecting 2D polygons represent \textit{obstacles} and where the route does not traverse through any obstacles.The length of the Obstructed route between points a and b is called the \textit{Obstructed Distance} between a and b, denoted by D\textsubscript{obs,a,b}.\\
+A \textbf{Spatial Alarm Query in Obstructed Space} is formally defined as follows:
+\begin{defn}
+Given the user's current location p,and an alarming distance U\textsubscript{d} for an alarm, spatial alarm query returns the set of alarms A, where for each a$\in$ A,D\textsubscript{obs,p,a}<U\textsubscript{i}. 
+\end{defn}
+We define three different type of regions: \textit{Known Region},\textit{Reliable Region} and \textit{Safe Region}
+
+\begin{defn} 
+\textbf{Known Region:} We define two different known regions for the POIs and the obstacles.The region containing at least 1 POI is the known region for POI.\\
+The region circulating the POIs known region containing none or single colliding obstacles is the known region for the obstacles.The set of obstacles and POIs within this region is known to the client. 
+We will denote the radius of the known region of the POIs as $r_{kp}$ and that of the obstacles as $r_{ko}$.
+\end{defn}
+
+\begin{defn}
+\textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. Given the radius of the reliable region as $r_{rel}$, the user's previous location as $P_1$ and the current location as $P_2$, if $(P_1 - P_2) < r_{rel}$, then by this definition no further queries to the server has to be done to compute a consistent set of answers.
+\end{defn}
+
+\begin{defn}
+\textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer.
+\end{defn}
+ The GETALLPOI(R,P) and GETOBSTACLESET(q,R,O) functions populates the sets P and O with the POIs and obstacles respectively within the distance R from the client's current location.
+\\MAKEVISGRAPH(P,O) returns the \textit{visibility graph} V$_G$ with the set of POIs P and Obstacles O.
+A \textbf{Visibility Graph} is a graph $V_G(V,E)$ where each v $\in$ V is either a POI or a Data point and for each (u,v)$ \in$ V, there is an edge e between u and v if and only if it does not interesect with any obstacles i.e. u and v are \textit{visible} to each other. \\
+EUCLIDEANDIST(q1,q2) returns the euclidean space distance between two points q1 and q2.\\
+CHECKNEWPOI(q,$r_k$,P) \\
+ALARMUSER(P$_i$) triggers an alarm to the user for the alarm $P_i$. \\  
+ 
+\section{Related Work}
+Extensive research has been performed and various  effective algorithms have been proposed \cite{roadalarm},\cite{mur},\cite{bamba} to process spatial alarms in Euclidean space and road network in recent years. Euclidean space considers the straight line distance between two points irrespective of obstacles on the other hand in road networks navigation is limited along predefined roads.\\ Obstructed space considers the shortest distance between two points in the presence of obstacles. Various spatial range query algorithms have been presented in recent times \cite{obst1},\cite{obst2},\cite{ognn} such as nearest neighbor and group nearest neighbor in obstructed space.\\
+Again, comprehensive research \cite{liu} has been conducted to make spatial alarm evaluation energy-efficient and effective in road networks. 
+However, to the best of our knowledge no research work has yet been published on the topic of spatial alarms in obstructed space.
+\\
+\\
+
+
+% Our algos : 2 sections mainly - Naive & modified approach
+\section{Naive Approach}
+To compare the efficiency of our approach, we are about to represent two straightforward solutions for processing spatial-alarms in an obstructed space - sequential alarm (POI) processing in regular basis and region-divided alarm (POI) processing. 
+Both of these algorithms are stated and explained in the following subsections.
+
+
+\subsection{Sequential Processing on Regular Basis}
+The POIs are saved in an R-tree indexed by own distance from the query point. In this naive approach, a maximum number of nearest POIs are retrieved from the server and on a minimum change of the user's location, a system event will fire an update procedure checking whether to give any alarm to the client or not along with the check of necessity to fetch more POI and obstacle when the client goes outside of the farthest POI's alarming zone.
+
+%\begin{algorithm}
+\DontPrintSemicolon
+
+%\begin{algorithmic}[1]
+\begin{algorithm}
+\caption{InitNaive1($q$,$R_{max}$,$P_{max}$)}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Query point $q$, Max search radius $R_{max}$, max no. of POIs $P_{max}$}
+    \Output{$K_{min}$} 
+	
+	 $P \gets \textsc{GetAllPOI}(R_{max}, P_{max})$\;
+	 $O \gets \textsc{GetObstacleSet}(q, R_{max}, \emptyset)$\;
+	 $V_G \gets \textsc{MakeVisGraph}(P, O)$\;
+	 $U_{min} \gets \infty$\;
+	
+	\For{$i \gets $ $1$ to $\left\vert{P}\right\vert$}{
+		 $U_{min} \gets min( U_{min}, u_i )$\;
+	}
+	 \Return $(R_{max} - U_{min})$\;
+\end{algorithm}
+
+\begin{algorithm}
+\caption{UpdateNaive1$(q, q', P, O, V_G, K_{min})$}
+
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{$q, q', P, O, V_G, K_{min}$}
+    
+     $q_d \gets \textsc{EuclideanDist}(q, q')$\;
+	 \For{$i \gets 1$ to $\left\vert{P}\right\vert$}{
+		\If{$\textsc{EuclideanDist}(q', p_i) > u_i$}{
+			$\textsc{AlarmUser}(p_i)$\;
+		}
+	}
+	 \If {$q_d < k_{min}$ }{
+		call \textsc{Naive1}$(q', 100, 100)$
+	}
+\label{UpdateNaive1}
+%\end{algorithmic}
+\end{algorithm}
+
+
+The run-time of the first line of the second procedure UpdateNaive is $O(\left\vert{P}\right\vert)$, whereas the second line depends on the amount of location-change and the FetchPOI procedure.
+\\Visibility graph construction requires $O(n^2)$ \cite{mur}, where $n =$ the number of edges of the obstacles. $O(\left\vert{P}\right\vert)$ run-time is needed to calculate $U_{min}$ and above all, a huge overhead is sufficed to make P and O sets using such procedure.
+\\Moreover, the accuracy of this naive approach is vulnerable to many cases which are explained and handled in the following approaches one by one.
+
+
+\subsection{Region-based Alarm Processing}
+This naive approach is a region-based modified straight forward approach which searches for a new alarm in the known region as soon as the client changes it's position.
+This naive algorithm works in three procedures - the first one retrieves all POI and obstacles and then computes the known and reliable regions, the second one calculates the visibility graph and periodically checks the client status to give alarms for any POI after every hibernation-period expiration and the third procedure checks the region crossings to recompute the answer set on any minimal location-change of the client.
+
+The algorithms \ref{InitRegionBase},\ref{SafeRegionCalc},\ref{OnLocationChange} show the pseudocode for the above mentioned three procedures respectively.\\
+The input to the algorithm InitRegionBase is the location of the user q and the increment delta, the amount by which the regions will be expanded , $r_d$.The output of the algorithm is an answer set A which consists of the radius of the known region ($r_{k}$) and the set of all obstacle and POIs within $r_{k}$
+\begin{algorithm}
+\caption{InitRegionBase($q,r_d$)}
+\label{InitRegionBase}
+%\begin{algorithmic}[1]
+%\Procedure{InitRegionBase}{}
+
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Query point $q$, increment delta $r_d$}
+    \Output{The answer set, $A=\left\{ { r_k, P, O}\right\}$} 
+    
+	\While {$\left\vert{P}\right\vert < 1$ }{
+	    $r_k \gets (r_k + r_d) $
+	    $P \gets \textsc{CheckNewPOI}(q, r_{k}, P) $
+	}
+	 $O \gets \textsc{GetObstacleSet}(q, r_k, \emptyset)$\;
+	 $V_G \gets \textsc{MakeVisGraph}(P, O)$	
+	 \Return $A = \textsc{MakeAnswerSet}(r_k, P, O, V_G)$ 
+%\EndProcedure
+\end{algorithm}
+
+The input to the SafeRegionCalc algorithm is the location of the client q and the answer set from the algorithm \ref{InitRegionBase}.This algorithm is responsible for triggering an alarm to the client if s/he is within the alarming distance of any POIs.
+\begin{algorithm}
+\caption{SafeRegionCalc($q,A$)}
+\label{SafeRegionCalc}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Query point $q$, answer set $A$}
+    \Output{$r_{safe}$}
+    
+	 \If {$isAnyPOIUnreachable(V_G)$}{
+		$A \gets $ \textsc{InitRegionBase}($q, 10$)
+		call \textsc{SafeRegionCalc}($q, A$)
+	}
+	
+	 $U_{min} \gets \infty, U_{max} \gets 0$
+	 \For{$i \gets 1 to \left\vert{P}\right\vert$}{
+		$D_{min} \gets min( D_{min}, D_i )$
+		$D_{max} \gets max( D_{max}, D_i )$
+	}
+	 $r_{rel} \gets r_k – D_{min}$.
+	 \ForEach{$p_i \in P$}{
+		$d \gets ObsDist(q, p_i)$
+		\If {$d < U_{i}$} {
+			\textsc{AlarmUser}($p_i$)
+		}
+	}
+	 \Return $r_{safe} \gets (D_{min}-U_{max})$ 
+%\EndProcedure
+\end{algorithm}
+\\The input to the onLocationChange algorithm is the current and previous location of the client, q' and a, the radius of the safe region($r_{safe}$), reliable region($r_{rel}$),and known region{$r_{k}$}.The output of the algorithm is the minimum distance to trigger this procedure next time, $d_u$
+\begin{algorithm}
+\caption{OnLocationChange($q, q', r_{safe}, r_{rel}, r_k$)}
+\label{OnLocationChange}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{$q, q', r_{safe}, r_{rel}, r_k$}
+    
+    $q_d \gets \textsc{EuclideanDist(q, q')}$
+    
+    \If{$q_d > r_{rel}$}{
+    	$A \gets \textsc{InitRegionBase}(q, q_d)$
+    	call \textsc{SafeRegionCalc}($q, A$)
+    	\Return
+    }
+    
+    \If{$q_d > r_{safe}$}{
+    	%$A \gets \textsc{InitRegionBase}(q, q_d)$
+    	call \textsc{SafeRegionCalc}($q, A$)
+    	\Return
+    }
+    
+    \Return $min( r_{safe}, q_d )$
+%\EndProcedure
+%\end{algorithmic}
+\end{algorithm}
+
+In this approach, more than one query for the known region computation has to be done frequently to the sever after computing the visibility graph and if any unreachable POI is found out - which seems very much inefficient. Moreover, the safe region is in its minimum size in this approach, which requires more computation in the client side and so gets the approach less efficient. These problems are solved in the following final approach.
+
+
+\section{Spatial Alarms in Obstructed Space}
+Our spatial alarm evaluation system is divided into client-server architecture. The server has access to the locations of mobile users, location of alarms and location of obstacles. In this paper we assume that all users have access to some sort of localization service such as GPS or Wi-Fi that allow the server to pinpoint their current location. The client application is a thin-weight application that communicates with the server at regular intervals to retrieve necessary information about alarms and the obstacles. With the help of the client application the users can personalize their alarms as public, private or shared. They can join any public alarm or shared alarm as per their choice. We assume that the user can use any device such as smart-phones or PDA.\\ Our aim is to provide an energy-efficient, concise and accurate spatial alarm service for obstructed space. To preserve energy, the popular approach is to put the device in use to a low-power consumption state or sleep state. We propose a novel approach of computing a \textit{safe region}. As long as the client device is in the safe region, the device can be put into sleep state without the risk of any alarm being missed. \\
+
+
+Spatial alarm evaluation can be optimized using two key features: firstly, reducing the number of device wake-ups and second reducing the re-computation of same obstructed distance and reducing the number of duplicate data retrieval from the server. For the first strategy to be successful our safe-region computation should be accurate and optimal. We propose an algorithm in the section which will compute an optimal safe-region for our spatial alarm evaluation system. The second optimization technique is related to the safe-region computation technique. To compute the safe region the client application must communicate with the server as it needs the location of obstacles and alarms. In this paper we aim to optimize this communication by ensuring that no redundant data is retrieved from the server. We propose two different type of strategies which highlight exactly one of the aforementioned key features. Our application has two different modes,namely, \textit{Bandwidth Saving Mode} and \textit{Computational Cost Saving Mode}
+
+
+\subsection{Bandwidth Saving Mode}
+In this mode the main focus is to reduce the bandwidth of communication between the server and the client.In this mode the procedure is divided into three steps. \textit{Initialization},\textit{Computing the Reliable Region and the Safe Region } and \textit{Update on location change}. Algorithm \ref{ClientInit},\ref{ConfigAlarm},\ref{ULC} shows the pseudo-code for these three steps respectively. The input to the Client Initialization algorithm is the location of the client q and the amount by which the radius of the known region will expand everytime $r_d$,  the output of the algorithm is an answer set A which consists of the radius of the known regions ($r_{kp}$,$r_{ko}$) and the set of all obstacles within $r_{ko}$ and the set of all POIs within $r_{kp}$.
+
+\begin{algorithm}
+\caption{ClientInit($q,r_d$)}
+\label{ClientInit}
+%\begin{algorithmic}[2]
+%\Procedure{ClientInit}{}
+
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Query point $q$, increment delta $r_d$}
+    \Output{The answer set, $A=\left\{ {P, O, r_{kp}, r_{ko}}\right\}$} %\\where $P = set of all POIs within radius r_{kp}, O = set of all obstacles withtin radius r_{ko}$
+    
+	\While {$\left\vert{P}\right\vert < 1$ }{
+	    $r_{kp} \gets r_{kp} + r_d $
+	    $P \gets CheckNewPOI(q, r_{kp}, P) $
+	}
+	 $r_{ko} \gets r_{kp} $
+	 $O \gets GetObstacleSet(q, r_{ko}, \emptyset)$\;
+	 $V_G \gets MakeVisGraph(P, O)$\\
+	 \While { $isAnyPOIUnreachable(V_G)$ } { 
+		$r_{ko} \gets (r_{ko} + r_d)$
+		
+		$O \gets GetObstacleSet(q, r_{kp}, O)$
+		
+		$P' \gets CheckNewPOI(q, r_{ko}, P)$
+		
+		\If{$\left\vert{P'}\right\vert > \left\vert{P}\right\vert $}{
+			$P \gets P'$ 
+			
+			$r_{kp} \gets r_{ko}$ 
+			
+			goto  step-4
+		}
+	} \label{while}
+	
+	 \Return $A = MakeAnswerSet(r_{kp}, r_{ko}, P, O)$ 
+%\EndProcedure
+%\end{algorithmic}
+\end{algorithm}
+
+
+In the Client Initialization algorithm, the fact that the incremental-search will find at least 1 POI and stop the increment to get a fixed $r_{kp}$ within finite time follows from the incremental search algorithm given the fact that the POI data-set is not empty.
+\\One more fact is to be proved to guarantee the accuracy and completeness of this algorithm as - the while loop at line \ref{while} runs for a finite amount of time.
+
+\begin{proof}
+If there's no unreachable POI or no/single collision between any obstacle and the perimeter of the POIs' known region, then the loop will terminate immediately.
+\\If there is any totally unreachable POI, it must be surrounded by a series of obstacles, which will certainly cause no collision (in case that all obstacles are already inside the known region) or more than one collision (in case that some parts of the series of the obstacles are inside the known region) with the perimeter of the known region. So, the second clause will be false and the loop will terminate.
+\\Finally, if there is any unreachable POI which can be reached by retrieving an extended set of obstacles, then it will be done and checked inside the loop and then loop will finish its purpose within finite time.
+\end{proof}
+The input to the Configure Alarm algorithm is the location of the client q and the answer set from the algorithm \ref{ClientInit}.This algorithm is responsible for triggering an alarm to the client if s/he is within the alarming distance of any POIs.
+\begin{algorithm}
+\caption{ConfigAlarm($q,A$)}
+\label{ConfigAlarm}
+%\begin{algorithmic}[4]
+%\Procedure{ConfigAlarm}{}
+
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Query point $q$, answer set $A$}
+    
+     $V_G \gets MakeVisGraph(P, O)$
+     $r_{rel} \gets (r_{ko} - U_{max})$
+     $r_{safe} \gets \infty$
+    
+    \For{$i \gets 1 to \left\vert{P}\right\vert $}{
+    	\If {$r_{safe} < (D_i - U_i)$}{
+    		$r_{safe} \gets (D_i - U_i)$
+    	}
+    }
+    
+    \ForEach{$p_i \in P$}{
+    	\If{$d_i < r_{safe}$ and $isVisGraphInside(V_G, r_{safe})$}{
+    		$r_{safe} \gets min( r_{safe}, d_i )$
+    	}
+    	\If{$D_i \leqslant U_i$}{
+    		$AlarmUser(p_i)$
+    	}
+    }
+
+%\EndProcedure
+%\end{algorithmic}
+\end{algorithm}
+
+In this algorithm, the visibility graph is computed using the answer sets P and O got as return of the \ref{ClientInit} from the server side. The most critical part of this algorithm is to calculate the safe region. This can be explained with a suitable example depicted in the figure \ref{fig:safe_region}
+\begin{figure}
+  \includegraphics[width=\linewidth]{safe_region.jpg}
+  \caption{Safe region computation}
+  \label{fig:safe_region}
+\end{figure} 
+%Figure \ref{fig:safe_region} Safe region Computation
+
+The input to the update on location change algorithm is the current and previous location of the client, q' and a, the radius of the safe region($r_{safe}$), reliable region($r_{rel}$),and known regions{$r_{kp},r_{ko}$}.The output of the algorithm is the minimum distance to trigger this procedure next time, $d_u$
+\begin{algorithm}
+\caption{ULC($q,q',r_{safe},r_{rel},r_{kp},r_{ko}$)}
+\label{ULC}
+%\begin{algorithmic}[5]
+%\Procedure{UpdateAlarm}{}
+
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{$q, q', r_{safe}, r_{rel}, r_{kp}, r_{ko}$}
+    \Output{$d_u$}
+    $q_d \gets \textsc{EuclideanDist(q, q')}$
+    
+    \If{$q_d > r_{rel}$}{
+    	$A \gets \textsc{ClientInit}(q, q_d)$
+    	call \textsc{ConfigAlarm}($q, A$)
+    	\Return
+    }
+    
+    \If{$q_d > r_{safe}$}{
+    	%$A \gets \textsc{ClientInit}(q, q_d)$
+    	call \textsc{ConfigAlarm}($q, A$)
+    	\Return
+    }
+    
+    \Return $min( r_{safe}, q_d )$
+
+%\EndProcedure
+%\end{algorithmic}
+\end{algorithm}
+To prove the accuracy and completeness of the above algorithms, it is found to be enough to prove the following 3 facts.\\
+
+\textbf{No computation is needed to accurately give alarm while the user is inside the safe region.}\\
+
+\begin{proof}
+\textit{Case 1}: When the path to a POI is a straight line: 
+In this case the claim is trivial to prove. We take $min( D_i - U_i )$ as the radius of safe region. Suppose there is a POI $P$ with alarming distance $U$. The radius of the safe region is $r$. and the users current position is $p'$. Suppose for contradiction an alarm should be triggered to the user for $P$ in his current position $p'$. Then, $|p-p'|>(D-U)$. But as the user is within the safe region, $|p-p'|<r$ . But that mean, $r>|D-U|$ which is a contradiction because the algorithm \ref{ConfigAlarm} chooses the minimum between all $(D_i - U_i )$.
+\textit{Case 2:} When the path to a POI is not a straight line: 
+In this case there is an obstacle in the path to the POI. There can be two cases, 
+a. the safe region contains the full path to the obstructed POI 
+b. The safe region does not contain the full path to the obstructed POI.
+In case a, the algorithm \ref{ConfigAlarm} computes the minimum among the Euclidean distances of the POIs. As we know from the Euclidean lower bound property that the obstructed distance>= Euclidean distance. The proof follows from case 1. The safe region's radius will never over-assume the distance to the POI as it is considering the Euclidean distance.
+In case b, the algorithm \ref{ConfigAlarm} chooses the safe-region radius with the assumption that as the POI's full path is not the safe region, even if the user get's close to the POI in Euclidean Distance, Obstructed distance will always be higher.(Euclidean Lower Bound)
+\end{proof}
+
+\textbf{No query to the server has to be done to correctly give any alarm while the user is inside the reliable region}\\
+Recall from algorithms \ref{ClientInit} and \ref{ConfigAlarm} that the minimum alarming distance among all the available POIs for the user is returned as $U_{min}$, which is used to reduce the POIs' known region's radius to the reliable region's radius as $r_{rel}$ = $r_{ko} – U_{max}$.
+
+\begin{proof}
+If the safe region is well inside the safe region, then this proof follows the 1st fact.
+The 3 procedures run simultaneously to give accurate alarm for the POIs inside the known region and so inside the reliable as well as the safe region.
+The proof is needed for any POI outside both the known regions.
+
+Let there be a POI outside both the known regions for which no alarm is triggered when the user gets inside its alarming distance Ui . 
+But meanwhile, the user must cross the reliable region because $r_{ko} - r_{rel} = U_{max} > U_i$ 
+So according to algorithm \ref{ULC}, algorithm \ref{ClientInit} and \ref{ConfigAlarm} are re-run and the assumed POI must come inside the newly computed known regions and its alarm will be given accurately.
+Hence, there is a contradiction.
+Therefore, there is no POI outside the reliable region which may miss its alarm.
+So, the statement is proved.
+\end{proof}
+
+\textbf{The update procedure is run timely to re-calculate the answer set.}
+\begin{proof} 
+This claim follows trivially from the proof of the fact that - no computation is needed to accurately give alarm while the user is inside the safe region.
+\end{proof}
+
+\subsection{Computational Cost Saving Mode}
+The algorithm runs in this mode almost similarly as the "Bandwidth Saving Mode" with all the 3 described procedures - other than the algorithm \ref{ClientInit} returning the computed $V_G$ from the server side and the CRRSR procedure not reconstructing this $V_G$ in the client side.
+
+
+\section{Conclusions}
+This paragraph will end the body of this sample document.
+Remember that you might still have Acknowledgments or
+Appendices; brief samples of these
+follow.  There is still the Bibliography to deal with; and
+we will make a disclaimer about that here: with the exception
+of the reference to the \LaTeX\ book, the citations in
+this paper are to articles which have nothing to
+do with the present subject and are used as
+examples only.
+%\end{document}  % This is where a 'short' article might terminate
+
+%ACKNOWLEDGMENTS are optional
+\section{Acknowledgments}
+This section is optional; it is a location for you
+to acknowledge grants, funding, editing assistance and
+what have you.  In the present case, for example, the
+authors would like to thank Gerald Murray of ACM for
+his help in codifying this \textit{Author's Guide}
+and the \textbf{.cls} and \textbf{.tex} files that it describes.
+
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{plain}
+\bibliography{lee}  % sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+%
+% ACM needs 'a single self-contained file'!
+%
+%APPENDICES are optional
+%\balancecolumns
+\appendix
+%Appendix A
+\section{Headings in Appendices}
+The rules about hierarchical headings discussed above for
+the body of the article are different in the appendices.
+In the \textbf{appendix} environment, the command
+\textbf{section} is used to
+indicate the start of each Appendix, with alphabetic order
+designation (i.e. the first is A, the second B, etc.) and
+a title (if you include one).  So, if you need
+hierarchical structure
+\textit{within} an Appendix, start with \textbf{subsection} as the
+highest level. Here is an outline of the body of this
+document in Appendix-appropriate form:
+\subsection{Introduction}
+\subsection{The Body of the Paper}
+\subsubsection{Type Changes and  Special Characters}
+\subsubsection{Math Equations}
+\paragraph{Inline (In-text) Equations}
+\paragraph{Display Equations}
+\subsubsection{Citations}
+\subsubsection{Tables}
+\subsubsection{Figures}
+\subsubsection{Theorem-like Constructs}
+\subsubsection*{A Caveat for the \TeX\ Expert}
+\subsection{Conclusions}
+\subsection{Acknowledgments}
+\subsection{Additional Authors}
+This section is inserted by \LaTeX; you do not insert it.
+You just add the names and information in the
+\texttt{{\char'134}additionalauthors} command at the start
+of the document.
+\subsection{References}
+Generated by bibtex from your ~.bib file.  Run latex,
+then bibtex, then latex twice (to resolve references)
+to create the \cite{mur} ~.bbl file. \cite{roadalarm} Insert that ~.bbl file into
+the .tex source file and comment out
+the command \texttt{{\char'134}thebibliography}.
+% This next section command marks the start of
+% Appendix B, and does not continue the present hierarchy
+\section{More Help for the Hardy}
+The sig-alternate.cls file itself is chock-full of succinct
+and helpful comments.  If you consider yourself a moderately
+experienced to expert user of \LaTeX, you may find reading
+it useful but please remember not to change it.
+%\balancecolumns % GM June 2007
+% That's all folks!
+\end{document}

@@ -1,0 +1,62 @@
+\begin{thebibliography}{1}
+
+\bibitem{bamba}
+Bhuvan Bamba, Ling Liu, Arun Iyengar, and Philip~S. Yu.
+\newblock Distributed processing of spatial alarms: {A} safe region-based
+  approach.
+\newblock In {\em 29th {IEEE} International Conference on Distributed Computing
+  Systems {(ICDCS} 2009), 22-26 June 2009, Montreal, Qu{\'{e}}bec, Canada},
+  pages 207--214. {IEEE} Computer Society, 2009.
+
+\bibitem{liu}
+Myungcheol Doo, Ling Liu, Nitya Narasimhan, and Venu Vasudevan.
+\newblock Efficient indexing structure for scalable processing of spatial
+  alarms.
+\newblock In Divyakant Agrawal, Pusheng Zhang, Amr~El Abbadi, and Mohamed~F.
+  Mokbel, editors, {\em 18th {ACM} {SIGSPATIAL} International Symposium on
+  Advances in Geographic Information Systems, {ACM-GIS} 2010, November 3-5,
+  2010, San Jose, CA, USA, Proceedings}, pages 426--429. {ACM}, 2010.
+
+\bibitem{obst2}
+Yunjun Gao, Jiacheng Yang, Gang Chen, Baihua Zheng, and Chun Chen.
+\newblock On efficient obstructed reverse nearest neighbor query processing.
+\newblock In Isabel~F. Cruz, Divyakant Agrawal, Christian~S. Jensen, Eyal Ofek,
+  and Egemen Tanin, editors, {\em 19th {ACM} {SIGSPATIAL} International
+  Symposium on Advances in Geographic Information Systems, {ACM-GIS} 2011,
+  November 1-4, 2011, Chicago, IL, USA, Proceedings}, pages 191--200. {ACM},
+  2011.
+
+\bibitem{roadalarm}
+Kisung Lee, Emre Yigitoglu, Ling Liu, Binh Han, Balaji Palanisamy, and Calton
+  Pu.
+\newblock Roadalarm: {A} spatial alarm system on road networks.
+\newblock In Christian~S. Jensen, Christopher~M. Jermaine, and Xiaofang Zhou,
+  editors, {\em 29th {IEEE} International Conference on Data Engineering,
+  {ICDE} 2013, Brisbane, Australia, April 8-12, 2013}, pages 1372--1375. {IEEE}
+  Computer Society, 2013.
+
+\bibitem{mur}
+Anand Murugappan and Ling Liu.
+\newblock An energy efficient middleware architecture for processing spatial
+  alarms on mobile clients.
+\newblock {\em {MONET}}, 15(4):543--561, 2010.
+
+\bibitem{ognn}
+Nusrat Sultana, Tanzima Hashem, and Lars Kulik.
+\newblock Group nearest neighbor queries in the presence of obstacles.
+\newblock In Yan Huang, Markus Schneider, Michael Gertz, John Krumm, and Jagan
+  Sankaranarayanan, editors, {\em Proceedings of the 22nd {ACM} {SIGSPATIAL}
+  International Conference on Advances in Geographic Information Systems,
+  Dallas/Fort Worth, TX, USA, November 4-7, 2014}, pages 481--484. {ACM}, 2014.
+
+\bibitem{obst1}
+Jun Zhang, Dimitris Papadias, Kyriakos Mouratidis, and Manli Zhu.
+\newblock Spatial queries in the presence of obstacles.
+\newblock In Elisa Bertino, Stavros Christodoulakis, Dimitris Plexousakis,
+  Vassilis Christophides, Manolis Koubarakis, Klemens B{\"{o}}hm, and Elena
+  Ferrari, editors, {\em Advances in Database Technology - {EDBT} 2004, 9th
+  International Conference on Extending Database Technology, Heraklion, Crete,
+  Greece, March 14-18, 2004, Proceedings}, volume 2992 of {\em Lecture Notes in
+  Computer Science}, pages 366--384. Springer, 2004.
+
+\end{thebibliography}
