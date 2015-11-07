@@ -215,7 +215,7 @@ We will denote the radius of the known region of the POIs as $r_{kp}$ and that o
 \textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. Given the radius of the reliable region as $r_{rel}$, the user's previous location as $P_1$ and the current location as $P_2$, if $(P_1 - P_2) < r_{rel}$, then by this definition no further queries to the server has to be done to compute a consistent set of answers.
 \end{defn}
 
-\begin{defn}
+\begin{defn} \label{safe_region}
 \textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer.
 \end{defn}
 \section{Problem Setup}
@@ -343,35 +343,35 @@ The input to the Algorithm \ref{InitRegionsByServer} is the current location of 
 	}
 	 $O \gets \textsc{GetObstacleSet}(q, r_k, \emptyset)$\;
 	 $V_G \gets \textsc{MakeVisGraph}(P, O)$	\;
-	 \Return $A \gets \textsc{MakeAnswerSet}(r_k, P, O, V_G)$ 
+	 \Return $A \gets \textsc{MakeAnswerSet}(q, r_k, P, O, V_G)$ 
 %\EndProcedure
 \end{algorithm}
 
-In the following algorithm, the function \textsc{isAnyPoiUnreachable}($V_G$) returns true if any POI inside the visibility graph $V_G$ cannot be reached along any path inside $V_G$. \\
-The input to this algorithm is the current location of the client $q$ and the answer set from the algorithm \ref{InitRegionBase}. This algorithm is also responsible for triggering an alarm to the client, if s/he is within the alarming distance of any POI.
+In the Algorithm \ref{SafeRegionCalc}, the function \textsc{isAnyPoiUnreachable}($V_G$) returns true if any POI inside the visibility graph $V_G$ cannot be reached along any path inside $V_G$. \\
+The input to this algorithm is the current location of the client $q$ and the answer set from the Algorithm \ref{InitRegionsByServer}. This algorithm is also responsible for triggering an alarm to the client, if s/he is within the alarming distance of any POI.
 
 \begin{algorithm}
-\caption{\textsc{SafeRegionCalc}($q ,A$)}
+\caption{\textsc{SafeRegionCalc}($q' ,A$)}
 \label{SafeRegionCalc}
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
-    \Input{Query point $q$, answer set $A$}
+    \Input{Query point $q'$, previous answer set $A$}
     \Output{$r_{safe}$}
     
 	 \If {$\textsc{isAnyPoiUnreachable}(V_G)$}{
-		$A \gets $ \textsc{InitRegionBase}($q, 10$) \;
-		\Return \textsc{SafeRegionCalc}($q, A$)
+		$A \gets $ \textsc{InitRegionBase}($q', 10$) \;
+		\Return \textsc{SafeRegionCalc}($q', A$)
 	}
 	
 	 $u_{min} \gets \infty, u_{max} \gets 0$ \\
 	 \For{$i \gets 1 to \left\vert{P}\right\vert$}{
-	 	$D_i \gets \textsc{ObsDist}(q, p_i, V_G) $ \;
+	 	$D_i \gets dist_O(q', p_i, V_G) $ \;
 		$D_{min} \gets min( D_{min}, D_i )$ \;
 		$D_{max} \gets max( D_{max}, D_i )$ \;
 	}
 	 $r_{rel} \gets ( r_k - D_{min} )$\\
 	 \ForEach{$p_i \in P$}{
-		\If {$\textsc{ObsDist}(q, p_i, V_G) < u_{i}$} {
+		\If {$dist_O(q', p_i, V_G) < u_{i}$} {
 			\textsc{AlarmUser}($p_i$)
 		}
 	}
@@ -455,7 +455,7 @@ The input to the client-initialization algorithm (Algorithm \ref{ClientInitBySer
 In the Algorithm \ref{ConfigAlarm}, \textsc{isPathInside}($q, p_i, r_{safe}, V_G)$ returns true if the POI $p_i$ is inside the radius $r_{safe}$ centering $q$ within the visibility graph $V_G$ along with all of its connecting edges from the center $q$, otherwise returns false.
 The input to the Algorithm \ref{ConfigAlarm} is the current location of the client $q$ and the answer set got from the Algorithm \ref{ClientInitByServer}. This algorithm is also responsible for triggering an alarm to the client if s/he is within the alarming distance of any POI. Recall that, here $u_i$ is the alarming radius, $d_i$ is the Euclidean distance from the center of the regions and $D_i$ is the obstructed distance in the visibility graph $V_G$ all for the $i^{th}$ POI.
 \begin{algorithm}
-\caption{ConfigAlarm($q, A$)}
+\caption{\textsc{ConfigAlarm}($q, A$)}
 \label{ConfigAlarm}
 %\begin{algorithmic}[4]
 %\Procedure{ConfigAlarm}{}
@@ -508,7 +508,7 @@ In this algorithm, the visibility graph is computed using the answer sets $P$ an
 The input to the algorithm \ref{ULC} is the current and the previous location of the client ($q'$ and $q$), the radius of the safe region($r_{safe}$) and the reliable region($r_{rel}$) and finally the already computed answer set $A$. The output of the algorithm is the minimum distance $d_u$ to trigger this algorithm the next time.
 
 \begin{algorithm}
-\caption{UpdateOnLocChange($q, q', r_{safe}, r_{rel}, A$)}
+\caption{\textsc{UpdateOnLocChange}($q', r_{safe}, r_{rel}, A$)}
 \label{ULC}
 %\begin{algorithmic}[5]
 %\Procedure{UpdateAlarm}{}
@@ -517,7 +517,7 @@ The input to the algorithm \ref{ULC} is the current and the previous location of
     \SetKwInOut{Output}{Output}
     \Input{$q, q', r_{safe}, r_{rel}, A$}
     \Output{$d_u$}
-    $q_d \gets \textsc{EuclideanDist}(q, q')$
+    $q_d \gets dist_E(q, q')$
     
     \If{$q_d > r_{rel}$}{
     		$A \gets \textsc{ClientInitByServer}(q, q_d)$ \;
