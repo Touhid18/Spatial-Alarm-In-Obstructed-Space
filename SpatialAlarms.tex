@@ -58,8 +58,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Spatial Alarms In The Obstructed Space\titlenote{(Produces the permission block, and
-copyright information). For use with
+\title{Spatial Alarms in the Obstructed Space\titlenote{(For use with
 SIG-ALTERNATE.CLS. Supported by ACM.}}
 %\subtitle{[Extended Abstract]
 %\titlenote{A full version of this paper is available as
@@ -108,25 +107,25 @@ SIG-ALTERNATE.CLS. Supported by ACM.}}
 %
 % 1st. author
 \alignauthor
-Dr. Tanzima Hashem\\
-       \affaddr{Department of Computer Science}\\
-       \affaddr{Bangladesh University of Engineering and Technology}\\
-       \affaddr{Dhaka,Bangladesh}\\
-       \email{tanzimahashem@gmail.com}
-% 2nd. author
-\alignauthor
-Md. Touhiduzzaman \\
+Md. Touhiduzzaman\\
        \affaddr{Department of Computer Science}\\
        \affaddr{Bangladesh University of Engineering and Technology}\\
        \affaddr{Dhaka,Bangladesh}\\
        \email{tz08128@gmail.com}
-% 3rd. author
+% 2nd. author
 \alignauthor
 Sezana Fahmida \\
        \affaddr{Department of Computer Science}\\
        \affaddr{Bangladesh University of Engineering and Technology}\\
        \affaddr{Dhaka,Bangladesh}\\
        \email{sezanafahmida@gmail.com}
+% 3rd. author
+\alignauthor
+Tanzima Hashem \\
+       \affaddr{Department of Computer Science}\\
+       \affaddr{Bangladesh University of Engineering and Technology}\\
+       \affaddr{Dhaka,Bangladesh}\\
+       \email{tanzimahashem@gmail.com}
 %\and  % use '\and' if you need 'another row' of author names
 % 4th. author
 %\alignauthor Lawrence P. Leipuner\\
@@ -161,7 +160,7 @@ Sezana Fahmida \\
 
 \maketitle
 \begin{abstract}
-Spatial Alarms are personalized LBS,that are triggered by a specific location of a moving user, irrespective of time. In this paper, we introduce spatial alarm queries in obstructed space.Existing work in this area has focused mainly on Euclidean distance and road network models.The key idea of our approach is to calculate dynamically changing \textit{safe region},\textit{reliable region} and \textit{known regions} depending on the user's current position.We opt to provide both high accuracy and high efficiency by providing a spatial alarm processing system that can work in two modes. Our approach aims to reduce redundant computations in client side, while using low communication bandwidth between user and client.
+Spatial Alarms are personalized Location Based service(LBS), that are triggered by a specific location of a moving user, instead of time. In this paper, we introduce an efficient algorithm to evaluate spatial alarm queries in obstructed space. Existing work in this area has focused mainly on Euclidean distance and road network models. The key idea of our approach is to compute a specific region within which the answer set of our query remains unchanged. Our aim is to reduce redundant computations in client side, while preserving the accuracy of the alarms triggered.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -180,50 +179,33 @@ Spatial Alarms are personalized LBS,that are triggered by a specific location of
 \newtheorem{exmp}[thm]{Example} % same for example numbers
 
 \section{Introduction}
-The widespread use of smart phones has led to the proliferation of location based services. %According to many, the next step in location based services is Spatial Alarms. Many believe this particular feature is going to dominate the future mobile-phone computing systems./%
-Starting from static LBS(Location Based Service) such as finding the nearest pharmacy for a user's location, now-a-days LBSs are tailored for moving users.Spatial Alarms are an important class of LBS,that are triggered by a specific location of a moving user, irrespective of time.For example,"Remind me if I'm within 100 meters of a pharmacy" is a possible example of a spatial alarm.\\
+The widespread use of smart phones has led to the proliferation of LBSs. %According to many, the next step in location based services is Spatial Alarms. Many believe this particular feature is going to dominate the future mobile-phone computing systems./%
+Starting from static LBS(Location Based Service) such as finding the nearest pharmacy for a user's location, now-a-days LBSs are tailored for moving users. Spatial Alarms are an important class of LBS,that are triggered by a specific location of a moving user, irrespective of time. "Remind me if I'm within 100 meters of a pharmacy" is a possible example of a spatial alarm.
 % It is a personalized LBS which can vary from user to user.\\
-Existing work in this area has focused mainly on Euclidean distance and Road Network models \cite{bamba},\cite{roadalarm},\cite{liu}.However,Spatial alarm evaluation in the obstructed space is different than road network or Euclidean space as it considers the obstacles in the path to the location of alarm. It is better approximated by a pedestrian scenario while road networks are approximated by vehicle scenarios. A pedestrian's path is not limited by roads. However, a pedestrian is obstructed by various obstacles such as buildings or trees. Thus while calculating the distance from alarms, we have to consider the obstructed distance.\cite{ognn}In this paper we propose a unique approach to evaluate spatial alarms in obstructed space.To the best of our knowledge this query has not been addressed in any existing research work.\\
+
+Existing work in this area has focused mainly on Euclidean distance and Road Network models \cite{bamba},\cite{roadalarm},\cite{liu}. However, Spatial alarm evaluation in the obstructed space is different than road network or Euclidean space as it considers the obstacles in the path to the location of alarm. It is better approximated by a pedestrian scenario while road networks are approximated by vehicle scenarios. A pedestrian's path is not limited by roads. However, a pedestrian is obstructed by various obstacles such as buildings or trees. Thus while calculating the distance from alarms, we have to consider the obstructed distance\cite{deberg}. In this paper we propose a unique approach to evaluate spatial alarms in obstructed space. To the best of our knowledge this query has not been addressed in any existing research work.
 %It is noteworthy that spatial alarms are quite dissimilar to spatial range query. 
-Spatial alarms are based on a fixed location thus applying the techniques that are used in answering spatial range queries is both inefficient and wasteful as, in spatial range query continuous re-evaluation of user's location is needed in case of a mobile user. However,in spatial alarm, the main point of interest is a static location. Thus the user's location is not relevant at all times.
-%If we start to evaluate spatial alarms as soon as the user is on the move even if the user is far away from her desired location our efforts will be futile.
-Another  challenge in spatial alarm processing is the communication cost between the server and the client. 
-The key idea of our approach is to calculate a dynamic \textit{safe region}, within which no computation has to be done to provide an accurate alarm trigger.We will use an R-tree structure to index both obstacles and POI's in our approach. Our spatial alarm processing system has two different modes for efficient and effective processing of spatial alarms,namely, Bandwidth saving mode and Computational Cost Saving mode. Our approach accounts for both accuracy and efficiency by focusing on (1) No alarms being missed in user's proximity (2) Avoiding wasteful computation in client side (3) minimizing data transfer between server and client. In summary the our main contributions are: 
+
+Spatial alarms are based on a predefined location with a given alarming zone radius thus applying the techniques that are used in answering spatial range queries is both inefficient and wasteful as, in spatial range query continuous re-evaluation of user's location is needed in case of a mobile user. However,in spatial alarm, the user's location is not relevant at all times. If we start to evaluate spatial alarms as soon as the user is on the move even if the user is far away from her desired location our efforts will be futile. Another  challenge in spatial alarm processing is the communication cost between the server and the client.
+
+The key idea of our approach is to calculate a dynamic \textit{safe region}, within which no computation has to be done to provide an accurate alarm trigger. We will use an R-tree structure to index both obstacles and POI's in our approach. Our spatial alarm processing system has two different modes for efficient and effective processing of spatial alarms,namely, Bandwidth saving mode and Computational Cost Saving mode. Our approach accounts for both accuracy and efficiency by focusing on (1) No alarms being missed in user's proximity (2) Avoiding wasteful computation in client side (3) minimizing data transfer between server and client. In summary the our main contributions are: 
 \begin{itemize}
 \setlength\itemsep{0em}
-\item We introduce spatial alarm queries in obstructed space
+\item We introduce an efficient algorithm for evaluation of spatial alarm queries in obstructed space.
 \item We provide a spatial alarm evaluation system for mobile user.
-\item Our approach deals with varying types of POIs such as private, public and shared.
-\item We provide dynamically changing regions to accurately evaluate spatial alarm queries.
+\item We provide an algorithm to calculate a dynamically changing region to accurately evaluate spatial alarm queries without any computation.
 \item We provide an extensive experimental analysis to compare the accuracy of our approach with other naive approaches based on different parameters.
 \end{itemize}
 
 
-\section{Preliminaries}
-Spatial alarms are location-based, user-defined triggers which will possibly shape the future mobile application computations. They are distinct from spatial range query and do not need immediate evaluation after the user has activated them.The spatial alarm evaluation strategies are judged based on two features, correctness and scalability.Correctness refers to the quality that guaranties no alarms are missed. And scalability is the feature that measures the number of POI's the system can adapt to. 
-In this paper, We propose a novel approach to evaluate spatial alarms in obstructed space which ensures both high accuracy and high scalability.
-
-We define three different type of regions: \textit{Known Region},\textit{Reliable Region} and \textit{Safe Region}
-
-\begin{defn} 
-\textbf{Known Region:} We define two different known regions for the POIs and the obstacles.The region containing at least 1 POI is the known region for POI.\\
-The region circulating the POIs known region containing none or single colliding obstacles is the known region for the obstacles.The set of obstacles and POIs within this region is known to the client. 
-We will denote the radius of the known region of the POIs as $r_{kp}$ and that of the obstacles as $r_{ko}$.
-\end{defn}
-
-\begin{defn}
-\textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. Given the radius of the reliable region as $r_{rel}$, the user's previous location as $P_1$ and the current location as $P_2$, if $(P_1 - P_2) < r_{rel}$, then by this definition no further queries to the server has to be done to compute a consistent set of answers.
-\end{defn}
-
-\begin{defn} \label{safe_region}
-\textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer.
-\end{defn}
 \section{Problem Setup}
-Existing research has categorized spatial alarms into three types: public, shared and private. Public alarms are alarms which are active for every user within the system, such as an alarm must be sent to everyone within 100 meters of a building on fire. Private alarms are user defined alarms which can be viewed by the user, such as a user might set an alarm to alert her if she is within 100 meters of her favorite coffee shop. Shared alarms are shared between specific groups of people. In the previous example if a user chooses to share the alarm for the coffee shop with some of her friends it becomes a shared spatial alarm.
-\textit{Obstructed Space Route Problem} denotes the problem of finding the shortest route between two query-points  in Obstructed Space where non-intersecting 2D polygons represent \textit{obstacles} and where the route does not traverse through any obstacles.The length of the Obstructed route between points a and b is called the \textit{Obstructed Distance} between a and b, denoted by D\textsubscript{obs,a,b}.\\
+Existing research has categorized spatial alarms into three types: public, shared and private. Public alarms are alarms which are active for every user within the system, such as an alarm must be sent to everyone within 100 meters of a building on fire. Private alarms are user defined alarms which can be viewed by the user, such as a user might set an alarm to alert her if she is within 100 meters of her favorite coffee shop. Shared alarms are shared between specific groups of people. In the previous example if a user chooses to share the alarm for the coffee shop with some of her friends it becomes a shared spatial alarm.\\
+In \cite{bamba} spatial alarms has been categorized into three different types: 1)moving subscriber with static target, 2) static subscriber with moving target 3) moving subscriber with moving target. In this paper we are only considering the first type, that is moving subscriber with static target. 
+In \cite{mur} spatial alarms have been approximated by rectangular bounding box, in our approach we are considering the spatial alarm region as a circle with radius r.\\ \\
+\textit{Obstructed Space Path Problem} \cite{ognn} denotes the problem of finding the shortest route between two query-points  in Obstructed Space where non-intersecting 2D polygons represent \textit{obstacles} and where the route does not traverse through any obstacles. The length of the Obstructed route between points a and b is called the \textit{Obstructed Distance} between a and b, denoted by $dist_o(p_i,q)$.\\ \\
 A \textbf{Spatial Alarm Query in Obstructed Space} is formally defined as follows:
 %\begin{defn}
-Given the user's current location p,and an alarming distance U\textsubscript{d} for an alarm, spatial alarm query returns the set of alarms A, where for each a$\in$ A,D\textsubscript{obs,p,a}<U\textsubscript{i}. 
+Given a moving query point q and a range r for an alarm, a Spatial Alarm Query returns $\forall p_i \in P=\left\lbrace p_1,p_2,p_3...p_n\right\rbrace  $ which have $dist_o(p_i,q)<r $
 %\end{defn}
 % The GETALLPOI(R,P) and GETOBSTACLESET(q,R,O) functions populates the sets P and O with the POIs and obstacles respectively within the distance R from the client's current location.
 %\\MAKEVISGRAPH(P,O) returns the \textit{visibility graph} V$_G$ with the set of POIs P and Obstacles O.
@@ -232,31 +214,57 @@ Given the user's current location p,and an alarming distance U\textsubscript{d} 
 %CHECKNEWPOI(q,$r_k$,P) \\
 %ALARMUSER(P$_i$) triggers an alarm to the user for the alarm $P_i$. \\  
 % Single-column table
+
+\section{Preliminaries}
+Spatial alarms are location-based, user-defined triggers which will possibly shape the future mobile application computations. They are distinct from spatial range query and do not need immediate evaluation after the user has activated them. The spatial alarm evaluation strategies are judged based on two features, correctness and scalability. Correctness refers to the quality that guaranties no alarms are missed. And scalability is the feature that measures the number of POI's the system can adapt to. 
+In this paper, We propose a novel approach to evaluate spatial alarms in obstructed space which ensures both high accuracy and high scalability.
+
+In this paper, we adopt the concepts of three different types of regions: \textit{Known Region} \cite{Obst1}, \textit{Reliable Region} \cite{Obst1} and \textit{Safe Region} \cite{Obst1}. The modified definition of these regions according to our context are as the followings:\\ \\
+
+\textbf{Known Region:} We define two different known regions for the POIs and the obstacles. The region containing at least 1 POI is the known region for POI.\\
+The region circulating the POIs known region containing none or single colliding obstacles is the known region for the obstacles. The set of obstacles and POIs within this region is known to the client. 
+We will denote the radius of the known region of the POIs as $r_{kp}$ and that of the obstacles as $r_{ko}$.\\ \\
+
+
+\textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. Given the radius of the reliable region as $r_{rel}$, the user's previous location as $P_1$ and the current location as $P_2$, if $(P_1 - P_2) < r_{rel}$, then by this definition no further queries to the server has to be done to compute a consistent set of answers. \\ \\
+
+
+\textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer.
+\\ \\
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{krs.png}
+  \caption{Known, reliable and safe regions}\label{fig:krs}
+\endminipage\hfill
+\end{figure}
+
 \begin{table}[h]
 \centering
 
 \caption{Symbol Table}
 \begin{tabular}{|c|c|} \hline
 Symbols&Meaning \\ \hline
-$P$ & Set of POIs\\ \hline
-$O$ & Set of Obstacles\\ \hline
-$dist_E(p,q)$ & Euclidean distance between point p and q\\ \hline
-$dist_O(p,q)$ & Obstructed Distance between point p and q\\ \hline
+P & Set of POIs\\ \hline
+O & Set of Obstacles\\ \hline
+$r$ & Alarming range\\ \hline
+dist$_E$(p,q) & Euclidean distance between point p and q\\ \hline
+dist$_O$(p,q) & Obstructed Distance between point p and q\\ \hline
 $r_{safe}$    & radius of safe region\\ \hline
 $r_{rel}$     & radius of reliable region\\ \hline
 $r_{kp}$      &radius of known region for POIs\\ \hline
 $r_{ko}$      &radius of known region for obstacles\\ \hline
+$p_{i}$       &any $i^{th} POI$\\ \hline
 \end{tabular}
 \end{table}
 
  
 \section{Related Work}
-As our considered problem consists of two already researched topics as spatial-alarm and obstructed-space, there are numerous related-works on these two topics.  However, to the best of our knowledge no research work has yet been published on the topic of spatial alarms in obstructed space.
 \subsection{Spatial Alarms}
-Extensive research has been performed and various  effective algorithms have been proposed \cite{roadalarm},\cite{mur},\cite{bamba} to process spatial alarms in Euclidean space and road network in recent years. Euclidean space considers the straight line distance between two points irrespective of obstacles on the other hand in road networks navigation is limited along predefined roads.\cite{roadalarm}proposes a solution to the spatial alarm problem for moving users on road network.They introduce road network-based spatial alarms using segment length-based and travel time-based road network distances..Our approach aims to provide a solution to the same problem,depicted in an obstructed space\cite{deberg} scenario.Again,Their solution incorporates the concept of hibernation time, a time during which no processing takes place in the mobile client or the processing engine comprehensive research,where in our approach we propose the novel concept of safe region.Comprehensive research has been conducted in \cite{liu} to make spatial alarm evaluation energy-efficient and effective in road networks.Though to the best of our knowledge, no efficient algorithm has yet been devised to process spatial alarms in obstructed space. \cite{mondrian} provides an efficient indexing structure for the processing of spatial alarms called the Mondrian tree. However, in our approach we have used the conventional R-tree structure. 
+Extensive research has been performed and various  effective algorithms have been proposed \cite{roadalarm},\cite{mur},\cite{bamba} to process spatial alarms in Euclidean space and road network in recent years. Euclidean space considers the straight line distance between two points irrespective of obstacles on the other hand in road networks navigation is limited along predefined roads. \cite{roadalarm}proposes a solution to the spatial alarm problem for moving users on road network. They introduce road network-based spatial alarms using segment length-based and travel time-based road network distances. Our approach aims to provide a solution to the same problem, depicted in an obstructed space\cite{deberg} scenario. Again, their solution incorporates the concept of hibernation time, a time during which no processing takes place in the mobile client or the processing engine comprehensive research, where in our approach we propose the novel concept of safe region. Comprehensive research has been conducted in \cite{liu} to make spatial alarm evaluation energy-efficient and effective in road networks. Though to the best of our knowledge, no efficient algorithm has yet been devised to process spatial alarms in obstructed space. \cite{mondrian} provides an efficient indexing structure for the processing of spatial alarms called the Mondrian tree. However, in our approach we have used the conventional R-tree structure. 
 \subsection{Obstructed Space} 
-Obstructed space considers the shortest distance between two points in the presence of obstacles. Various spatial range query algorithms have been presented in recent times \cite{obst1}, \cite{obst2}, \cite{ognn} such as nearest neighbor and group nearest neighbor in obstructed space.\cite{ognn} provides an efficient approach to find the aggregate obstructed distance along with processing the group nearest neighbor query in obstructed space. \cite{obst1} provides efficient algorithms for range search, nearest neighbors, e-distance joins and closest pairs, in obstructed space, considering that both data objects and obstacles are indexed by R-trees. Again, in \cite{obst2} efficient algorithms have been computed for the reverse nearest neighbor query.
-\\
+Obstructed space considers the shortest distance between two points in the presence of obstacles.\cite{deberg} Various spatial range query algorithms have been presented in recent times \cite{obst1},\cite{obst2},\cite{ognn} such as nearest neighbor and group nearest neighbor in obstructed space.\cite{ognn} provides an efficient approach to find the aggregate obstructed distance along with processing the group nearest neighbor query in obstructed space.\cite{obst1} provides efficient algorithms for range search, nearest neighbors, e-distance joins and closest pairs, in obstructed space,considering that both data objects and obstacles are indexed by R-trees. Again, in \cite{obst2} efficient algorithms have been computed for the reverse nearest neighbor query. \cite{mknn} proposes a safe region based approach to comptuing moving k-nearest neighbour queries in obstructed space.Our query is quite dissimilar to the queries mentioned above in the sense that, while computing spatial alarms, we have to return all POIs which are within the alarming zones radius of the client instead of the nearest or a group of nearest POIs. \cite{mknn} has computed a known region for obstacles for convenience in computing the safe region.In our approach we have also included a known region for POIs. Again, the computation technique for known region of obstacles or obstructed known region as referred in \cite{mknn} is quite different from ours. Our approach is to incrementally increase the radius of the known region until all the POI's are visible, where in their paper, an obstructed known region is the region that consists of points that are of equal or less distance from the user than a datapoint. Their safe region computation technique although quite efficient in computing knn queries, is not optimal in evaluating spatial alarms. However, to the best of our knowledge no research work has yet been published on the topic of spatial alarms in obstructed space.\\
+
 
 % Our algos : 3 sections mainly - Naive, modified naive & the final approach
 \section{Naive Approaches}
