@@ -1,0 +1,1157 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2015.8.17)  6 OCT 2015 16:36
+entering extended mode
+**thesis.tex
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+(D:\MikTex\tex\latex\base\book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(D:\MikTex\tex\latex\base\bk12.clo
+File: bk12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (D:\MikTex\tex\latex\tools\verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks14
+\verbatim@line=\toks15
+\verbatim@in@stream=\read1
+)
+(D:\MikTex\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(D:\MikTex\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(D:\MikTex\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(D:\MikTex\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(D:\MikTex\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(D:\MikTex\tex\latex\graphics\dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(D:\MikTex\tex\latex\base\makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\paralist.sty"
+Package: paralist 2001/03/03 v2.0a Some new list environments (BS)
+\pltopsep=\skip43
+\plpartopsep=\skip44
+\plitemsep=\skip45
+\plparsep=\skip46
+\pl@lab=\toks17
+)
+(D:\MikTex\tex\latex\algorithms\algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(D:\MikTex\tex\latex\float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count88
+\float@exts=\toks18
+\float@box=\box26
+\@float@everytoks=\toks19
+\@floatcapt=\box27
+) (D:\MikTex\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks20
+\c@algorithm=\count89
+)
+(D:\MikTex\tex\latex\algorithms\algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count90
+\c@ALC@line=\count91
+\c@ALC@rem=\count92
+\c@ALC@depth=\count93
+\ALC@tlm=\skip47
+\algorithmicindent=\skip48
+)
+(D:\MikTex\tex\latex\amsmath\amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(D:\MikTex\tex\latex\amsmath\amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(D:\MikTex\tex\latex\amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks21
+\ex@=\dimen105
+))
+(D:\MikTex\tex\latex\amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen106
+)
+(D:\MikTex\tex\latex\amsmath\amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen107
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
+\dotsspace@=\muskip10
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
+\tag@help=\toks22
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
+\andhelp@=\toks23
+\eqnshift@=\dimen108
+\alignsep@=\dimen109
+\tagshift@=\dimen110
+\tagwidth@=\dimen111
+\totwidth@=\dimen112
+\lineht@=\dimen113
+\@envbody=\toks24
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks25
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(D:\MikTex\tex\latex\multirow\multirow.sty
+\bigstrutjot=\dimen114
+)
+(D:\MikTex\tex\latex\tools\multicol.sty
+Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+\c@tracingmulticols=\count106
+\mult@box=\box30
+\multicol@leftmargin=\dimen115
+\c@unbalance=\count107
+\c@collectmore=\count108
+\doublecol@number=\count109
+\multicoltolerance=\count110
+\multicolpretolerance=\count111
+\full@width=\dimen116
+\page@free=\dimen117
+\premulticols=\dimen118
+\postmulticols=\dimen119
+\multicolsep=\skip52
+\multicolbaselineskip=\skip53
+\partial@page=\box31
+\last@line=\box32
+\mult@rightbox=\box33
+\mult@grightbox=\box34
+\mult@gfirstbox=\box35
+\mult@firstbox=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\c@columnbadness=\count112
+\c@finalcolumnbadness=\count113
+\last@try=\dimen120
+\multicolovershoot=\dimen121
+\multicolundershoot=\dimen122
+\mult@nat@firstbox=\box54
+\colbreak@box=\box55
+\multicol@sort@counter=\count114
+) (D:\MikTex\tex\latex\soul\soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks26
+\SOUL@lasttoken=\toks27
+\SOUL@cmds=\toks28
+\SOUL@buffer=\toks29
+\SOUL@token=\toks30
+\SOUL@spaceskip=\skip54
+\SOUL@ttwidth=\dimen123
+\SOUL@uldp=\dimen124
+\SOUL@ulht=\dimen125
+)
+(D:\MikTex\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+ (D:\MikTex\tex\latex\00miktex\color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+(D:\MikTex\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(D:\MikTex\tex\generic\oberdiek\infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(D:\MikTex\tex\generic\oberdiek\ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count115
+)
+(D:\MikTex\tex\latex\colortbl\colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+ (D:\MikTex\tex\latex\tools\array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen126
+\extrarowheight=\dimen127
+\NC@list=\toks31
+\extratabsurround=\skip55
+\backup@length=\skip56
+)
+\everycr=\toks32
+\minrowclearance=\skip57
+)
+\rownum=\count116
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+) (D:\MikTex\tex\latex\graphics\epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+\epsfxsize=\dimen128
+\epsfysize=\dimen129
+)
+(D:\MikTex\tex\latex\oberdiek\epstopdf.sty
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+(D:\MikTex\tex\latex\oberdiek\epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(D:\MikTex\tex\latex\oberdiek\grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(D:\MikTex\tex\generic\oberdiek\kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(D:\MikTex\tex\latex\oberdiek\kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(D:\MikTex\tex\generic\oberdiek\kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(D:\MikTex\tex\generic\oberdiek\etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+(D:\MikTex\tex\generic\oberdiek\ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(D:\MikTex\tex\generic\oberdiek\pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(D:\MikTex\tex\generic\oberdiek\ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+34.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+))
+(D:\MikTex\tex\latex\base\fixltx2e.sty
+Package: fixltx2e 2006/09/13 v1.1m fixes to LaTeX
+LaTeX Info: Redefining \em on input line 420.
+LaTeX Info: The control sequence `\[' is already robust on input line 471.
+LaTeX Info: The control sequence `\]' is already robust on input line 472.
+) (D:\MikTex\tex\latex\amscls\amsthm.sty
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks33
+\thm@bodyfont=\toks34
+\thm@headfont=\toks35
+\thm@notefont=\toks36
+\thm@headpunct=\toks37
+\thm@preskip=\skip58
+\thm@postskip=\skip59
+\thm@headsep=\skip60
+\dth@everypar=\toks38
+) (D:\MikTex\tex\latex\psnfss\pifont.sty
+Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+ (D:\MikTex\tex\latex\psnfss\upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+
+(D:\MikTex\tex\latex\psnfss\upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+(D:\MikTex\tex\latex\algorithmicx\algpseudocode.sty
+Package: algpseudocode 
+
+(D:\MikTex\tex\latex\algorithmicx\algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count117
+\c@ALG@rem=\count118
+\c@ALG@nested=\count119
+\ALG@tlm=\skip61
+\ALG@thistlm=\skip62
+\c@ALG@Lnr=\count120
+\c@ALG@blocknr=\count121
+\c@ALG@storecount=\count122
+\c@ALG@tmpcounter=\count123
+\ALG@tmplength=\skip63
+
+! LaTeX Error: Command \algorithmic already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.112    }
+          %
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
+\c@linenumber=\count124
+
+
+! LaTeX Error: Command \If already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.75 \newcommand{\If}    {{\bf if }}
+                                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \Else already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.77 \newcommand{\Else}  {{\bf else }}
+                                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \For already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.78 \newcommand{\For}   {{\bf for }}
+                                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \While already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 \newcommand{\While} {{\bf while }}
+                                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \Repeat already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 \newcommand{\Repeat}{{\bf repeat }}
+                                        
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \Until already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.84 \newcommand{\Until} {{\bf until}}
+                                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \Procedure already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.85 \newcommand{\Procedure} {{\bf Procedure }}
+                                               
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \Function already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.86 \newcommand{\Function} {{\bf Function }}
+                                             
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Command \Return already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.87 \newcommand{\Return} {{\bf return }}
+                                         
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+\c@lemma=\count125
+\c@conjecture=\count126
+\c@thm=\count127
+
+! LaTeX Error: Command \proof already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.106 ...mand{\proof}{\noindent {\bf Proof.} \ \ }
+                                                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+\@indexfile=\write3
+Writing index file thesis.idx
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.aux"
+
+LaTeX Warning: Label `sec:exp' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+ (D:\MikTex\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count128
+\scratchdimen=\dimen130
+\scratchbox=\box56
+\nofMPsegments=\count129
+\nofMParguments=\count130
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count131
+\MPscratchDim=\dimen131
+\MPnumerator=\count132
+\makeMPintoPDFobject=\count133
+\everyMPtoPDFconversion=\toks40
+) ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\cover.tex"
+<buetlogo.jpg, id=1, 294.09875pt x 294.09875pt>
+File: buetlogo.jpg Graphic file (type jpg)
+ <use buetlogo.jpg>
+Package pdftex.def Info: buetlogo.jpg used on input line 17.
+(pdftex.def)             Requested size: 80.84402pt x 80.84373pt.
+) [1
+
+{C:/Users/User-PC/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <E:/4-2/Sp
+atial Alarms In Obstructed Space Thesis/buetlogo.jpg>]
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\declaration.tex") [1
+
+]
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.toc" [2
+
+])
+\tf@toc=\write4
+ [3]
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.lof")
+\tf@lof=\write5
+ [4
+
+]
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.lot")
+\tf@lot=\write6
+
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\ack.tex" [5
+
+])
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\abstract.tex" [6
+
+]) [7
+
+]
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\chap1.tex"
+Chapter 1.
+[1
+
+] [2] [3]) ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\chap2.tex"
+[4]
+Chapter 2.
+[5
+
+]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 17.
+ (D:\MikTex\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
+ [6] [7]
+Overfull \hbox (2.96805pt too wide) in paragraph at lines 35--37
+[]\OT1/cmr/m/n/12 However Ko-lah-douzan and Sha-habi [[]] in-tro-duced Voronoi-
+Based $\OML/cmm/m/it/12 k$ \OT1/cmr/m/n/12 Near-
+ []
+
+
+Overfull \hbox (27.52347pt too wide) in paragraph at lines 38--38
+\OT1/cmr/bx/n/17.28 for pro-cess-ing spa-tial alarms on Mo-bile Clients 
+ []
+
+[8] [9]
+Overfull \hbox (2.11963pt too wide) in paragraph at lines 59--60
+\OT1/cmr/m/n/12 prun-ing method and MBR prun-ing method for GNN queries over sp
+a-tial datasets
+ []
+
+[10] <figures/rtree.png, id=70, 686.0832pt x 314.1336pt>
+File: figures/rtree.png Graphic file (type png)
+
+<use figures/rtree.png>
+Package pdftex.def Info: figures/rtree.png used on input line 74.
+(pdftex.def)             Requested size: 426.79134pt x 195.4175pt.
+
+Overfull \hbox (22.56497pt too wide) in paragraph at lines 74--75
+ [][] 
+ []
+
+[11]) ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\chap3.tex" [12 <E:/4-2
+/Spatial Alarms In Obstructed Space Thesis/figures/rtree.png>]
+Chapter 3.
+[13
+
+] <figures/soln1/centroid.pdf, id=82, 722.98904pt x 441.72229pt>
+File: figures/soln1/centroid.pdf Graphic file (type pdf)
+
+<use figures/soln1/centroid.pdf>
+Package pdftex.def Info: figures/soln1/centroid.pdf used on input line 32.
+(pdftex.def)             Requested size: 242.53828pt x 148.18176pt.
+ [14 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/figures/soln1/centroid.p
+df>]
+<figures/soln1/proof.pdf, id=108, 722.98904pt x 441.72229pt>
+File: figures/soln1/proof.pdf Graphic file (type pdf)
+
+<use figures/soln1/proof.pdf>
+Package pdftex.def Info: figures/soln1/proof.pdf used on input line 54.
+(pdftex.def)             Requested size: 242.53828pt x 148.18176pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
+
+ []
+
+[15] [16 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/figures/soln1/proof.
+pdf>] <figures/soln1/range.pdf, id=139, 722.98904pt x 441.72229pt>
+File: figures/soln1/range.pdf Graphic file (type pdf)
+
+<use figures/soln1/range.pdf>
+Package pdftex.def Info: figures/soln1/range.pdf used on input line 98.
+(pdftex.def)             Requested size: 242.53828pt x 148.18176pt.
+ [17] [18 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/figures/soln1/range
+.pdf>]
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.170  \end{algorithmic}
+                        
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Missing = inserted for \ifnum.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.170  \end{algorithmic}
+                        
+I was expecting to see `<', `=', or `>'. Didn't.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.170  \end{algorithmic}
+                        
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.209  \end{algorithmic}
+                        
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Missing = inserted for \ifnum.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.209  \end{algorithmic}
+                        
+I was expecting to see `<', `=', or `>'. Didn't.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.209  \end{algorithmic}
+                        
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+) ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\chap4.tex" [19] [20]
+[21]
+Chapter 4.
+
+LaTeX Warning: Reference `flxQ2' on page 22 undefined on input line 7.
+
+<figures/soln1/naive.pdf, id=172, 722.98904pt x 441.72229pt>
+File: figures/soln1/naive.pdf Graphic file (type pdf)
+
+<use figures/soln1/naive.pdf>
+Package pdftex.def Info: figures/soln1/naive.pdf used on input line 19.
+(pdftex.def)             Requested size: 282.95721pt x 172.87761pt.
+
+
+LaTeX Warning: Reference `alg:gtpqna' on page 22 undefined on input line 30.
+
+[22
+
+]
+! Missing \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.39 \Procedure
+               {Initialization}{}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.39 \Procedure
+               {Initialization}{}
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.56 \end{algorithmic}
+                      
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Missing = inserted for \ifnum.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.56 \end{algorithmic}
+                      
+I was expecting to see `<', `=', or `>'. Didn't.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.56 \end{algorithmic}
+                      
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+
+ []
+
+[23 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/figures/soln1/naive.pdf>]
+) ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\chap5.tex" [24]
+Chapter 5.
+[25
+
+] [26]
+Package epstopdf Info: Source file: <graph/SumGIO.eps>
+(epstopdf)                    date: 2014-07-01 20:44:46
+(epstopdf)                    size: 12344 bytes
+(epstopdf)             Output file: <graph/SumGIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:16
+(epstopdf)                    size: 4349 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumGIO-eps-converted-
+to.pdf graph/SumGIO.eps>
+(epstopdf)             \includegraphics on input line 76.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumGIO-eps-converted-to.pdf, id=202, 420.57124pt x 316.18124pt>
+File: graph/SumGIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumGIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumGIO-eps-converted-to.pdf used on input line 7
+6.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/SumGTime.eps>
+(epstopdf)                    date: 2014-07-01 20:45:26
+(epstopdf)                    size: 12364 bytes
+(epstopdf)             Output file: <graph/SumGTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:17
+(epstopdf)                    size: 4348 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumGTime-eps-converte
+d-to.pdf graph/SumGTime.eps>
+(epstopdf)             \includegraphics on input line 79.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumGTime-eps-converted-to.pdf, id=203, 420.57124pt x 316.18124pt>
+File: graph/SumGTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumGTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumGTime-eps-converted-to.pdf used on input line
+ 79.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/SumKIO.eps>
+(epstopdf)                    date: 2014-07-01 20:45:48
+(epstopdf)                    size: 12342 bytes
+(epstopdf)             Output file: <graph/SumKIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:18
+(epstopdf)                    size: 4325 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumKIO-eps-converted-
+to.pdf graph/SumKIO.eps>
+(epstopdf)             \includegraphics on input line 111.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumKIO-eps-converted-to.pdf, id=204, 420.57124pt x 316.18124pt>
+File: graph/SumKIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumKIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumKIO-eps-converted-to.pdf used on input line 1
+11.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/SumKTime.eps>
+(epstopdf)                    date: 2014-07-01 20:46:08
+(epstopdf)                    size: 12370 bytes
+(epstopdf)             Output file: <graph/SumKTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:19
+(epstopdf)                    size: 4363 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumKTime-eps-converte
+d-to.pdf graph/SumKTime.eps>
+(epstopdf)             \includegraphics on input line 114.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumKTime-eps-converted-to.pdf, id=205, 420.57124pt x 316.18124pt>
+File: graph/SumKTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumKTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumKTime-eps-converted-to.pdf used on input line
+ 114.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+ [27 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumGIO-eps-convert
+ed-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumGTime-eps
+-converted-to.pdf>]
+Package epstopdf Info: Source file: <graph/SumMIO.eps>
+(epstopdf)                    date: 2014-07-01 20:48:08
+(epstopdf)                    size: 12320 bytes
+(epstopdf)             Output file: <graph/SumMIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:20
+(epstopdf)                    size: 4290 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumMIO-eps-converted-
+to.pdf graph/SumMIO.eps>
+(epstopdf)             \includegraphics on input line 149.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumMIO-eps-converted-to.pdf, id=217, 420.57124pt x 316.18124pt>
+File: graph/SumMIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumMIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumMIO-eps-converted-to.pdf used on input line 1
+49.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/SumMTime.eps>
+(epstopdf)                    date: 2014-07-01 20:48:28
+(epstopdf)                    size: 12361 bytes
+(epstopdf)             Output file: <graph/SumMTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:21
+(epstopdf)                    size: 4363 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumMTime-eps-converte
+d-to.pdf graph/SumMTime.eps>
+(epstopdf)             \includegraphics on input line 152.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumMTime-eps-converted-to.pdf, id=218, 420.57124pt x 316.18124pt>
+File: graph/SumMTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumMTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumMTime-eps-converted-to.pdf used on input line
+ 152.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+ [28 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumKIO-eps-convert
+ed-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumKTime-eps
+-converted-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumM
+IO-eps-converted-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/grap
+h/SumMTime-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <graph/SumDIO.eps>
+(epstopdf)                    date: 2014-07-01 20:44:10
+(epstopdf)                    size: 12346 bytes
+(epstopdf)             Output file: <graph/SumDIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:22
+(epstopdf)                    size: 4299 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumDIO-eps-converted-
+to.pdf graph/SumDIO.eps>
+(epstopdf)             \includegraphics on input line 188.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumDIO-eps-converted-to.pdf, id=238, 420.57124pt x 316.18124pt>
+File: graph/SumDIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumDIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumDIO-eps-converted-to.pdf used on input line 1
+88.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/SumDTime.eps>
+(epstopdf)                    date: 2014-07-01 20:44:30
+(epstopdf)                    size: 12367 bytes
+(epstopdf)             Output file: <graph/SumDTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:24
+(epstopdf)                    size: 4358 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/SumDTime-eps-converte
+d-to.pdf graph/SumDTime.eps>
+(epstopdf)             \includegraphics on input line 191.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/SumDTime-eps-converted-to.pdf, id=239, 420.57124pt x 316.18124pt>
+File: graph/SumDTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/SumDTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/SumDTime-eps-converted-to.pdf used on input line
+ 191.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/MaxGIO.eps>
+(epstopdf)                    date: 2014-07-01 20:40:18
+(epstopdf)                    size: 11605 bytes
+(epstopdf)             Output file: <graph/MaxGIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:25
+(epstopdf)                    size: 4191 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxGIO-eps-converted-
+to.pdf graph/MaxGIO.eps>
+(epstopdf)             \includegraphics on input line 224.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxGIO-eps-converted-to.pdf, id=240, 420.57124pt x 316.18124pt>
+File: graph/MaxGIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxGIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxGIO-eps-converted-to.pdf used on input line 2
+24.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/MaxGTime.eps>
+(epstopdf)                    date: 2014-07-01 20:41:08
+(epstopdf)                    size: 11511 bytes
+(epstopdf)             Output file: <graph/MaxGTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:26
+(epstopdf)                    size: 4154 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxGTime-eps-converte
+d-to.pdf graph/MaxGTime.eps>
+(epstopdf)             \includegraphics on input line 227.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxGTime-eps-converted-to.pdf, id=241, 420.57124pt x 316.18124pt>
+File: graph/MaxGTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxGTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxGTime-eps-converted-to.pdf used on input line
+ 227.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+ [29 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumDIO-eps-convert
+ed-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/SumDTime-eps
+-converted-to.pdf>]
+Package epstopdf Info: Source file: <graph/MaxKIO.eps>
+(epstopdf)                    date: 2014-07-01 20:41:50
+(epstopdf)                    size: 12335 bytes
+(epstopdf)             Output file: <graph/MaxKIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:27
+(epstopdf)                    size: 4339 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxKIO-eps-converted-
+to.pdf graph/MaxKIO.eps>
+(epstopdf)             \includegraphics on input line 262.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxKIO-eps-converted-to.pdf, id=254, 420.57124pt x 316.18124pt>
+File: graph/MaxKIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxKIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxKIO-eps-converted-to.pdf used on input line 2
+62.
+(pdftex.def)             Requested size: 404.22636pt x 303.8972pt.
+Package epstopdf Info: Source file: <graph/MaxKTime.eps>
+(epstopdf)                    date: 2014-07-01 20:42:16
+(epstopdf)                    size: 12362 bytes
+(epstopdf)             Output file: <graph/MaxKTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:28
+(epstopdf)                    size: 4362 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxKTime-eps-converte
+d-to.pdf graph/MaxKTime.eps>
+(epstopdf)             \includegraphics on input line 265.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxKTime-eps-converted-to.pdf, id=255, 420.57124pt x 316.18124pt>
+File: graph/MaxKTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxKTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxKTime-eps-converted-to.pdf used on input line
+ 265.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/MaxMIO.eps>
+(epstopdf)                    date: 2014-07-01 20:43:12
+(epstopdf)                    size: 12339 bytes
+(epstopdf)             Output file: <graph/MaxMIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:29
+(epstopdf)                    size: 4300 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxMIO-eps-converted-
+to.pdf graph/MaxMIO.eps>
+(epstopdf)             \includegraphics on input line 303.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxMIO-eps-converted-to.pdf, id=256, 420.57124pt x 316.18124pt>
+File: graph/MaxMIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxMIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxMIO-eps-converted-to.pdf used on input line 3
+03.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/MaxMTime.eps>
+(epstopdf)                    date: 2014-07-01 20:43:30
+(epstopdf)                    size: 13095 bytes
+(epstopdf)             Output file: <graph/MaxMTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:30
+(epstopdf)                    size: 4467 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxMTime-eps-converte
+d-to.pdf graph/MaxMTime.eps>
+(epstopdf)             \includegraphics on input line 306.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxMTime-eps-converted-to.pdf, id=257, 420.57124pt x 316.18124pt>
+File: graph/MaxMTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxMTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxMTime-eps-converted-to.pdf used on input line
+ 306.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+ [30 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/MaxGIO-eps-convert
+ed-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/MaxGTime-eps
+-converted-to.pdf>] [31 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph
+/MaxKIO-eps-converted-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis
+/graph/MaxKTime-eps-converted-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Spac
+e Thesis/graph/MaxMIO-eps-converted-to.pdf> <E:/4-2/Spatial Alarms In Obstructe
+d Space Thesis/graph/MaxMTime-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <graph/MaxDIO.eps>
+(epstopdf)                    date: 2014-07-01 20:38:50
+(epstopdf)                    size: 12340 bytes
+(epstopdf)             Output file: <graph/MaxDIO-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:31
+(epstopdf)                    size: 4336 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxDIO-eps-converted-
+to.pdf graph/MaxDIO.eps>
+(epstopdf)             \includegraphics on input line 347.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxDIO-eps-converted-to.pdf, id=288, 420.57124pt x 316.18124pt>
+File: graph/MaxDIO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxDIO-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxDIO-eps-converted-to.pdf used on input line 3
+47.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+Package epstopdf Info: Source file: <graph/MaxDTime.eps>
+(epstopdf)                    date: 2014-07-01 20:39:38
+(epstopdf)                    size: 11529 bytes
+(epstopdf)             Output file: <graph/MaxDTime-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-07-01 21:13:33
+(epstopdf)                    size: 4177 bytes
+(epstopdf)             Command: <epstopdf --outfile=graph/MaxDTime-eps-converte
+d-to.pdf graph/MaxDTime.eps>
+(epstopdf)             \includegraphics on input line 350.
+Package epstopdf Info: Output file is already uptodate.
+
+<graph/MaxDTime-eps-converted-to.pdf, id=289, 420.57124pt x 316.18124pt>
+File: graph/MaxDTime-eps-converted-to.pdf Graphic file (type pdf)
+
+<use graph/MaxDTime-eps-converted-to.pdf>
+Package pdftex.def Info: graph/MaxDTime-eps-converted-to.pdf used on input line
+ 350.
+(pdftex.def)             Requested size: 420.57022pt x 316.18047pt.
+ [32 <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/MaxDIO-eps-convert
+ed-to.pdf> <E:/4-2/Spatial Alarms In Obstructed Space Thesis/graph/MaxDTime-eps
+-converted-to.pdf>])
+("E:\4-2\Spatial Alarms In Obstructed Space Thesis\chap6.tex" [33]
+Chapter 6.
+) [34
+
+] ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.bbl"
+Missing character: There is no â in font cmti12!
+Missing character: There is no € in font cmti12!
+Missing character: There is no ™ in font cmti12!
+Missing character: There is no â in font cmti12!
+Missing character: There is no € in font cmti12!
+Missing character: There is no ™ in font cmti12!
+ [35
+
+]
+[36]
+Missing character: There is no â in font cmti12!
+Missing character: There is no € in font cmti12!
+Missing character: There is no ™ in font cmti12!
+Missing character: There is no â in font cmti12!
+Missing character: There is no € in font cmti12!
+Missing character: There is no ™ in font cmti12!
+ [37]
+Missing character: There is no â in font cmti12!
+Missing character: There is no € in font cmti12!
+Missing character: There is no ™ in font cmti12!
+Missing character: There is no â in font cmti12!
+Missing character: There is no € in font cmti12!
+Missing character: There is no ™ in font cmti12!
+) [38] ("E:\4-2\Spatial Alarms In Obstructed Space Thesis\thesis.aux")
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4351 strings out of 493921
+ 57893 string characters out of 3154494
+ 133688 words of memory out of 3000000
+ 7481 multiletter control sequences out of 15000+200000
+ 13698 words of font info for 48 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 42i,14n,35p,1700b,581s stack positions out of 5000i,500n,10000p,200000b,50000s
+<D:/MikTex/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/MikTex/fonts/type1/p
+ublic/amsfonts/cm/cmbx12.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmbxti10
+.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><D:/MikTex/fonts/typ
+e1/public/amsfonts/cm/cmex10.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi
+10.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/MikTex/fonts/ty
+pe1/public/amsfonts/cm/cmmi8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/MikTex/fonts/type
+1/public/amsfonts/cm/cmr8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy6.pfb><D:/MikTex/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmti12.p
+fb>
+Output written on thesis.pdf (46 pages, 559387 bytes).
+PDF statistics:
+ 369 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+

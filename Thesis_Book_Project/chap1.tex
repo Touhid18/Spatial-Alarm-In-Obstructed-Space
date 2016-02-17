@@ -1,0 +1,73 @@
+
+\chapter{Introduction}
+\label{chap:intro}
+
+The high availability of smart phones has led to the proliferation of location based services. According to many, the next step in location based services is Spatial Alarms. Many believe this particular feature is going to dominate the future mobile-phone computing systems. Spatial alarms are an extension of time-based alarms. It is, however, triggered by a specific location irrespective of time."Remind me if I'm within 100 meters of a pharmacy" is a possible example of a spatial alarm. It is a personalized location based service which can vary from user to user. Existing research has categorized spatial alarms into three types: public, shared and private. Public alarms are alarms which are active for every user within the system, such as an alarm must be sent to everyone within 100 meters of a building on fire. Private alarms are user defined alarms which are only viewable by the user herself, such as a user might set an alarm to alert her if she is within 100 meters of her favourite coffee shop. Shared alarms are shared between specific groups of people. In the previous example if a user chooses to share the alarm for the coffee shop with some of her friends it becomes a shared spatial alarm.\\
+\vspace*{10pt}
+
+It is noteworthy that spatial alarms are quite dissimilar to spatial range query. Spatial alarms are based on a fixed location thus applying the techniques that are used in answering spatial range queries is both inefficient and wasteful for the two dominating reasons, Firstly, in spatial range query as the user is the main point of interest, continuous re-evaluation of her location is needed in case of a mobile user. In contrast, spatial alarms need only be re-evaluated when the user in approaching a specific location. Secondly, in spatial alarm, the main point of interest is a static location. So the user's location is not relevant at all times. It is quite clear that applying spatial range query techniques in evaluating spatial alarms is going to result in wastage of resources. If we start to evaluate spatial alarms as soon as the user is on the move even if the user is far away from her desired location our efforts will be futile. 
+\vspace*{10pt}
+Existing work in this area has focused mainly on Euclidean distance and road network models, to the best of our knowledge; no work is yet done on spatial alarms in obstructed space. Spatial alarm evaluation in obstructed space is different than road network or Euclidean space as it considers the obstacles in the path to the location of alarm. It is better approximated by a pedestrian scenario while road networks are approximated by vehicle scenarios. A vehicle can only go to a specific location following a predefined road, but a pedestrian's path is not limited by roads. However, a pedestrian is obstructed by various obstacles such as buildings or trees. So while calculating the distance from spatial alarms, we have to consider the obstructed distance.\\
+\vspace*{10pt}
+Spatial alarms are location-based, user-defined triggers which will possibly shape the future mobile application computations. They are distinct from spatial range query and do not need immediate evaluation after the user has activated them.The spatial alarm evaluation strategies are judged based on two features, High accuracy and High system scalability. High accuracy refers to the quality that guaranties no alarms are missed. And High scalability is the feature that ensures that the system can adapt to a large number of spatial alarms.
+In this paper, We propose a novel approach to evaluate spatial alarms in obstructed space which ensures both high accuracy and high scalability.
+\vspace*{10pt}
+
+
+\section{Problem Setup}
+\textit{Obstructed Space Route Problem} denotes the problem of finding the shortest route between two query-points  in Obstructed Space where non-intersecting 2D polygons represent \textit{obstacles} and where the route does not traverse through any obstacles.The length of the Obstructed route between points a and b is called the \textit{Obstructed Distance} between a and b, denoted by D\textsubscript{obs,a,b}.\\
+A \textbf{Spatial Alarm Query in Obstructed Space} is formally defined as follows:
+\begin{defn}
+Given the user's current location p,and an alarming distance U\textsubscript{d} for an alarm, spatial alarm query returns the set of alarms A, where for each a$\in$ A,D\textsubscript{obs,p,a}<U\textsubscript{d}. 
+\end{defn}
+We define three different type of regions: \textit{Known Region},\textit{Reliable Region} and \textit{Safe Region}
+
+\begin{defn} \textbf{Known Region:}We define two different known region for the POIs and the obstacles.The region containing at least 1 POI is the known region for POI.\\
+The region circulating the POIs known region containing none or single colliding obstacles is the known region for the obstacles.The set of obstacles and POIs within this region is known to the client. 
+We will denote the radius of the POIs known region as r\textsubscript{kp} and that of the obstacles known region as r\textsubscript{ko}
+\end{defn}
+
+\begin{defn}
+\textbf{Reliable Region:}We will denote the radius of the reliable region as R\textsubscript{reliable}.Given the user's previous location P\textsubscript{1} and current location P\textsubscript{2} if, P\textsubscript{1}-P\textsubscript{2}<R\textsubscript{reliable}, then no further queries to the server has to be done to compute a consistent set of answers.
+\end{defn}
+
+\begin{defn}\textbf{Safe Region:} 
+The region located inside reliable region within which the answer set of POIs remains unchanged for a moving client.We will denote the radius of the safe region as R\textsubscript{safe}.Given the user's previous location P\textsubscript{1} and current location P\textsubscript{2} if, P\textsubscript{1}-P\textsubscript{2}<R\textsubscript{reliable}, then no recalculation is needed to compute the answer.
+\end{defn}
+
+
+\section{Solution Overview}
+\vspace*{6pt}
+
+Single user trip planning query has been extensively studied~
+\vspace*{5pt}
+
+The key idea of our approach is to ...
+\vspace*{12pt}
+
+
+
+%section starts
+
+\section{Contributions}
+
+
+In summary, the contributions of the thesis are as follows:
+%\begin{itemize}
+%\item We formalize group trip planning (GTP) queries in road networks. We present the first solution to process GTP queries in road networks  for aggregate functions \textsc{sum} and \textsc{max}.
+%\item We exploit elliptical properties to refine the search region for the POIs and develop efficient algorithms to evaluate GTP queries.
+%\item Our extensive experiments show that our proposed approach outperforms a naive approach in terms of both I/Os and computational time.
+%\end{itemize}
+
+
+\vspace*{8pt}
+
+
+\section{Thesis Organization}
+\label{sec:org}
+
+\vspace*{5pt}
+
+The next chapters are organized as follows. In Chapter 2, related works are discussed. In Chapter 3 and 4, we present a naive approach and our approach, respectively, to evaluate Spatial Alarm in Obstructed Space queries. Chapter 5 shows the experimental results for our proposed algorithm. Finally, in Chapter 6, we conclude with future research directions.
+
+

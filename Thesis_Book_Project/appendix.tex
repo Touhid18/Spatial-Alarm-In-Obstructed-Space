@@ -1,0 +1,644 @@
+\chapter{The CohesionOptimizer Tool}
+\label{chap:cohOpt}
+CohesionOptimizer is a GUI-enabled software tool that allows the user to automatedly obtain clustering tree visualizations of Java functions in the form of dendrograms. The tool has been entirely coded in Java. This section describes the various features of the tool. Subsection~\ref{sec:toolUse} elaborates on how to use the tool. Subsection~\ref{sec:SystReq} gives the minimum system requirements of the tool. 
+
+\section{Using the Tool}
+\label{sec:toolUse}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.48]{figures/CohOptTool/tool.eps}
+\caption{The CohesionOptimizer software tool.}
+\label{fig:CohOptTool}
+\end{figure}
+
+In order to execute the application the user has to open the .jar application file of the software. Then in order to perform a clustering of a function, the user will have to open a new ``Optimization Activity'' from the File menu. The window shown in Fig.~\ref{fig:CohOptTool} would then appear. 
+
+\subsection{Input}
+The user will have to input the following details in the ``Optimization Activity'' window,
+
+\begin{itemize}
+\item the attribute extraction mode,
+
+\item the weight ratio between the data and control attributes,
+
+\item the pathname of a .java file which contains the function to be restructured,
+
+\item  the method of clustering that is to be used.
+
+\end{itemize}
+
+\textbf{Format of Input File.} In order to interpret\footnote{A custom-built parser based on the Java StringTokenizer class was used for this purpose.} the input function, the tool expects the code of the function to follow traditional formats: Each statement of the code must exist in a single line. The first line of the code must be the name of the function with an opening brace and must be tagged with the text, ``\#HEADER\#''. Declaration statements must be tagged ``\#DEC\#''. Each control statement must start from a new-line. (E.g., the code ``\texttt{$\ldots$\} else \{}'' must be separated into two lines, i.e., ``\texttt{$\ldots$\}}'' in one line and ``\texttt{else \{}'' in the other.). Single-line comments, blank lines may be present. 
+
+\textbf{Attribute Extraction Mode.} Two attribute extraction modes are available: The Normal Attribute Extraction Mode directly follows the attribute selection criteria of Lung~\textit{et al.}~\cite{LXZS06} and Selective Attribute Extraction Mode, which follows the new attribute selection strategy presented in this thesis. For obtaining best results while using $(k,w)$-CC, we recommend the Selective Attribute Extraction Mode. 
+
+\textbf{Weight Ratio.} For best results, weight ratios of 8:3, 5:2, 3:1 are recommended for data to control attributes respectively.
+
+\textbf{Clustering method.} Five clustering algorithms can be used to perform clustering: Single Linkage Algorithm (SLINK), Complete Linkage Algorithm (CLINK), Weighted Pair-Group Method of Arithmetic Averages (WPGMA), Adaptive k-Nearest Neighbour Algorithm (A-KNN), and $(k,w)$-Core Clustering ($(k,w)$-CC).
+
+\vspace*{10pt} 
+
+After inputting the above information, the ``Code'' box shall display an enumerated version of the function, where each statement/LOC of the function is prefixed with a unique number. Unique numbers are given only to non-comment lines of code. 
+ 
+\subsection{Output}
+The user can then generate a dendrogram for the input java function by clicking on the ``Analyze'' button. The dendrogram is displayed inside the ``Dendrogram'' box. The dendrogram displays the entities of the function in the horizontal axis, on a vertical scale of similarity ranging from 0 to 1. The blue lines indicate the clusters. The red-dashed lines indicate the possible lines of cut. 
+
+The ``Save Dendrogram'' button saves the output dendrogram as a .png image file in the same directory where the software tool application file (i.e., the .jar file) is located.
+
+\section{System Requirements}
+\label{sec:SystReq}
+
+CohesionOptimizer is a cross-platform application that can be used in both Linux and Windows based machines with Java enabled. For best user experience we recommend the application to be used in a system configured with at least the following settings,
+
+\begin{itemize}
+\item Operation System: Windows XP (for Windows-based systems), Ubuntu 9.04 (for Linux-based systems)
+\item Processor: 1.4 GHz 
+\item RAM: 1 Gb 
+\end{itemize}
+
+
+\chapter{$(k,w)$-CC Implementation Code}
+\label{chap:code}
+
+In this section we provide the implementation code for the $(k,w)$-Core Clustering algorithm that was developed in this work.
+
+\vspace*{10pt}
+
+\begin{ttfamily   }
+\begin{scriptsize}
+
+\noindent package javaapplication1;\\ 
+import java.util.*;\\
+import java.text.DecimalFormat;\\ 
+
+\noindent class Core \{\\
+    \noindent public ArrayList al = new ArrayList();\\
+    int prox[][];\\
+    int proxFull[][];\\
+    int kCMatrix[][];\\
+    int kwCMatrix[][];\\
+    int kCMax = 0, kwCMax = 0;\\
+    double cohArr[][];\\
+    double relClusters[][];\\\noindent//the final set of cores to be used for clustering\\
+    int compArr[];\\
+    int compNo;\\
+    int disconnComp;\\
+    int entityCheckListMain[];\\
+    int lineNumbers[];\\
+    int total\_line\_count = 0;\\
+    int dC\_row\_cnt, dC\_col\_cnt;\\
+    double coeffArr[];\\
+
+    \noindent public Core(int[][] input, ArrayList al, int Wd, int Wc, int total\_line\_count, int attr\_count) \{\\
+         dC\_row\_cnt = al.size();\\
+        dC\_col\_cnt = al.size() + 2;\\
+        int dendseqCreator[][] = new int[dC\_row\_cnt][dC\_col\_cnt];\\
+        double coeffArr[] = new double[al.size()];\\
+        int entityCheckListMain[] = new int[al.size()];\\
+
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            entityCheckListMain[i] = 0;\\
+        \}\\
+        this.entityCheckListMain = entityCheckListMain;\\
+
+        \noindent this.al = al;\\
+        Object ia[] = al.toArray();\\
+
+        \noindent int lineNumbers[] = new int[al.size()];\\
+        int[][] prox = new int[al.size() + 1][al.size() + 1];\\\noindent//the proximity matrix\\
+        this.total\_line\_count = total\_line\_count;\\
+        int[][] proxFull = new int[total\_line\_count + 1][total\_line\_count + 1];\\\noindent//the proximity matrix with all lines\\
+
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            lineNumbers[i] = ((Integer) ia[i]).intValue();\\
+        \}\\
+
+        \noindent//initializing the clustering coefficients array\\
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            coeffArr[i] = 0;\\
+        \}\\
+        this.coeffArr = coeffArr;\\
+
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            prox[0][i + 1] = lineNumbers[i];\\
+            prox[i + 1][0] = lineNumbers[i];\\
+        \}\\
+
+
+        coreDecomp();\\
+    \}\\
+
+\noindent//THE CORE DECOMPOSITION ALGORITHM\\
+   \noindent private void coreDecomp() \{\\
+        int ProxSet[] = new int[al.size() * (al.size() - 1) / 2];\\ \noindent//Set of proximities\\
+        int DegSet[] = new int[al.size()];\\
+        int orderedProxSet[] = new int[al.size() * (al.size() - 1) / 2];\\
+        int orderedDegSet[] = new int[al.size()];\\
+        int maxDeg;\\
+
+        \noindent//generating ProxSet\\
+        \noindent for (int i = 1;   i $<$ ProxSet.length;   i++) \{\\
+            ProxSet[i] = 0;\\
+        \}\\
+        int idx = 0;\\
+        boolean exists;\\
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            \noindent for (int j = i + 1;   j $<$ al.size();   j++) \{\\
+                exists = false;\\
+                if (prox[i + 1][j + 1] != 0) \{\\
+                    \noindent for (int k = 0;   k $<$ ProxSet.length;   k++) \{\\
+                        if (ProxSet[k] == prox[i + 1][j + 1]) \{\\
+                            exists = true;\\
+                            break;\\
+                        \}\\
+                    \}\\
+                    if (exists == false) \{\\
+                        ProxSet[idx] = prox[i + 1][j + 1];\\
+                        idx++;\\
+                    \}\\
+                \}\\
+            \}\\
+        \}\\
+
+        \noindent//ordering the ProxSet and storing it in orderedProxSet\\
+        int zeroLoc = 0;\\
+        \noindent for (int i = 0;   i $<$ orderedProxSet.length;   i++) \{\\
+            if (ProxSet[i] == 0) \{\\
+                zeroLoc = i;\\
+                break;\\
+            \}\\
+        \}\\
+        System.arraycopy(ProxSet, 0, orderedProxSet, 0, ProxSet.length);\\
+        sort(orderedProxSet, 0, zeroLoc - 1);\\
+
+       \noindent kwCMax = orderedProxSet[zeroLoc - 1];\\
+
+        \noindent//generating DegSet\\
+        \noindent for (int i = 1;   i $<$ DegSet.length;   i++) \{\\
+            DegSet[i] = 0;\\
+        \}\\
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                if (prox[i + 1][j + 1] != 0) \{\\
+                    DegSet[i]++;\\
+                \}\\
+            \}\\
+        \}\\
+
+        \noindent//ordering the DegSet and storing it in orderedDegSet\\
+        System.arraycopy(DegSet, 0, orderedDegSet, 0, DegSet.length);\\
+        sort(orderedDegSet, 0, orderedDegSet.length - 1);\\
+        
+        \noindent//kC  MATRIX GENERATION\\
+        maxDeg = orderedDegSet[orderedDegSet.length - 1];\\
+        kCMax=maxDeg;\\
+        this.kCMatrix = new int[maxDeg][al.size() + 1];\\
+        \noindent /*an extra column is used to keep a count of the number of vertices in each column
+        which will be required for detecting the disconnected components in each of the cores*/\\
+
+        \noindent//kCMatrix initialization\\
+        \noindent for (int i = 0;   i $<$ maxDeg;   i++) \{\\
+            \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                this.kCMatrix[i][j] = 0;\\
+            \}\\
+        \}\\
+
+        \noindent//creating first row of the kC matrix\\
+        \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+            this.kCMatrix[0][j] = DegSet[j];\\
+        \}\\
+        this.kCMatrix[0][al.size()] = al.size();\\
+        
+        \noindent for (int i = 0;   i $<$ maxDeg - 1;   i++) \{\\
+            \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                this.kCMatrix[i + 1][j] = this.kCMatrix[i][j];\\
+            \}\\
+
+            \noindent /*
+              Constructs each row of the kC matrix, removing any vertices
+              not satisfying the vertex function kC, and consequently updating the
+              degrees of the vertices\\ connected to the removed vertex
+              using updateConnectedVerts
+             */\\
+            \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                if (this.kCMatrix[i + 1][j] $<$ i + 2 \&\& this.kCMatrix[i + 1][j] != 0) \{\\
+                    this.kCMatrix[i + 1][j] = 0;\\
+                    this.kCMatrix[i + 1][al.size()]--;\\
+                    updateConnectedVertskC(i, j, kCMatrix);\\
+                \}\\
+            \}\\
+        \}\\
+
+        
+        \noindent//kwC  MATRIX GENERATION\\
+        this.kwCMatrix = new int[maxDeg * zeroLoc][al.size() + 1];\\
+        \noindent /*an extra column is used to keep a count of the number of vertices in each column
+        which will be required for detecting the disconnected components in each of the cores*/\\
+
+        \noindent//kwCMatrix initialization\\
+        \noindent for (int i = 0;   i $<$ maxDeg * zeroLoc;   i++) \{\\
+            \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                this.kwCMatrix[i][j] = 0;\\
+            \}\\
+        \}\\
+
+        \noindent//make direct copies \\
+        \noindent//filling rows of (1,w1), (2,w1), (3,w1), (kmax,w1)- cores\\
+        \noindent for (int i = 0;   i $<$ maxDeg;   i++) \{\\
+            \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                kwCMatrix[i * zeroLoc][j] = kCMatrix[i][j];\\
+                \noindent//safe to do direct copy since kCMatrix will not be required after this\\
+            \}\\
+        \}\\
+
+        \noindent for (int i = 0;   i $<$ maxDeg;   i++) \{\\\noindent// for each degree\\
+            \noindent for (int k = 1;   k $<$ zeroLoc;   k++) \{\\\noindent// for each proximity\\
+                \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                    kwCMatrix[i * zeroLoc + k][j] = kwCMatrix[i * zeroLoc + k - 1][j];\\
+                \}\\
+
+                \noindent /**
+                 * Constructs each of the remaining rows of the kwC matrix, removing any vertices
+                 not satisfying w AND kC, and consequently updating the
+                 degrees of the vertices connected to the removed vertex
+                 using updateConnectedVerts             
+                 */\\
+                \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                    \noindent for (int m = 0;    m $<$ al.size();    m++) \{\\
+                        \noindent /*The following will delete any edge which does not satisfy the kwC constraint. That is
+                          any edge with proximity value less than the kwC value of the current core will be removed.
+                          */\\
+                        if (kwCMatrix[i * zeroLoc + k][j] != 0 \&\& \\
+                                prox[j + 1][m + 1] != 0 \&\& \\
+                                kwCMatrix[i * zeroLoc + k - 1][m] != 0 \&\& \\
+                                prox[j + 1][m + 1] == (orderedProxSet[k - 1])) \{\\
+                            kwCMatrix[i * zeroLoc + k][j]--;\\
+                            if (kwCMatrix[i * zeroLoc + k][j] == 0) \{\\
+                                kwCMatrix[i * zeroLoc + k][al.size()]--;\\
+                            \}\\
+                            \noindent /*
+                              In the above steps, the edges are deleted based on the proximity value of the edge. To reflect this change
+                              in the data structure the corresponding entries of the concerned entities in the kwCMatrix are decremented
+                             */\\
+                        \}\\
+                    \}\\
+                \}\\
+            \}\\
+
+            \noindent /*
+              Now after decreasing the degrees it may so happen that the degree falls under the kC  matrix constraint
+              So we'll need to check that as well.
+             */\\
+            \noindent for (int k = 1;   k $<$ zeroLoc;   k++) \{\\
+                \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                    \{\\
+                        \noindent//if the degree of an entity in the kwCMatrix is less than the core number of its parent core, we\\
+                        \noindent//remove the entity (set it's degree to 0)\\
+                        if (kwCMatrix[i * zeroLoc + k][j] $<$ i + 1
+                                \&\& kwCMatrix[i * zeroLoc + k][j] != 0) \{\\
+                            kwCMatrix[i * zeroLoc + k][j] = 0;\\
+                            kwCMatrix[i * zeroLoc + k][al.size()]--;\\
+                            updateConnectedVertsP2(i * zeroLoc + k - 1, j, kwCMatrix, zeroLoc, orderedProxSet[k]);\\
+                        \}\\
+                    \}\\
+                \}\\
+            \}\\
+        \}\\
+
+        \noindent//sort the elements of cohArr\\
+        sort(cohArr, 0, maxDeg * zeroLoc - 1);\\
+
+        \noindent /*CREATING RELCLUSTERS - Obtaining the relevant set of cores from kwCMatrix, ignoring cores with 0 elements. 
+         */\\
+        double relClusters[][] = new double[al.size()][al.size() + 3];\\
+        int entityChecklist[] = new int[al.size()];\\
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            entityChecklist[i] = 0;\\
+        \}\\
+        int k = 0;\\
+        double cof = 0, coreidx;\\
+        int i = maxDeg * zeroLoc - 1;\\
+
+        \noindent while (cohArr[i][0] $>$ 0.0 \&\& k $<$ al.size()) \{\\
+            boolean newEntityPresent = false;\\
+            cof = cohArr[i][0];\\\noindent//starting from the highest cohArr element, which is the highest val.\\
+            coreidx = cohArr[i][1];\\
+            \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\\noindent//checks whether the current core consists of a new entity\\
+                if (kwCMatrix[(int) coreidx][j] != 0 \&\& entityChecklist[j] == 0) \{\\
+                    newEntityPresent = true;\\
+                    break;\\
+                \}\\
+            \}\\
+            if (newEntityPresent == false) \{\\
+                i--;\\
+                if (i == -1) \{\\
+                    break;\\
+                \}\\ else \{\\
+                    continue;\\
+                \}\\
+            \}\\ else \{\\
+                if (((int) coreidx / zeroLoc + 1) != 1) \{\\\noindent//ignoring cores with kCvalue=1 INITIALLY, since structural  is the lowest in these cores\\
+                    \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                        relClusters[k][j] = kwCMatrix[(int) coreidx][j];\\
+                        if (relClusters[k][j] != 0 \&\& j != al.size()) \{\\
+                            if (entityChecklist[j] == 0) \{\\
+                                entityChecklist[j] = 1;\\
+                            \}\\
+                        \}\\
+                    \}\\
+                    relClusters[k][al.size() + 1] = cof;\\
+                    relClusters[k][al.size() + 2] = coreidx;\\
+                    k++;\\
+                    i--;\\
+                \}\\ else \{\\
+                    i--;\\
+                \}\\
+            \}\\
+            if (i == -1) \{\\
+                break;\\
+            \}\\
+        \}\\
+        \noindent//NOTE THAT IN THE ABOVE PROCESS, COHARR WAS USED, WHICH IS THE ORDERED SET OF RELATEDNESS\\
+        \noindent//HENCE THE RELCLUSTERS WE OBTAINED IS A SET OF CORES, ORDERED BY THEIR PROXIMITY VALUES\\
+
+
+        \noindent /*finally adding clusters from cores with kC values=1
+          in case some unclustered entities are still remaining
+         */\\
+        cof = 0;\\
+        coreidx = 0;\\
+        i = maxDeg * zeroLoc - 1;\\
+
+        \noindent while (cohArr[i][0] $>$ 0.0 \&\& k $<$ al.size()) \{\\
+            boolean newEntityPresent = false;\\\noindent//whether or not the new cluster contains a new entity\\
+            cof = cohArr[i][0];\\\noindent/*AGAIN HERE WE START FROM THE HIGHEST VALUED RELATEDNESS. HENCE  ONLY THE MOST COHESIVE CORES WITH kCVAL=1 ARE TAKEN*/\\
+            coreidx = cohArr[i][1];\\
+            if (((int) coreidx / zeroLoc + 1) $>$ 1) \{\\\noindent//if the kCvalue of the core is greater than 1, then stop since those cores have already\\
+                \noindent//been taken care of\\
+                i--;\\
+                continue;\\
+            \}\\
+            \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                if (kwCMatrix[(int) coreidx][j] != 0 \&\& entityChecklist[j] == 0) \{\\
+                    newEntityPresent = true;\\
+                    break;\\
+                \}\\
+            \}\\
+            if (newEntityPresent == false) \{\\
+                i--;\\
+                if (i == -1) \{\\
+                    break;\\
+                \}\\ else \{\\
+                    continue;\\
+                \}\\
+            \}\\ else \{\\
+                \noindent for (int j = 0;   j $<$ al.size() + 1;   j++) \{\\
+                    relClusters[k][j] = kwCMatrix[(int) coreidx][j];\\
+                    if (relClusters[k][j] != 0 \&\& j != al.size()) \{\\
+                        if (entityChecklist[j] == 0) \{\\
+                            entityChecklist[j] = 1;\\
+                        \}\\
+                    \}\\
+                \}\\
+                relClusters[k][al.size() + 1] = cof;\\
+                relClusters[k][al.size() + 2] = coreidx;\\
+                k++;\\
+                i--;\\
+            \}\\
+            if (i == -1) \{\\
+                break;\\
+            \}\\
+        \}\\
+        this.relClusters = relClusters;\\
+
+
+        \noindent//checking RelClusters for disconnected cores\\
+        int kCvalue, kwCvalue;\\
+        \noindent for (int m = 0;    m $<$ al.size();    m++) \{\\
+            coreidx = relClusters[m][al.size() + 2];\\
+            kCvalue = (int) coreidx / zeroLoc + 1;\\
+            kwCvalue = orderedProxSet[(int) coreidx % zeroLoc];\\
+            if (relClusters[m][al.size()] $>$= 2 * (kCvalue + 1)) \{\\
+                int compNo = 0;\\
+                int compArr[] = new int[al.size()];\\
+                \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                    compArr[j] = 0;\\
+                \}\\
+                this.compArr = compArr;\\
+
+                \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                    if (relClusters[m][j] != 0 \&\& compArr[j] == 0) \{\\
+                        compNo++;\\
+                        compArr[j] = compNo;\\
+                        componentCreator(m, j, kwCvalue, compNo);\\
+                    \}\\
+                \}\\
+
+                \noindent//space creation\\
+                disconnComp = 0;\\
+                spaceCreator(m);\\
+
+                \noindent//Splitting \& storing cores with disconnected components\\
+                if (disconnComp $>$ 1) \{\\
+                    splitCluster(m);\\
+                \}\\
+            \}\\
+        \}\\
+
+        \noindent//deleting cores that contain entities that have already been clustered in previous cores\\
+        \noindent for (int c = 0; c $<$ al.size(); c++) \{\\
+            entityChecklist[c] = 0;\\
+        \}\\
+        i = 0;\\
+        while (relClusters[i][al.size() + 1] $>$ 0) \{\\
+            boolean newEntityPresent = false;\\
+            \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                if (relClusters[i][j] != 0 \&\& entityChecklist[j] == 0) \{\\
+                    entityChecklist[j] = 1;\\
+                    newEntityPresent = true;\\
+                \}\\
+            \}\\
+            if (newEntityPresent == false) \{\\
+                \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+                    if (relClusters[i][j] != 0) \{\\
+                        relClusters[i][j] = 1;\\
+                    \}\\
+                \}\\
+                
+	\noindent//delete the row\\
+                \noindent for (int j = 0;   j $<$ al.size() + 3;   j++) \{\\
+                    relClusters[i][j] = 0;\\
+                \}\\
+                
+	\noindent//shift up the rows below\\
+                \noindent for (int x = i; x $<$ al.size() - 1; x++) \{\\
+                    \noindent for (int y = 0; y $<$ al.size() + 3; y++) \{\\
+                        relClusters[x][y] = relClusters[x + 1][y];\\
+                        relClusters[x + 1][y] = 0;\\
+                    \}\\
+                \}\\
+                continue;\\
+            \}\\
+            i++;\\
+        \}\\
+        
+        \noindent 
+        relCluster\_srt(relClusters, 0, al.size() - 1);\\
+        
+        \noindent//simplifying relClusterValues to 1\\
+        \noindent for (int m = 0;    m $<$ al.size();    m++) \{\\
+            \noindent for (int n = 0; n $<$ al.size(); n++) \{\\
+                if (relClusters[m][n] != 0) \{\\
+                    relClusters[m][n] = 1;\\
+                \}\\
+            \}\\
+        \}\\
+
+        \noindent//Clearing kC columns of empty rows in RelClusters\\
+        \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+            if (relClusters[j][al.size() + 1] == 0) \{\\
+                relClusters[j][al.size() + 2] = 0;\\
+            \}\\
+        \}\\
+        
+
+	\noindent /*Now making sure that the final core consists of all the entities
+         */\\
+        int finalCoreRow = 0;\\
+        \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+            if (relClusters[j][al.size() + 1] == 0) \{\\
+                finalCoreRow = j - 1;\\
+                break;\\
+            \}\\
+        \}\\
+        \noindent for (int j = 0;   j $<$ al.size();   j++) \{\\
+            if (relClusters[finalCoreRow][j] == 0) \{\\\noindent//the final core does not contain all the entities\\
+                \noindent for (int h = 0; h $<$ al.size(); h++) \{\\
+                    relClusters[finalCoreRow + 1][h] = 1;\\
+                \}\\
+                relClusters[finalCoreRow + 1][al.size() + 1] = 0.001;\\
+                break;\\
+            \}\\
+        \}\\        
+    \}\\
+
+    \noindent /*
+      This updates the degrees of all vertices connected
+      to a vertex removed during the cores generation (while
+      creating kC matrix)
+     */\\
+    private void updateConnectedVertskC(int i, int j, int mat[][]) \{\\
+        \noindent for (int k = 1;   k $<$ al.size() + 1;   k++) \{\\
+            if (prox[j + 1][k] != 0) \{\\\noindent//if vertices are connected in the main graph\\
+                if (mat[i + 1][k - 1] != 0) \{\\
+                    mat[i + 1][k - 1]--;\\
+                    if (mat[i + 1][k - 1] $<$ i + 2 \&\& mat[i + 1][k - 1] != 0) \{\\
+                        mat[i + 1][k - 1] = 0;\\
+                        mat[i + 1][al.size()]--;\\
+                        updateConnectedVertskC(i, k - 1, mat);\\
+                    \}\\
+                \}\\
+            \}\\
+        \}\\
+    \}\\
+
+    \noindent /*
+      This updates the degrees of all vertices connected
+     to a vertex removed during the cores generation (while
+      creating kCkwC  matrix)
+     */\\
+    private void updateConnectedVertsP2(int i, int j, int mat[][], int zeroLoc, int crntProxVal) \{\\
+        \noindent for (int k = 1;   k $<$ al.size() + 1;   k++) \{\\
+            if (mat[i + 1][k - 1] != 0) \{\\
+                if (prox[j + 1][k] != 0 \&\& prox[j + 1][k] $>$= crntProxVal) \{\\
+                    \noindent /*Decreases the degree of the connected vertices (Only those
+                    vertices are removed which have values $>$= the crntProxVal since
+                    edges with less than the currentProximityVal, i.e, the value of the current kwC value
+                    have already been deleted.
+                     */\\
+                    mat[i + 1][k - 1]--;\\
+                    if (mat[i + 1][k - 1] == 0) \{\\\noindent//if the vertex has degree 0, it had been removed and thus count is decreased\\
+                        mat[i + 1][al.size()]--;\\
+                    \}\\
+                    if (mat[i + 1][k - 1] $<$ ((i + 1) / zeroLoc + 1) \&\& mat[i + 1][k - 1] != 0) \{\\\noindent//remove the vertex if kC constraint is broken\\
+                        mat[i + 1][k - 1] = 0;\\
+                        mat[i + 1][al.size()]--;\\
+                        updateConnectedVertsP2(i, k - 1, mat, zeroLoc, crntProxVal);\\
+                    \}\\
+                \}\\
+            \}\\
+        \}\\
+    \}\\
+
+    \noindent /*
+      Identifies disconnected components in a cluster
+     */\\
+    private void componentCreator(int m, int j, int kwCval, int compNo) \{\\
+        \noindent for (int k = 1;   k $<$ al.size() + 1;   k++) \{\\
+            if (prox[j + 1][k] $>$= kwCval \&\& relClusters[m][k - 1] != 0 \&\& compArr[k - 1] == 0) \{\\
+                compArr[k - 1] = compNo;\\
+                componentCreator(m, k - 1, kwCval, compNo);\\
+            \}\\
+        \}\\
+    \}\\
+
+    \noindent /*
+      Creates space in the relCluster matrix in order to store the disconnected components of clusters
+      in separate rows
+     */\\
+    private void spaceCreator(int m) \{\\
+        int lastRow = 0, thisRow = 0, max = 0;\\
+        \noindent//finding number of disconnected components\\
+        \noindent for (int i = 0;   i $<$ al.size();   i++) \{\\
+            if (compArr[i] $>$ max) \{\\
+                max = compArr[i];\\
+            \}\\
+        \}\\
+        disconnComp = max;\\
+        if (max $>$ 1) \{\\\noindent//if the number of disconnected components is greater than 1\\
+            \noindent for (int k = 0;   k $<$ al.size();   k++) \{\\
+                if (relClusters[k][al.size()] == 0) \{\\\noindent//if the count for any row is empty\\
+                    lastRow = k - 1;\\
+                    thisRow = m;\\
+                    break;\\
+                \}\\
+            \}\\
+
+            \noindent for (int k = lastRow;   k $>$ thisRow;   k--) \{\\
+                if ((k + max - 1) $>$ al.size() - 1) \{\\
+                    \noindent for (int l = 0; l $<$ al.size() + 3; l++) \{\\
+                        relClusters[thisRow][l] = 0;\\
+                    \}\\
+                    break;\\
+                \}\\
+                \noindent for (int l = 0; l $<$ al.size() + 3; l++) \{\\
+                    relClusters[k + (max - 1)][l] = relClusters[k][l];\\
+                    relClusters[k][l] = 0;\\
+                \}\\
+            \}\\
+        \}\\
+    \}\\
+
+    \noindent /*
+      Splits \& stores clusters with disconnected components 
+     */\\
+    private void splitCluster(int m) \{\\
+        \noindent for (int k = 0;   k $<$ al.size();   k++) \{\\
+            if (compArr[k] != 0 \&\& compArr[k] != 1 \&\& (m + (compArr[k] - 1) $<$ al.size())) \{\\
+            	\noindent//the final condition signifies that stop when we have reached the last Row of RelClusters\\
+                relClusters[m + (compArr[k] - 1)][k] = relClusters[m][k];\\
+                relClusters[m + (compArr[k] - 1)][al.size()] = relClusters[m][al.size()];\\
+                relClusters[m + (compArr[k] - 1)][al.size() + 1] = relClusters[m][al.size() + 1];\\
+                relClusters[m + (compArr[k] - 1)][al.size() + 2] = relClusters[m][al.size() + 2];\\
+                relClusters[m][k] = 0;\\
+            \}\\
+        \}\\
+    \}\\
+\}\\
+
+\end{scriptsize}
+\end{ttfamily   }
+
+
+
+
