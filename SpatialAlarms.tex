@@ -219,42 +219,39 @@ Given a moving query point q and a range r for an alarm, a Spatial Alarm Query r
 Spatial alarms are location-based, user-defined triggers which will possibly shape the future mobile application computations. They are distinct from spatial range query and do not need immediate evaluation after the user has activated them. The spatial alarm evaluation strategies are judged based on two features, correctness and scalability. Correctness refers to the quality that guaranties no alarms are missed. And scalability is the feature that measures the number of POI's the system can adapt to. 
 In this paper, We propose a novel approach to evaluate spatial alarms in obstructed space which ensures both high accuracy and high scalability.
 
-In this paper, we adopt the concepts of three different types of regions: \textit{Known Region} \cite{Obst1}, \textit{Reliable Region} \cite{Obst1} and \textit{Safe Region} \cite{Obst1}. The modified definition of these regions according to our context are as the followings:\\ \\
+We define three different type of regions: \textit{Known Region},\textit{Reliable Region} and \textit{Safe Region}\\ \\
 
 \textbf{Known Region:} We define two different known regions for the POIs and the obstacles. The region containing at least 1 POI is the known region for POI.\\
 The region circulating the POIs known region containing none or single colliding obstacles is the known region for the obstacles. The set of obstacles and POIs within this region is known to the client. 
-We will denote the radius of the known region of the POIs as $r_{kp}$ and that of the obstacles as $r_{ko}$.\\ \\
+Both of the known regions are represented by a parabola whose focus point is the users location q,with the equation $y^2=4ax$ where $a=mr$ which are bounded by a straight line. \\ \\
 
 
-\textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. Given the radius of the reliable region as $r_{rel}$, the user's previous location as $P_1$ and the current location as $P_2$, if $(P_1 - P_2) < r_{rel}$, then by this definition no further queries to the server has to be done to compute a consistent set of answers. \\ \\
+\textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. The reliable region is also a parabolic region bounded by a straight line,where each bounding point of the parabolic curve is at a distance r from the known regions parabolic curve. $ \forall p_i=(x,y) $ in the known region, $ \forall p_j=(x_r,y_r) $ in the reliable region, $ dist_E(p_i,p_j)\geq r $ By this definition no further queries to the server has to be done to compute a consistent set of answers. Because, for any $q =p_j dist_E(q,p_j) \geq r$ where $p_j$ is a point on the boundary of the reliable region. And for all other points $ p_i $ inside the reliable region $  dist_E(q,p_i)>r$ \\ \\
 
 
-\textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer.
+\textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer. If the safe region surpasses the reliable region at some points 
 \\ \\
 
-\begin{figure}[!htb]
-\minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{krs.png}
-  \caption{Known, reliable and safe regions}\label{fig:krs}
-\endminipage\hfill
-\end{figure}
-
 \begin{table}[h]
-\centering
+\centering 
 
 \caption{Symbol Table}
 \begin{tabular}{|c|c|} \hline
 Symbols&Meaning \\ \hline
 P & Set of POIs\\ \hline
 O & Set of Obstacles\\ \hline
+q & Location of user\\ \hline
 $r$ & Alarming range\\ \hline
-dist$_E$(p,q) & Euclidean distance between point p and q\\ \hline
-dist$_O$(p,q) & Obstructed Distance between point p and q\\ \hline
-$r_{safe}$    & radius of safe region\\ \hline
-$r_{rel}$     & radius of reliable region\\ \hline
-$r_{kp}$      &radius of known region for POIs\\ \hline
-$r_{ko}$      &radius of known region for obstacles\\ \hline
-$p_{i}$       &any $i^{th} POI$\\ \hline
+$V_{G}$       & Visibility Graph\\ \hline
+$dist_E$(p,q) & Euclidean distance between points p and q\\ \hline
+$dist_O$(p,q) & Obstructed distance between points p and q\\ \hline
+$r_{safe}$    & Radius of safe region\\ \hline
+$m$           & Real number in the range $[2,\infty)$ \\ \hline
+$n$           & Real number in the range $[1,\infty) $  \\ \hline
+$\theta_i $   & Angle between consecutive path segments \\ \hline 
+$ S $         & Users path history as a set of straight lines \\ \hline
+$(m_i,c_i,l_i)$ & A line with slope $m_i$, intercept $c_i$ and length $l_i$ \\ \hline
+
 \end{tabular}
 \end{table}
 
@@ -268,48 +265,38 @@ Obstructed space considers the shortest distance between two points in the prese
 
 % Our algos : 3 sections mainly - Naive, modified naive & the final approach
 \section{Naive Approaches}
-In all of our naive and even main approaches, we have assumed that the full system is divided into a client-server architecture and the POIs as well as the obstacles are saved in an R-tree at the server side. In this paper we also assume that all users have access to some sort of localization service such as GPS or Wi-Fi that queries the server with the client's pinpoint location. Here, the client application is a thin-weight application that communicates with the server on any specified event to retrieve necessary information about POIs and the obstacles. We assume that the user can use any device such as smart-phones or PDA.\\
+We assume that the system is based on a client-server architecture and the POIs as well as the obstacles are stored using independent R-trees at the server. We also assume that all users have access to some sort of localization service such as GPS or Wi-Fi that queries the server with the client's pinpoint location. Here, the client application is a thin-weight application that communicates with the server on any specified event to retrieve necessary information about POIs and the obstacles. We assume that the user can use any device such as smart-phones or PDA.\\
 
-To compare the efficiency of our approach, we are about to present two straightforward solutions for processing spatial-alarms in an obstructed space - sequential POI processing on regular basis and region-divided alarm (POI) processing. 
+To compare the efficiency of our approach, we present a straightforward and naive solution for processing spatial-alarms in an obstructed space besides of our approach.\\
 
-Both of the naive approaches are explained in the following subsections.
+In this naive approach, the server is frequently queried to get the POIs and obstacles within the Euclidean distance $r$. Then the client checks the obstructed distance of each POI to be within $r$ obstructed distance and fire alarm if that is reached.\\
 
-
-\subsection{Sequential Processing on Regular Basis}
-In this naive approach, all nearest POIs are retrieved from the server to populate the answer set $A$ with the set of POIs ($P$), set of obstacles ($O$) and the visibility-graph $V_G$ and these are frequently checked to be crossed later in the client side.\\
-
-In the following algorithms, the \textsc{GetAllPOI}($q, r$) function populates the set $P$ of POIs within the radius $r$ centring the query point (the client's current location) $q$. Similarly, \textsc{GetObstacleSet}($q, r$) function returns the set of all obstacles within the radius $r$ centring $q$.\\
+In the Algorithm \ref{GetAlarmables}, the \textsc{GetAllPOI}($q, r$) function populates the set $P$ of POIs within the radius $r$ centring the query point (the client's current location) $q$. Similarly, \textsc{GetObstacleSet}($q, r$) function returns the set of all obstacles within the radius $r$ centring $q$.\\
 
 \textsc{MakeVisGraph}$(P,O)$ function returns the \textit{visibility graph} $V_G$ with the set of POIs $P$ and the set of obstacles $O$.
 
 Here, a \textbf{Visibility Graph} is a graph $V_G(V,E)$ where each $v \in V$ is either a POI or a data-point and for each $(u,v) \in E$, there is an edge $e$ between $u$ and $v$ if and only if it does not intersect with any obstacles $i.e.$ $u$ and $v$ are \textit{visible} to each other along the edge $e$.\\
 
-$\textsc{MakeAnswerSet}(q, d_u, P, O, V_G)$ function returns a heterogeneous data-model consisting of its all parameters to be used by the caller client-side program.
+$\textsc{MakeAnswerSet}(q, V_G)$ function returns a heterogeneous data-model consisting of its all parameters to be used by the caller client-side program.
 
 \DontPrintSemicolon
 \begin{algorithm}
-\caption{\textsc{InitByServer}($q$, $r$)}
+\caption{\textsc{GetAlarmables}($q$, $r$)}
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
     \Input{Query point $q$ and the search radius $r$}
-    \Output{Answer set $A$} 
+    \Output{The visibility graph $V_G$} 
 	
 	 $P \gets \textsc{GetAllPOI}(q, r)$ \;
 	 $O \gets \textsc{GetObstacleSet}(q, r)$ \;
 	 $V_G \gets \textsc{MakeVisGraph}(P, O)$ \;
-	 
-	 $u_{min} \gets \infty$\;
-	\ForEach{$p_i \in P$} {
-		 $u_{min} \gets min( u_{min},$ $p_i.u )$ \; 
-	}
-	$d_u \gets (r_{max} - u_{min})$ \\
-	\Return $A \gets \textsc{MakeAnswerSet}(q, d_u, P, O, V_G)$ \;
-\label{InitByServer}
+	\Return \textsc{MakeAnswerSet}$(q, V_G)$ \;
+\label{GetAlarmables}
 \end{algorithm}
 
-The following method is triggered on a minimum change of the user's location by the system checking whether to give any alarm to the client or not along with the check of necessity to fetch more POI and obstacle when the client goes outside of the farthest POI's alarming zone.
+The following method is triggered on any change of the user's location by the system checking whether to give any alarm to the client or not along with the check of necessity to fetch more POI and obstacle when the client goes outside of the farthest POI's alarming zone.
 Here, the function \textsc{AlarmUser}$(p_i)$ triggers an alarm to the user since the respective POI $p_i$ is reached and also marks $p_i$ to be reached in the set of POIs $P$. \\
-The inputs to this algorithm are the changed client-location $q'$ and the answer set $A$ consisting of the regions center $q$, minimum distance to be covered by the client to trigger this update procedure $k{min}$, POI set $P$, obstacle set $O$, and the visibility graph $V_G$.
+The inputs to this algorithm are the current client-location $q$ and the answer set $A$ consisting of the region's center $q$, minimum distance to be covered by the client to trigger this update procedure $k{min}$, POI set $P$, obstacle set $O$, and the visibility graph $V_G$.
  
 \begin{algorithm}
 \caption{\textsc{UpdateClient}$(q, A)$}
@@ -324,7 +311,7 @@ The inputs to this algorithm are the changed client-location $q'$ and the answer
 		}
 	}
 	 \If {$dist_E(A.q, q) > A.d_u$ }{
-		\textsc{InitByServer}$(q, 100)$
+		\textsc{GetAlarmables}$(q, 100)$
 	}
 \label{UpdateClient}
 %\end{algorithmic}
@@ -332,107 +319,107 @@ The inputs to this algorithm are the changed client-location $q'$ and the answer
 
 
 %The run-time of the first line of the second procedure \ref{UpdateNaive1} is $O(\left\vert{P}\right\vert)$, whereas the second line depends on the amount of location-change and the FetchPOI procedure.
-In this naive-approach, the visibility-graph is constructed more times than necessary to hold accuracy, each of which constructions requires $O(n^2)$ \cite{mur}, where $n =$ the number of edges of the obstacles. A huge overhead is also sufficed to make $P$ and $O$ sets using such procedure. Again, the Algorithm \ref{InitByServer} can also be run much less time than in this approach, which is improvised in the later approaches.
+In this naive-approach, the visibility-graph is constructed more times than necessary to hold accuracy, each of which constructions requires $O(n^2)$ \cite{mur}, where $n =$ the number of edges of the obstacles. A huge overhead is also sufficed to make $P$ and $O$ sets using such procedure. Again, the Algorithm \ref{GetAlarmables} can also be run much less time than in this approach, which is improvised in the later approach.
 
 
-\subsection{Region-based Alarm Processing}
-This naive approach is a region-based modified straight forward approach which searches for a new POI inside the known region as soon as the client changes it's position.
-This naive algorithm works in three parts - computing the known and reliable regions using the retrieved POIs and obstacles, checking the client's status to give alarms using the computed visibility graph and checking the region crossings to recompute the answer set on any minimal location-change of the client. The Algorithms \ref{InitRegionsByServer},\ref{SafeRegionCalc},\ref{OnLocationChange} show the respective parts.
-
-Instead of the very naive \textsc{GetAllPOI}($q, r$) function used in the first naive approach, a modified function \textsc{CheckNewPOI}$(q, r, q_{prev}, r_{prev})$ is used in our following approaches to retrieve all excluded POIs of the set $P$ already in the client's side, where $\forall p_i \in P$ $dist_E(q_{prev}, p_i) \leqslant r_{prev}$. So, the new set of POIs $P'$ got from this method will be such as $\forall p_i \in P'$ $dist_E(q, p_i) \leqslant r$. 
-
-Similarly, the \textsc{GetObstacleSet}$(q, r)$ is modified to \textsc{GetObstacleSet}$(q, r_k, q_{prev}, r_{prev})$.
-
-The input to the Algorithm \ref{InitRegionsByServer} is the current location of the user $q$ and the increment delta $r_d$, which is the amount by which the region will be expanded. The output of the algorithm is an answer set $A$ which consists of the set of all obstacles $O$ and the set of all POIs $P$ along with the respective visibility graph $V_G$ within the known-region radius $r_{k}$ centring $q$.
-
-\begin{algorithm}
-\caption{\textsc{InitRegionsByServer}($q,r_d$)}
-\label{InitRegionsByServer}
-%\begin{algorithmic}[1]
-%\Procedure{InitRegionBase}{}
-
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
-    \Input{Query point $q$, increment delta $r_d$}
-    \Output{The answer set, $A \gets \left\{ { r_k, P, O}\right\}$}
-    
-	\While {$\left\vert{P}\right\vert < 1$ }{
-	    $r_k \gets (r_k + r_d) $\;
-	    $P \gets \textsc{CheckNewPOI}(q, r_k, q_{prev}, r_{prev}) $
-	}
-	 $O \gets \textsc{GetObstacleSet}(q, r_k, q_{prev}, r_{prev})$\;
-	 $V_G \gets \textsc{MakeVisGraph}(P, O)$	\;
-	 \Return $A \gets \textsc{MakeAnswerSet}(q, r_k, P, O, V_G)$ 
-%\EndProcedure
-\end{algorithm}
-
-In the Algorithm \ref{SafeRegionCalc}, the function \textsc{isAnyPoiUnreachable}($V_G$) returns true if any POI inside the visibility graph $V_G$ cannot be reached along any path inside $V_G$.
-
-The input to the Algorithm \ref{SafeRegionCalc} is the current location of the client $q$, the answer set from the Algorithm \ref{InitRegionsByServer} and the increment amount $r_d$ by which the known region wil be more expanded if needed. This algorithm is also responsible for triggering an alarm to the client, if s/he is within the alarming distance $p_i.u$ of any POI $p_i \in A.P$.
-
-\begin{algorithm}
-\caption{\textsc{SafeRegionCalc}($q, A, r_d$)}
-\label{SafeRegionCalc}
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
-    \Input{Query point $q$, latest answer set $A$}
-    \Output{$r_{safe}$}
-    
-	 \If {$\textsc{isAnyPoiUnreachable}(V_G)$}{
-		$A \gets $ \textsc{InitRegionBase}($q, r_d$) \;
-		\Return \textsc{SafeRegionCalc}($q, A$)
-	}
-	
-	 $D_{min} \gets \infty, u_{max} \gets 0$ \\
-	 \ForEach{$p_i \in A.P$}{
-	 	$p_i.u \gets $ \textsc{GetPoiRange}$(p_i)$ \;
-	 	$D_i \gets dist_O(q, p_i, V_G) $ \;
-		
-		\If {$D_i \leqslant p_i.u$} {
-			\textsc{AlarmUser}($p_i$)
-		}
-		\Else{
-			$D_{min} \gets min( D_{min}, D_i )$ \;
-			$u_{max} \gets max( u_{max}, p_i.u )$ \;
-		}
-	}
-	 $r_{rel} \gets ( r_k - D_{min} )$\\
-	 {
-	}
-	 \Return $r_{safe} \gets (D_{min} - u_{max})$ 
-%\EndProcedure
-\end{algorithm}
-
-The input to the Algorithm \ref{OnLocationChange} is the current and the previous location of the client ($q$ and $q_{prev}$), the radius of the safe region($r_{safe}$), the reliable region($r_{rel}$) and the known region($r_{k}$) and finally the latest computed answer set $A$. The Algorithm \ref{OnLocationChange} returns the minimum distance $d_u$ to trigger this algorithm the next time.
-
-\begin{algorithm}
-\caption{OnLocationChange($q, q_{prev}, r_{safe}, r_{rel}, r_k$)}
-\label{OnLocationChange}
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
-    \Input{$q, q_{prev}, r_{safe}, r_{rel}, r_k, A$}
-    \Output{$d_u$}
-    
-    $d_q \gets dist_E(q, q_{prev})$
-    
-    \If{$d_q > r_{rel}$}{
-    		$A \gets \textsc{InitRegionBase}(q, d_q)$ \;
-    		$r_{safe} \gets$ \textsc{SafeRegionCalc}($q, A, d_q$) \;
-    }
-    \ElseIf{$q_d > r_{safe}$}{
-    		$r_{safe} \gets$ \textsc{SafeRegionCalc}($q, A, d_q$) \;
-    }
-    
-    \Return $d_u \gets r_{safe}$
-%\EndProcedure
-%\end{algorithmic}
-\end{algorithm}
-
-In this approach, more than one query for the known region computation has to be done frequently to the server after computing the visibility graph and also if any unreachable POI is found out in the Algorithm \ref{SafeRegionCalc} - which seems very much inefficient.
-
-Moreover, the safe region is in its minimum size in this approach, which requires more computation in the client side and thus gets the approach less efficient.
-
-These problems are solved in the following final approach.
+%\subsection{Region-based Alarm Processing}
+%This naive approach is a region-based modified straight forward approach which searches for a new POI inside the known region as soon as the client changes it's position.
+%This naive algorithm works in three parts - computing the known and reliable regions using the retrieved POIs and obstacles, checking the client's status to give alarms using the computed visibility graph and checking the region crossings to recompute the answer set on any minimal location-change of the client. The Algorithms \ref{InitRegionsByServer},\ref{SafeRegionCalc},\ref{OnLocationChange} show the respective parts.
+%
+%Instead of the very naive \textsc{GetAllPOI}($q, r$) function used in the first naive approach, a modified function \textsc{CheckNewPOI}$(q, r, q_{prev}, r_{prev})$ is used in our following approaches to retrieve all excluded POIs of the set $P$ already in the client's side, where $\forall p_i \in P$ $dist_E(q_{prev}, p_i) \leqslant r_{prev}$. So, the new set of POIs $P'$ got from this method will be such as $\forall p_i \in P'$ $dist_E(q, p_i) \leqslant r$. 
+%
+%Similarly, the \textsc{GetObstacleSet}$(q, r)$ is modified to \textsc{GetObstacleSet}$(q, r_k, q_{prev}, r_{prev})$.
+%
+%The input to the Algorithm \ref{InitRegionsByServer} is the current location of the user $q$ and the increment delta $r_d$, which is the amount by which the region will be expanded. The output of the algorithm is an answer set $A$ which consists of the set of all obstacles $O$ and the set of all POIs $P$ along with the respective visibility graph $V_G$ within the known-region radius $r_{k}$ centring $q$.
+%
+%\begin{algorithm}
+%\caption{\textsc{InitRegionsByServer}($q,r_d$)}
+%\label{InitRegionsByServer}
+%%\begin{algorithmic}[1]
+%%\Procedure{InitRegionBase}{}
+%
+%    \SetKwInOut{Input}{Input}
+%    \SetKwInOut{Output}{Output}
+%    \Input{Query point $q$, increment delta $r_d$}
+%    \Output{The answer set, $A \gets \left\{ { r_k, P, O}\right\}$}
+%    
+%	\While {$\left\vert{P}\right\vert < 1$ }{
+%	    $r_k \gets (r_k + r_d) $\;
+%	    $P \gets \textsc{CheckNewPOI}(q, r_k, q_{prev}, r_{prev}) $
+%	}
+%	 $O \gets \textsc{GetObstacleSet}(q, r_k, q_{prev}, r_{prev})$\;
+%	 $V_G \gets \textsc{MakeVisGraph}(P, O)$	\;
+%	 \Return $A \gets \textsc{MakeAnswerSet}(q, r_k, P, O, V_G)$ 
+%%\EndProcedure
+%\end{algorithm}
+%
+%In the Algorithm \ref{SafeRegionCalc}, the function \textsc{isAnyPoiUnreachable}($V_G$) returns true if any POI inside the visibility graph $V_G$ cannot be reached along any path inside $V_G$.
+%
+%The input to the Algorithm \ref{SafeRegionCalc} is the current location of the client $q$, the answer set from the Algorithm \ref{InitRegionsByServer} and the increment amount $r_d$ by which the known region wil be more expanded if needed. This algorithm is also responsible for triggering an alarm to the client, if s/he is within the alarming distance $p_i.u$ of any POI $p_i \in A.P$.
+%
+%\begin{algorithm}
+%\caption{\textsc{SafeRegionCalc}($q, A, r_d$)}
+%\label{SafeRegionCalc}
+%    \SetKwInOut{Input}{Input}
+%    \SetKwInOut{Output}{Output}
+%    \Input{Query point $q$, latest answer set $A$}
+%    \Output{$r_{safe}$}
+%    
+%	 \If {$\textsc{isAnyPoiUnreachable}(V_G)$}{
+%		$A \gets $ \textsc{InitRegionBase}($q, r_d$) \;
+%		\Return \textsc{SafeRegionCalc}($q, A$)
+%	}
+%	
+%	 $D_{min} \gets \infty, u_{max} \gets 0$ \\
+%	 \ForEach{$p_i \in A.P$}{
+%	 	$p_i.u \gets $ \textsc{GetPoiRange}$(p_i)$ \;
+%	 	$D_i \gets dist_O(q, p_i, V_G) $ \;
+%		
+%		\If {$D_i \leqslant p_i.u$} {
+%			\textsc{AlarmUser}($p_i$)
+%		}
+%		\Else{
+%			$D_{min} \gets min( D_{min}, D_i )$ \;
+%			$u_{max} \gets max( u_{max}, p_i.u )$ \;
+%		}
+%	}
+%	 $r_{rel} \gets ( r_k - D_{min} )$\\
+%	 {
+%	}
+%	 \Return $r_{safe} \gets (D_{min} - u_{max})$ 
+%%\EndProcedure
+%\end{algorithm}
+%
+%The input to the Algorithm \ref{OnLocationChange} is the current and the previous location of the client ($q$ and $q_{prev}$), the radius of the safe region($r_{safe}$), the reliable region($r_{rel}$) and the known region($r_{k}$) and finally the latest computed answer set $A$. The Algorithm \ref{OnLocationChange} returns the minimum distance $d_u$ to trigger this algorithm the next time.
+%
+%\begin{algorithm}
+%\caption{OnLocationChange($q, q_{prev}, r_{safe}, r_{rel}, r_k$)}
+%\label{OnLocationChange}
+%    \SetKwInOut{Input}{Input}
+%    \SetKwInOut{Output}{Output}
+%    \Input{$q, q_{prev}, r_{safe}, r_{rel}, r_k, A$}
+%    \Output{$d_u$}
+%    
+%    $d_q \gets dist_E(q, q_{prev})$
+%    
+%    \If{$d_q > r_{rel}$}{
+%    		$A \gets \textsc{InitRegionBase}(q, d_q)$ \;
+%    		$r_{safe} \gets$ \textsc{SafeRegionCalc}($q, A, d_q$) \;
+%    }
+%    \ElseIf{$q_d > r_{safe}$}{
+%    		$r_{safe} \gets$ \textsc{SafeRegionCalc}($q, A, d_q$) \;
+%    }
+%    
+%    \Return $d_u \gets r_{safe}$
+%%\EndProcedure
+%%\end{algorithmic}
+%\end{algorithm}
+%
+%In this approach, more than one query for the known region computation has to be done frequently to the server after computing the visibility graph and also if any unreachable POI is found out in the Algorithm \ref{SafeRegionCalc} - which seems very much inefficient.
+%
+%Moreover, the safe region is in its minimum size in this approach, which requires more computation in the client side and thus gets the approach less efficient.
+%
+%These problems are solved in the following final approach.
 
 \section{Our Approach}
 During building up the main approach, it is observed that spatial alarm evaluation can be optimized using three key feature: 
@@ -447,53 +434,98 @@ For the first strategy to be successful, we propose an algorithm in this section
 
 However, the second and the third options have some collisions in some cases and therefore cannot be achieved simultaneously. For this reason, we have separated some parts of our main approach within two different modes, namely - \textit{Bandwidth Saving Mode} and \textit{Computation Saving Mode}.
 
+\subsection{Computation of the regions}
+The known region is bounded in one side by a parabola, whose focus is the user's location $q$, the equation of the parabola being $y^2=4ax $ where $ a=mr$.\\
+First we estimate a direction vector for the user's next movement using previous path history of the user.We take this direction vector as the major axis of the parabola.The exposure of the parabola depends on $m$. If the user is likely to move along a straight line, the exposure of the parabola need not be very high. But if the user is likely to move away from the major axis of the parabola, the exposure should be accordingly large.  A function will be defined later on which estimates the value of $m$ from the changes in user's direction in his previous trajectory. However,the function will ensure that the minimum value of $m$ will be 2. This parabola is bounded on the other side by a straight line parallel to the latus rectum of the parabola. The distance of this straight line from the user's current location is dependent upon the previous history of the user's movements.Thus, we will position the bounding straight line of the known region at a distance $ nr $ from the focus. where the value of $n$ is dependent on the user's previous trajectory. Intuitively we can see that, if the user moves fast, our known region should be larger, as the user is likely to move through the region quickly. Thus $n$ is proportional to user's velocity $v$. We define a function later in the paper, which will compute the value of $n$.The minimum value for $n$ is 1.
+
+The computation of reliable region is comparatively less complex. We simply create a bounded region by subtracting $r$ from each vertex of known regions boundary. 
+
+The safe region is computed using the nearest POI $p$, where $dist_E(p,q)>r$, then the safe region is the intersection of the circle centered at $q$ with radius $dist_E(p,q)$ and the reliable region.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{regions_def.png}
+  \caption{Different regions}
+  \label{fig:regions}
+\end{figure}
+
+
 \subsection{Bandwidth Saving Mode}
-In this mode the main focus is to reduce the bandwidth of communication between the server and the client. This mode is designed to operate in three parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change}. The Algorithms \ref{ClientInitByServer}, \ref{ConfigAlarm}, \ref{ULC} show the algorithmic-steps for these three parts respectively.\\
+In this mode the main focus is to reduce the bandwidth of communication between the server and the client. This mode is designed to operate in three parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change}. The Algorithms \ref{GetAlarmablesFromServer}, \ref{ConfigAlarm}, \ref{ULC} show the algorithmic-steps for these three parts respectively.\\
 
-The input to the client-initialization algorithm (Algorithm \ref{ClientInitByServer}) is the current location of the client $q$ and the incremental radius $r_d$ by which the radius of the searchable region will expand. This algorithm improvises the single known region concept of the second naive approach described above into two different known regions for POIs and obstacles, which makes the frequent queries more efficient and accurate and needs much less server communication. 
+The input to the client-initialization algorithm (Algorithm \ref{GetAlarmablesFromServer}) is the current location of the client $q$, query radius $r$, current velocity of the client $v$, path history as a set of straight lines $S$ = {$(m_1, c_1, l_1),$ $(m_2, c_2, l_2),$ $(m_3, c_3, l_3),$ ... $(m_n, c_n, l_n)$} and the last answer set $A_{prev}$ = {$q$, $u$, $m_p$, $m_o$, $n$}, where $u$ is the vertex of the . This algorithm makes the frequent queries more efficient and accurate and needs much less server communication.
 
-In this algorithm, \textsc{AttachToVisGraph}$(V_G, P, O)$ function adds the POIs and obstacles in the sets $P$ and $O$ respectively to the provided visibility graph $V_G$, so that minimal re-computation is needed.
+% predictDirection getVertex varianceOfPath GetObstacleSet MakeVisGraph getCollisionPoint isPositivePoint pointOnStraightLine CheckNewPOI getCollisionPoint
 
-The output of the Algorithm \ref{ClientInitByServer} is an answer set $A$ which consists of the radius of the known regions of POIs and obstacles ($r_{kp}$ and $r_{ko}$ respectively), the set $O$ of all obstacles within radius $r_{ko}$ and the set of all POIs within radius $r_{kp}$ centring $q$. Since it is a bandwidth saving mode, the visibility graph is not sent to the client as long as it can be computed using the existing data in the client side.\\
+In the following algorithms, \textsc{predictDirection}$(S)$ function returns a vector by inerpolating all the line segments given in a set $S$ as the client's path history. During the linear interpolation, the oldest path is given the minimum weight, while the later ones get the incrementally higher weights iventually giving the latest path segment the maximum weight and predicting the client's current direction most likely to be towards the latest paths.\\
+
+The \textsc{getVertex}$(q, s_{dir})$ returns the vertex point $u$ of the parabola having focus at $q$ and the axis along the vector $s_{dir}$.\\
+
+The function \textsc{varianceOfPath}$(S)$ returns a real number within the range [2, $\infty$) which is proportional to the variation of the client's path directions given the directed path segments in the set $S$. This value is assigned to the multiplier $m_p$ to construct the parabola $y^2 = 4*(m_p*r)*x$, since the more variation in the client's path requires more cross-section area of the known region parabola.\\
+
+The \textsc{GetObstacleSet}$(q, m_o * r, n_p)$ returns all obstacles within the parabola $y^2 = 4*(m_o*r)*x$ which is again bounded by a straight line at $(n_p*r)$ distance from the focus $q$ and perpendicular to the axis of the parabola.\\
+
+\textsc{getCollisionPoint}$(O, q, m_o, r, n_o)$ checks any collision of any of the obstales from the set $O$ with the parabola $y^2 = 4 * (m_o * r) * x$ and also the bounding straight line at distance $(n_o*r)$ from the focus $q$ and perpendicular to the axis of the parabola. Then it returns an all negative point if there is no collision, otherwise returns a positive point in the space. The \textsc{isPositivePoint}($p$) reutrns true for the point $p$ to be positive, otherwise returns false. Again, the function \textsc{pointOnStraightLine} ($p, n, r, q$) returns true if the point $p$ is on the straight line at distance $(n*r)$ from the focus $q$ and perpendicular to the axis of the parabola.\\
+
+In this algorithm, \textsc{AttachToVisGraph}$(V_G, P, O)$ function adds the POIs and obstacles in the sets $P$ and $O$ respectively to the provided visibility graph $V_G$, so that minimal re-computation is needed.\\
+
+The output of the Algorithm \ref{GetAlarmablesFromServer} is an answer set $A$ which consists of the radius of the known regions of POIs and obstacles ($r_{kp}$ and $r_{ko}$ respectively), the set $O$ of all obstacles within radius $r_{ko}$ and the set of all POIs within radius $r_{kp}$ centring $q$. Since it is a bandwidth saving mode, the visibility graph is not sent to the client as long as it can be computed using the existing data in the client side.\\
 
 \begin{algorithm}
-\caption{\textsc{ClientInitByServer}($q, r_d$)}
-\label{ClientInitByServer}
+\caption{\textsc{QueryAlarmables}($q, r, v, S, A_{prev}$)}
+\label{GetAlarmablesFromServer}
 %\begin{algorithmic}[2]
-%\Procedure{ClientInitByServer}{}
+%\Procedure{GetAlarmablesFromServer}{}
 
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
-    \Input{Query point $q$, increment delta $r_d$}
-    \Output{The answer set, $A \gets \left\{ {r_{kp}, r_{ko}, P, O}\right\}$}
+    \Input{Query point $q$, query radius $r$, velocity $v$, path history as a set of straight lines $S$, last answer set $A_{prev}$}
+    \Output{The answer set, $A \gets \left\{ {q, u, m_p, n_p, m_o, n_o, P, O}\right\}$}
     
-	\While {$\left\vert{P}\right\vert < 1$ }{
-	    $r_{kp} \gets (r_{kp} + r_d) $ \;
-	    $P \gets \textsc{CheckNewPOI}(q, r_{kp}, q, 0) $
-	}
-	 $r_{ko} \gets r_{kp} $ \; %\label{lst:line:npoi_found}
-	 $O \gets \textsc{GetObstacleSet}(q, r_{ko}, q_{prev}, 0)$ \;
+	 $s_{dir} \gets \textsc{predictDirection}(S)$ \;
+	 $u \gets \textsc{getVertex}(q, s_{dir})$ \;
+	 $m_p \gets \textsc{varianceOfPath}(S)$ \;
+	 $n_p \gets ln( e + v )$ \;
+	 
+	 $O \gets \textsc{GetObstacleSet}(q, m_p * r, n_p)$ \;
 	 $V_G \gets \textsc{MakeVisGraph}(P, O)$ \;
-	 \While { \textsc{isAnyPoiUnreachable}$(V_G)$ } { 
-		$O' \gets \textsc{GetObstacleSet}(q, r_{ko}, q, r_{ko}+r_d)$ \;
-		$P' \gets \textsc{CheckNewPOI}(q, r_{ko}, q, r_{ko}+r_d)$ \;
-		$r_{ko} \gets (r_{ko} + r_d)$ \;
+	 $m_o \gets m_p$ \;
+	 $n_o \gets n_p$ \;
+	 $p_{col} \gets \textsc{getCollisionPoint}(O, q, m_o, r, n_o)$ \;
+	 \While { \textsc{isPositivePoint}$(p_{col})$ } {
+	 	$O' \gets \emptyset$ \;
+	 	$P' \gets \emptyset$ \;
+	 	$b \gets \textsc{pointOnStraightLine} (p_{col}, n_o, r, q)$
+	 	\If{$b$}{
+			$O' \gets \textsc{GetObstacleSet}(q, u, m_o * r, n_o+1 )$ \;
+			$P' \gets \textsc{CheckNewPOI}(q, u, m_o * r, n_o+1 )$ \;
+			$n_o \gets (n_o + 1)$ \;
+		}
+		\Else{
+			$O' \gets \textsc{GetObstacleSet}(q, u, (m_o+1) * r, n_o )$ \;
+			$P' \gets \textsc{CheckNewPOI}(q, u, (m_o+1) * r, n_o )$ \;
+			$m_o \gets (m_o + 1)$ \;
+		}
 		
 		\If{$\left\vert{P'}\right\vert > \left\vert{P}\right\vert $}{
 			$P \gets P'$ \;
-			$r_{kp} \gets r_{ko}$ \;
+			\If{$b$}{
+				$m_p \gets (m_p+1) $\;
+			}
+			\Else{
+				$n_p \gets (n_p+1) $\;
+			}
 	 		$V_G \gets \textsc{AttachToVisGraph}(V_G, P'-P, O'-O)$ 
 		}
-		$O \gets O'$
+		$O \gets O'$ \;
+	 	$p_{col} \gets \textsc{getCollisionPoint}(O, q, m_o, r, n_o)$ \;
 	} \label{while}
 	
-	 \Return $A \gets \textsc{MakeAnswerSet}(r_{kp}, r_{ko}, P, O)$ 
+	 \Return $A \gets \textsc{MakeAnswerSet}(q, u, m_p, n_p, m_o, n_o, P, O)$ 
 %\EndProcedure
 %\end{algorithmic}
 \end{algorithm}
 
-In the Algorithm \ref{ConfigAlarm}, \textsc{isPathInside}($q, p_i, r_{safe}, V_G)$ returns true if the POI $p_i$ is inside the radius $r_{safe}$ centering $q$ along with all of its connecting edges in $V_G$, otherwise returns false.
-The input to the Algorithm \ref{ConfigAlarm} is the current location of the client $q$ and the answer set got from the Algorithm \ref{ClientInitByServer}. This algorithm is also responsible for triggering an alarm to the client if s/he is within the alarming distance of any POI. Recall that, here $\forall p_i \in P,$ $p_i.u$ is the alarming radius, $p_i.d_E$ is the Euclidean distance from the center of the regions and $p_i.d_O$ is the obstructed distance in the visibility graph $V_G$.
+The input to the Algorithm \ref{ConfigAlarm} is the current location of the client $q$ and the answer set got from the Algorithm \ref{ClientGetAlarmables}. This algorithm is also responsible for triggering an alarm to the client if the client is within the alarming distance of any POI.
 \begin{algorithm}
 \caption{\textsc{ConfigUpdate}($q, A$)}
 \label{ConfigAlarm}
@@ -503,21 +535,13 @@ The input to the Algorithm \ref{ConfigAlarm} is the current location of the clie
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
     \Input{Query point $q$, answer set $A$}
-    \Output{$r_{safe}$}
     
-     $V_G \gets \textsc{MakeVisGraph}(P, O)$ \;
-    
-     $r_{safe} \gets \infty, u_{max} \gets 0$ \;
+    $P \gets GetPOIs(V_G)$\;
+    $O \gets GetObstacles(V_G)$\;
     
     \ForEach{$p_i \in P$}{
-    		$p_i.u \gets \textsc{GetPoiRange}(p_i)$
-    		$r_{safe} \gets min( r_{safe}, p_i.d_O - p_i.u )$ \;
-    		$u_{max} \gets max(u_{max}, p_i.u)$
-    }
-     $r_{rel} \gets (r_{ko} - u_{max})$ \;
-    
-    \ForEach{$p_i \in P$}{
-    		\If{$p_i.d_O \leqslant p_i.u$}{
+    		$p_i.d_O \gets dist_O(q, p_i)$\;
+    		\If{$p_i.d_O \leqslant r$}{
     			$\textsc{AlarmUser}(p_i)$\;
     		}
     		\ElseIf{$p_i.d_E<r_{safe}$ and $\textsc{isPathInside}(q, p_i, r_{safe}, V_G)$}{
@@ -530,27 +554,27 @@ The input to the Algorithm \ref{ConfigAlarm} is the current location of the clie
 %\end{algorithmic}
 \end{algorithm}
 
-In this algorithm, the visibility graph is computed using the answer sets $P$ and $O$ got as return of the \ref{ClientInitByServer} from the server side. The most critical part of this algorithm is to calculate the safe region. This is explained more with a suitable example depicted in the figure \ref{fig:safe_region} and described later in this section.
+In this algorithm, the visibility graph is computed using the answer sets $P$ and $O$ got as return of the \ref{GetAlarmablesFromServer} from the server side.
+
+%
+%\begin{figure*}[!htb]
+%\minipage{0.32\textwidth}
+%  \includegraphics[width=\linewidth]{poi.png}
+%  \caption{Retrieved POIs within $r_{kp}$ centring $q$}\label{fig:poi}
+%\endminipage\hfill
+%\minipage{0.32\textwidth}
+%  \includegraphics[width=\linewidth]{poi_obs_path.png}
+%  \caption{Generated $V_G$}\label{fig:poi_obs_path}
+%\endminipage\hfill
+%\minipage{0.32\textwidth}%
+%  \includegraphics[width=\linewidth]{safe_region.png}
+%  \caption{Safe Region Calculation}\label{fig:safe_region}
+%\endminipage
+%\end{figure*}
+%%Figure \ref{fig:safe_region} Safe region Computation
 
 
-\begin{figure*}[!htb]
-\minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{poi.png}
-  \caption{Retrieved POIs within $r_{kp}$ centring $q$}\label{fig:poi}
-\endminipage\hfill
-\minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{poi_obs_path.png}
-  \caption{Generated $V_G$}\label{fig:poi_obs_path}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
-  \includegraphics[width=\linewidth]{safe_region.png}
-  \caption{Safe Region Calculation}\label{fig:safe_region}
-\endminipage
-\end{figure*}
-%Figure \ref{fig:safe_region} Safe region Computation
-
-
-The input to the algorithm \ref{ULC} is the current and the previous location of the client ($q$ and $q_{prev}$), the radius of the safe region($r_{safe}$) and the reliable region($r_{rel}$) and finally the already computed answer set $A$. The output of the algorithm is the minimum distance $d_u$ to trigger this algorithm the next time.
+The input to the algorithm \ref{ULC} is the current location of the client $q$, the radius of the safe region($r_{safe}$) and finally the already computed answer set $A$. The output of the algorithm is the minimum distance $d_u$ to trigger this algorithm the next time.
 
 \begin{algorithm}
 \caption{\textsc{UpdateOnLocChange}($q, r_{safe}, r_{rel}, A$)}
@@ -560,12 +584,11 @@ The input to the algorithm \ref{ULC} is the current and the previous location of
 
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
-    \Input{$q, q', r_{safe}, r_{rel}, A$}
+    \Input{$q, r_{safe}, A$}
     \Output{$d_u$}
-    $d_q \gets dist_E(A.q, q)$
     
-    \If{$d_q > r_{rel}$}{
-    		$A \gets \textsc{ClientInitByServer}(q, d_q)$ \;
+    \If{$\textsc{isOutsideReliableregion(q, A)}$}{
+    		$A \gets \textsc{QueryAlarmables}(q, d_q)$ \;
     		$r_{safe} \gets $ \textsc{ConfigAlarm}($q, A$) \;
     }
     
@@ -580,66 +603,66 @@ The input to the algorithm \ref{ULC} is the current and the previous location of
 \end{algorithm}
 
 \subsection{Computational Cost Saving Mode}
-The algorithms run in this mode almost similarly as in the "\textit{Bandwidth Saving Mode}" with all the 3 described parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change} as demonstrated in the Algorithms \ref{ClientInitByServer}, \ref{ConfigAlarm}, \ref{ULC}.
+The algorithms run in this mode almost similarly as in the "\textit{Bandwidth Saving Mode}" with all the 3 described parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change} as demonstrated in the Algorithms \ref{ClientGetAlarmables}, \ref{ConfigAlarm}, \ref{ULC}.
 
-However, the main difference with the previously descried mode from this mode is - the Algorithm \ref{ClientInitByServer} returning the computed $V_G$ as another element of the answer set $A$ from the server side and the algorithm \ref{ConfigAlarm} not reconstructing this $V_G$ in the client side during running the Algorithm \ref{ConfigAlarm}, whereas the Algorithm \ref{ULC} remains all the same.
+However, the main difference with the previously descried mode from this mode is - the Algorithm \ref{GetAlarmablesFromServer} returning the computed $V_G$ as another element of the answer set $A$ from the server side and the algorithm \ref{ConfigAlarm} not reconstructing this $V_G$ in the client side during running the Algorithm \ref{ConfigAlarm}, whereas the Algorithm \ref{ULC} remains all the same.
 
-Therefore, an $O(n^2)$ computation overhead for computing the $V_G$ is saved in the client-side in cost of a one-time communication overhead in transferring the $V_G$ in the Algorithm \ref{ClientInitByServer}.\\
+Therefore, an $O(n^2)$ computation overhead for computing the $V_G$ is saved in the client-side in cost of a one-time communication overhead in transferring the $V_G$ in the Algorithm \ref{GetAlarmablesFromServer}.\\
 
-The above described approach can be depicted with some suitable examples as presented in the Figures \ref{fig:poi}, \ref{fig:poi_obs_path} and \ref{fig:safe_region}.\\
+%The above described approach can be depicted with some suitable examples as presented in the Figures \ref{fig:poi}, \ref{fig:poi_obs_path} and \ref{fig:safe_region}.\\
+%
+%In figure \ref{fig:poi} an example scenario is put as if 3 POIs $p_1, p_2,$ and $p_3$ are retrieved and in the figure \ref{fig:poi_obs_path} the same case is shown as if the algorithm \ref{ClientGetAlarmables} has returned the constructed visibility-graph $V_G$ along with the set of POIs $P$, obstacles $O$ and the radius of the POIs' known region $r_{kp}$ and that of the obstacles' known region $r_{ko}$.\\
+%
+%In the Figure \ref{fig:safe_region}, a critical case for the Algorithm \ref{ConfigAlarm} is demonstrated regarding the calculation of the safe region.
+%
+%During the for-loop at line no. 4 of the algorithm \ref{ConfigAlarm}, the safe-region's radius is calculated to be,
+%\\$r_{safe} = min( (65+60+70)-27, (110+10+80)-30 ) = 168m$, whereas the safe-region is about to include both the POIs along with their whole path in the visibility graph $V_G$ from the center $q$ and also without any of them within their alarming zone. In this case as per the definition \ref{def:safe_region} , no calculation would be done to alarm the client even if s/he enters within any of the POI's alarming zone. To narrow down this false safe-region for the sake of accuracy, the condition of line no. 9 inside the foreach-loop gets true and the radius is modified as $r_{safe} = min(168, 120-27) = 93m$ for $p_1$ and in the second and final iteration for $p_2$, $r_{safe} = min( 93, 100-30) = 70m$.
 
-In figure \ref{fig:poi} an example scenario is put as if 3 POIs $p_1, p_2,$ and $p_3$ are retrieved and in the figure \ref{fig:poi_obs_path} the same case is shown as if the algorithm \ref{ClientInitByServer} has returned the constructed visibility-graph $V_G$ along with the set of POIs $P$, obstacles $O$ and the radius of the POIs' known region $r_{kp}$ and that of the obstacles' known region $r_{ko}$.\\
-
-In the Figure \ref{fig:safe_region}, a critical case for the Algorithm \ref{ConfigAlarm} is demonstrated regarding the calculation of the safe region.
-
-During the for-loop at line no. 4 of the algorithm \ref{ConfigAlarm}, the safe-region's radius is calculated to be,
-\\$r_{safe} = min( (65+60+70)-27, (110+10+80)-30 ) = 168m$, whereas the safe-region is about to include both the POIs along with their whole path in the visibility graph $V_G$ from the center $q$ and also without any of them within their alarming zone. In this case as per the definition \ref{def:safe_region} , no calculation would be done to alarm the client even if s/he enters within any of the POI's alarming zone. To narrow down this false safe-region for the sake of accuracy, the condition of line no. 9 inside the foreach-loop gets true and the radius is modified as $r_{safe} = min(168, 120-27) = 93m$ for $p_1$ and in the second and final iteration for $p_2$, $r_{safe} = min( 93, 100-30) = 70m$.
-
-\subsection{Proof of Correctness}
-The following proved facts bear the proof of accuracy and completeness of our final algorithms \ref{ClientInitByServer}, \ref{ConfigAlarm} and \ref{ULC}.\\
-In the algorithm \ref{ClientInitByServer}, the fact that the incremental-search will find at least 1 POI and stop the increment to get a fixed $r_{kp}$ within finite time follows from the incremental search algorithm given the fact that the POI data-set is not empty.
-\\One more fact is to be proved to guarantee the accuracy and completeness of the algorithm \ref{ClientInitByServer} as - the while loop at line \ref{while} runs for a finite amount of time.
-
-\begin{proof}
-If there's no unreachable POI or no/single collision between any obstacle and the perimeter of the POIs' known region, then the loop will terminate immediately.
-\\If there is any totally unreachable POI, it must be surrounded by a series of obstacles, which will certainly cause no collision (in case that all obstacles are already inside the known region) or more than one collision (in case that some parts of the series of the obstacles are inside the known region) with the perimeter of the known region. So, the second clause will be false and the loop will terminate.
-\\Finally, if there is any unreachable POI which can be reached by retrieving an extended set of obstacles, then it will be done and checked inside the loop and then loop will finish its purpose within finite time.
-\end{proof}
-
-\textbf{No computation is needed to accurately give alarm while the user is inside the safe region.}\\
-
-\begin{proof}
-\textit{Case 1}: When the path to a POI is a straight line: 
-In this case the claim is trivial to prove. We take $min( D_i - U_i )$ as the radius of safe region. Suppose there is a POI $P$ with alarming distance $U$. The radius of the safe region is $r$. and the users current position is $p'$. Suppose for contradiction an alarm should be triggered to the user for $P$ in his current position $p'$. Then, $|p-p'|>(D-U)$. But as the user is within the safe region, $|p-p'|<r$ . But that mean, $r>|D-U|$ which is a contradiction because the algorithm \ref{ConfigAlarm} chooses the minimum between all $(D_i - U_i )$.
-\textit{Case 2:} When the path to a POI is not a straight line: 
-In this case there is an obstacle in the path to the POI. There can be two cases, 
-a. the safe region contains the full path to the obstructed POI 
-b. The safe region does not contain the full path to the obstructed POI.
-In case a, the algorithm \ref{ConfigAlarm} computes the minimum among the Euclidean distances of the POIs. As we know from the Euclidean lower bound property that the $dist_O(a,b) \geqslant dist_E(a,b)$, the proof follows from case 1. The safe region's radius will never over-assume the distance to the POI as it is considering the Euclidean distance.
-In case b, the algorithm \ref{ConfigAlarm} chooses the safe-region radius with the assumption that as the POI's full path is not the safe region, even if the user get's close to the POI in Euclidean Distance, Obstructed distance will always be higher.(Euclidean Lower Bound)
-\end{proof}
-
-\textbf{No query to the server has to be done to correctly give any alarm while the user is inside the reliable region}\\
-Recall from algorithms \ref{ClientInitByServer} and \ref{ConfigAlarm} that the minimum alarming distance among all the available POIs for the user is returned as $U_{min}$, which is used to reduce the POIs' known region's radius to the reliable region's radius as $r_{rel}$ = $r_{ko} - U_{max}$.
-
-\begin{proof}
-If the safe region is well inside the safe region, then this proof follows the 1st fact.
-The 3 procedures run simultaneously to give accurate alarm for the POIs inside the known region and so inside the reliable as well as the safe region.
-The proof is needed for any POI outside both the known regions.
-
-Let there be a POI outside both the known regions for which no alarm is triggered when the user gets inside its alarming distance $U_i$. 
-But meanwhile, the user must cross the reliable region because $r_{ko} - r_{rel} = U_{max} > U_i$ 
-So according to algorithm \ref{ULC}, algorithm \ref{ClientInitByServer} and \ref{ConfigAlarm} are re-run and the assumed POI must come inside the newly computed known regions and its alarm will be given accurately.
-Hence, there is a contradiction.
-Therefore, there is no POI outside the reliable region which may miss its alarm.
-So, the statement is proved.
-\end{proof}
-
-\textbf{The update procedure is run timely to re-calculate the answer set.}
-\begin{proof} 
-This claim follows trivially from the proof of the fact that - no computation is needed to accurately give alarm while the user is inside the safe region.
-\end{proof}
-
+%\subsection{Proof of Correctness}
+%The following proved facts bear the proof of accuracy and completeness of our final algorithms \ref{ClientGetAlarmables}, \ref{ConfigAlarm} and \ref{ULC}.\\
+%In the algorithm \ref{ClientGetAlarmables}, the fact that the incremental-search will find at least 1 POI and stop the increment to get a fixed $r_{kp}$ within finite time follows from the incremental search algorithm given the fact that the POI data-set is not empty.
+%\\One more fact is to be proved to guarantee the accuracy and completeness of the algorithm \ref{ClientGetAlarmables} as - the while loop at line \ref{while} runs for a finite amount of time.
+%
+%\begin{proof}
+%If there's no unreachable POI or no/single collision between any obstacle and the perimeter of the POIs' known region, then the loop will terminate immediately.
+%\\If there is any totally unreachable POI, it must be surrounded by a series of obstacles, which will certainly cause no collision (in case that all obstacles are already inside the known region) or more than one collision (in case that some parts of the series of the obstacles are inside the known region) with the perimeter of the known region. So, the second clause will be false and the loop will terminate.
+%\\Finally, if there is any unreachable POI which can be reached by retrieving an extended set of obstacles, then it will be done and checked inside the loop and then loop will finish its purpose within finite time.
+%\end{proof}
+%
+%\textbf{No computation is needed to accurately give alarm while the user is inside the safe region.}\\
+%
+%\begin{proof}
+%\textit{Case 1}: When the path to a POI is a straight line: 
+%In this case the claim is trivial to prove. We take $min( D_i - U_i )$ as the radius of safe region. Suppose there is a POI $P$ with alarming distance $U$. The radius of the safe region is $r$. and the users current position is $p'$. Suppose for contradiction an alarm should be triggered to the user for $P$ in his current position $p'$. Then, $|p-p'|>(D-U)$. But as the user is within the safe region, $|p-p'|<r$ . But that mean, $r>|D-U|$ which is a contradiction because the algorithm \ref{ConfigAlarm} chooses the minimum between all $(D_i - U_i )$.
+%\textit{Case 2:} When the path to a POI is not a straight line: 
+%In this case there is an obstacle in the path to the POI. There can be two cases, 
+%a. the safe region contains the full path to the obstructed POI 
+%b. The safe region does not contain the full path to the obstructed POI.
+%In case a, the algorithm \ref{ConfigAlarm} computes the minimum among the Euclidean distances of the POIs. As we know from the Euclidean lower bound property that the $dist_O(a,b) \geqslant dist_E(a,b)$, the proof follows from case 1. The safe region's radius will never over-assume the distance to the POI as it is considering the Euclidean distance.
+%In case b, the algorithm \ref{ConfigAlarm} chooses the safe-region radius with the assumption that as the POI's full path is not the safe region, even if the user get's close to the POI in Euclidean Distance, Obstructed distance will always be higher.(Euclidean Lower Bound)
+%\end{proof}
+%
+%\textbf{No query to the server has to be done to correctly give any alarm while the user is inside the reliable region}\\
+%Recall from algorithms \ref{ClientGetAlarmables} and \ref{ConfigAlarm} that the minimum alarming distance among all the available POIs for the user is returned as $U_{min}$, which is used to reduce the POIs' known region's radius to the reliable region's radius as $r_{rel}$ = $r_{ko} - U_{max}$.
+%
+%\begin{proof}
+%If the safe region is well inside the safe region, then this proof follows the 1st fact.
+%The 3 procedures run simultaneously to give accurate alarm for the POIs inside the known region and so inside the reliable as well as the safe region.
+%The proof is needed for any POI outside both the known regions.
+%
+%Let there be a POI outside both the known regions for which no alarm is triggered when the user gets inside its alarming distance $U_i$. 
+%But meanwhile, the user must cross the reliable region because $r_{ko} - r_{rel} = U_{max} > U_i$ 
+%So according to algorithm \ref{ULC}, algorithm \ref{ClientGetAlarmables} and \ref{ConfigAlarm} are re-run and the assumed POI must come inside the newly computed known regions and its alarm will be given accurately.
+%Hence, there is a contradiction.
+%Therefore, there is no POI outside the reliable region which may miss its alarm.
+%So, the statement is proved.
+%\end{proof}
+%
+%\textbf{The update procedure is run timely to re-calculate the answer set.}
+%\begin{proof} 
+%This claim follows trivially from the proof of the fact that - no computation is needed to accurately give alarm while the user is inside the safe region.
+%\end{proof}
+%
 
 \section{Experiments}
 
