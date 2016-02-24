@@ -35,7 +35,7 @@ $\textsc{MakeAnswerSet}(q, V_G)$ function returns a heterogeneous data-model con
 
 \DontPrintSemicolon
 \begin{algorithm}
-\caption{\textsc{GetAlarmables}($q$, $r$)}
+\caption{\textsc{GetAlarmables}($q$, $r$ , $A_{prev}$)}
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
     \Input{Query point $q$ and the search radius $r$}
@@ -43,8 +43,9 @@ $\textsc{MakeAnswerSet}(q, V_G)$ function returns a heterogeneous data-model con
 	
 	 $P \gets \textsc{GetAllPOI}(q, r)$ \;
 	 $O \gets \textsc{GetObstacleSet}(q, r)$ \;
-	 $V_G \gets \textsc{MakeVisGraph}(P, O)$ \;
-	\Return \textsc{MakeAnswerSet}$(q, V_G)$ \;
+	 $V_G \gets \textsc{MakeIncrementalVisGraph}(P, O, A_{prev},V_g)$ \;
+	 $D_O \gets \textsc{getAllObstructedDist}( q, V_g )$
+	\Return \textsc{MakeAnswerSet}$(q, V_G,D_O)$ \;
 \label{GetAlarmables}
 \end{algorithm}
 

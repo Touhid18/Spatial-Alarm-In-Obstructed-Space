@@ -89,14 +89,14 @@ The output of the Algorithm \ref{GetAlarmablesFromServer} is an answer set $A$ w
    \Output{The answer set, $A \gets \left\{ {q, u, m_p, n_p, m_o, n_o, P, O}\right\}$}
 
 $s_{dir} \gets \textsc{getDirectrix}(s_{axis},u,q)$\;
-$s_b \gets getBoundingLine(s_{axis},n_p \times r) $\;
+$s_b \gets \textsc{getBoundingLine}(s_{axis},n_p \times r) $\;
 $pi_p \gets \textsc{BoundedParabola}( q, s_{directrix},  s_b)$\;
 $P \gets \textsc{getPoisWithinParabola}( pi_p )$\;
-\If{$a_{prev}.V_g == NULL$}{
+\If{$A_{prev}.V_g == NULL$}{
    $ a{prev}.V_g \gets \textsc{constructInitVisGraph}(P)$\;}
   $ R_t \gets \textsc{getObstacleRtree}()$\;
-  $ D_O \gets \textsc{getObstructedDist}(a_{prev}.visGraph, q, P, R_t) $\;
-\Return $\textsc{MakeAnswerSet}(q, P, a_{prev}.visGraph, D_O )  $
+  $ D_O \gets \textsc{getObstructedDist}(A_{prev}.visGraph, q, P, R_t) $\;
+\Return $\textsc{MakeAnswerSet}(q, P, A_{prev}.visGraph, D_O )  $
 \end{algorithm}
 The input to the Algorithm \ref{ConfigAlarm} is the current location of the client $q$ and the answer set got from the Algorithm \ref{ClientGetAlarmables}. This algorithm is also responsible for triggering an alarm to the client if the client is within the alarming distance of any POI.
 \begin{algorithm}
@@ -117,7 +117,7 @@ The input to the Algorithm \ref{ConfigAlarm} is the current location of the clie
     		\If{$p_i.d_O \leqslant r$}{
     			$\textsc{AlarmUser}(p_i)$\;
     		}
-    		\ElseIf{$p_i.d_E<r_{safe}$ and $\textsc{isPathInside}(q, p_i, r_{safe}, V_G)$}{
+    		\ElseIf{$p_i.d_E<r_{safe}$}{
     			$r_{safe} \gets p_i.d_E$ \;
     		}
     }
