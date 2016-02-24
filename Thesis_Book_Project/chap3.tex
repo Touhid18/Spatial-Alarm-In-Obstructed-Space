@@ -16,8 +16,11 @@ During building up the main approach, it is observed that spatial alarm evaluati
 For the first strategy to be successful, we propose an algorithm in this section which will compute an optimal safe-region. The second optimization technique is realized by passing optimal parameters among different functions as well as between the client and the server, while the third one is achieved by passing minimal parameters between the client and the server and in some cases recomputing some values in each side.
 
 However, the second and the third options have some collisions in some cases and therefore cannot be achieved simultaneously. For this reason, we have separated some parts of our main approach within two different modes, namely - \textit{Bandwidth Saving Mode} and \textit{Computation Saving Mode}.
+\vspace{5pt}
+In Section~\ref{Comp_reg}, we give an overview of the computation of the regions neccessary for our approach. Section~\ref{BWS} presents the algorithm of the Bandwidth Saving Mode. Section \ref{CCS} presents the algorithm of the Computational Cost Saving Mode.
 
-\subsection{Computation of the regions}
+\section{Computation of the regions}
+\label{Comp_reg}
 The known region is bounded in one side by a parabola, whose focus is the user's location $q$, the equation of the parabola being $y^2=4ax $ where $ a=mr$.\\
 First we estimate a direction vector for the user's next movement using previous path history of the user.We take this direction vector as the major axis of the parabola.The exposure of the parabola depends on $m$. If the user is likely to move along a straight line, the exposure of the parabola need not be very high. But if the user is likely to move away from the major axis of the parabola, the exposure should be accordingly large.  A function will be defined later on which estimates the value of $m$ from the changes in user's direction in his previous trajectory. However,the function will ensure that the minimum value of $m$ will be 2. This parabola is bounded on the other side by a straight line parallel to the latus rectum of the parabola. The distance of this straight line from the user's current location is dependent upon the previous history of the user's movements.Thus, we will position the bounding straight line of the known region at a distance $ nr $ from the focus. where the value of $n$ is dependent on the user's previous trajectory. Intuitively we can see that, if the user moves fast, our known region should be larger, as the user is likely to move through the region quickly. Thus $n$ is proportional to user's velocity $v$. We define a function later in the paper, which will compute the value of $n$.The minimum value for $n$ is 1.
 
@@ -32,7 +35,8 @@ The safe region is computed using the nearest POI $p$, where $dist_E(p,q)>r$, th
 \end{figure}
 
 
-\subsection{Bandwidth Saving Mode}
+\section{Bandwidth Saving Mode}
+\label{BWS}
 In this mode the main focus is to reduce the bandwidth of communication between the server and the client. This mode is designed to operate in three parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change}. The Algorithms \ref{GetAlarmablesFromServer}, \ref{ConfigAlarm}, \ref{ULC} show the algorithmic-steps for these three parts respectively.\\
 
 The input to the client-initialization algorithm (Algorithm \ref{GetAlarmablesFromServer}) is the current location of the client $q$, query radius $r$, current velocity of the client $v$, path history as a set of straight lines $S$ = {$(m_1, c_1, l_1),$ $(m_2, c_2, l_2),$ $(m_3, c_3, l_3),$ ... $(m_n, c_n, l_n)$} and the last answer set $A_{prev}$ = {$q$, $u$, $m_p$, $m_o$, $n$}, where $u$ is the vertex of the . This algorithm makes the frequent queries more efficient and accurate and needs much less server communication.
@@ -166,7 +170,8 @@ The input to the algorithm \ref{ULC} is the current location of the client $q$, 
 %\end{algorithmic}
 \end{algorithm}
 
-\subsection{Computational Cost Saving Mode}
+\section{Computational Cost Saving Mode}
+\label{CCS}
 The algorithms run in this mode almost similarly as in the "\textit{Bandwidth Saving Mode}" with all the 3 described parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change} as demonstrated in the Algorithms \ref{ClientGetAlarmables}, \ref{ConfigAlarm}, \ref{ULC}.
 
 However, the main difference with the previously descried mode from this mode is - the Algorithm \ref{GetAlarmablesFromServer} returning the computed $V_G$ as another element of the answer set $A$ from the server side and the algorithm \ref{ConfigAlarm} not reconstructing this $V_G$ in the client side during running the Algorithm \ref{ConfigAlarm}, whereas the Algorithm \ref{ULC} remains all the same.

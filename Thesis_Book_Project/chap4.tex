@@ -4,7 +4,7 @@
 To compare the efficiency of our approach, we present a straightforward solution for processing Spatial Alarms in Obstucted Space. The naive approach is a straight forward approach with region computation.  This approach searches for a new alarm in the known region as soon as the client changes it's position.
 
 
-In Section~\ref{naiveview}, we give an overview of the naive solution. Section~\ref{naivealgo} presents the algorithm of the solution. In Subsections 4.2.1, 4.2.2, 4.2.3, and 4.2.4, we discuss the steps of the algorithm in detail. Finally Section~\ref{flxQ2} proposes the improvements of this algorithm to save computational cost and client-server communication overheard.
+In Section~\ref{naiveview}, we give an overview of the naive solution. Section~\ref{naivealgo} presents the algorithm of the solution.
 
 \vspace*{12pt}
 
@@ -50,7 +50,8 @@ $\textsc{MakeAnswerSet}(q, V_G)$ function returns a heterogeneous data-model con
 
 The following method is triggered on any change of the user's location by the system checking whether to give any alarm to the client or not along with the check of necessity to fetch more POI and obstacle when the client goes outside of the farthest POI's alarming zone.
 Here, the function \textsc{AlarmUser}$(p_i)$ triggers an alarm to the user since the respective POI $p_i$ is reached and also marks $p_i$ to be reached in the set of POIs $P$. \\
-The inputs to this algorithm are the current client-location $q$ and the answer set $A$ consisting of the region's center $q$, minimum distance to be covered by the client to trigger this update procedure $k{min}$, POI set $P$, obstacle set $O$, and the visibility graph $V_G$.
+The inputs to this algorithm are the current client-location $q$ and the answer set $A$ consisting of the region's center $q$,% minimum distance to be covered by the client to trigger this update procedure $k{min}$,%
+POI set $P$, obstacle set $O$, and the visibility graph $V_G$.
 \begin{algorithm}
 \caption{\textsc{UpdateClient}$(q, A)$}
 
