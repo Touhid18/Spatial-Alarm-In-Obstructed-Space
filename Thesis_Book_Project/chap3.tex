@@ -39,7 +39,7 @@ The safe region is computed using the nearest POI $p$, where $dist_E(p,q)>r$, th
 \label{BWS}
 In this mode the main focus is to reduce the bandwidth of communication between the server and the client. This mode is designed to operate in three parts - \textit{client-initialization from server side}, \textit{alarm-configuration} and \textit{update on any minimal amount of location change}. The Algorithms \ref{GetAlarmablesFromServer}, \ref{ConfigAlarm}, \ref{ULC} show the algorithmic-steps for these three parts respectively.\\
 
-The input to the client-initialization algorithm (Algorithm \ref{GetAlarmablesFromServer}) is the current location of the client $q$, query radius $r$, current velocity of the client $v$, path history as a set of straight lines $S$ = {$(m_1, c_1, l_1),$ $(m_2, c_2, l_2),$ $(m_3, c_3, l_3),$ ... $(m_n, c_n, l_n)$} and the last answer set $A_{prev}$ = {$q$, $u$, $m_p$, $m_o$, $n$}, where $u$ is the vertex of the . This algorithm makes the frequent queries more efficient and accurate and needs much less server communication.
+The input to the client-initialization algorithm (Algorithm \ref{InitClient}) is the current location of the client $q$, query radius $r$, current velocity of the client $v$, path history as a set of straight lines $S$ = {$(m_1, c_1, l_1),$ $(m_2, c_2, l_2),$ $(m_3, c_3, l_3),$ ... $(m_n, c_n, l_n)$} and the last answer set $A_{prev}$ = {$q$, $u$, $m_p$, $m_o$, $n$}, where $u$ is the vertex of the . This algorithm makes the frequent queries more efficient and accurate and needs much less server communication.
 
 % predictDirection getVertex varianceOfPath GetObstacleSet MakeVisGraph getCollisionPoint isPositivePoint pointOnStraightLine CheckNewPOI getCollisionPoint
 
@@ -51,67 +51,53 @@ The function \textsc{varianceOfPath}$(S)$ returns a real number within the range
 
 The \textsc{GetObstacleSet}$(q, m_o * r, n_p)$ returns all obstacles within the parabola $y^2 = 4*(m_o*r)*x$ which is again bounded by a straight line at $(n_p*r)$ distance from the focus $q$ and perpendicular to the axis of the parabola.\\
 
-\textsc{getCollisionPoint}$(O, q, m_o, r, n_o)$ checks any collision of any of the obstales from the set $O$ with the parabola $y^2 = 4 * (m_o * r) * x$ and also the bounding straight line at distance $(n_o*r)$ from the focus $q$ and perpendicular to the axis of the parabola. Then it returns an all negative point if there is no collision, otherwise returns a positive point in the space. The \textsc{isPositivePoint}($p$) reutrns true for the point $p$ to be positive, otherwise returns false. Again, the function \textsc{pointOnStraightLine} ($p, n, r, q$) returns true if the point $p$ is on the straight line at distance $(n*r)$ from the focus $q$ and perpendicular to the axis of the parabola.\\
+%\textsc{getCollisionPoint}$(O, q, m_o, r, n_o)$ checks any collision of any of the obstales from the set $O$ with the parabola $y^2 = 4 * (m_o * r) * x$ and also the bounding straight line at distance $(n_o*r)$ from the focus $q$ and perpendicular to the axis of the parabola. Then it returns an all negative point if there is no collision, otherwise returns a positive point in the space. The \textsc{isPositivePoint}($p$) reutrns true for the point $p$ to be positive, otherwise returns false. Again, the function \textsc{pointOnStraightLine} ($p, n, r, q$) returns true if the point $p$ is on the straight line at distance $(n*r)$ from the focus $q$ and perpendicular to the axis of the parabola.\\
 
 In this algorithm, \textsc{AttachToVisGraph}$(V_G, P, O)$ function adds the POIs and obstacles in the sets $P$ and $O$ respectively to the provided visibility graph $V_G$, so that minimal re-computation is needed.\\
 
 The output of the Algorithm \ref{GetAlarmablesFromServer} is an answer set $A$ which consists of the radius of the known regions of POIs and obstacles ($r_{kp}$ and $r_{ko}$ respectively), the set $O$ of all obstacles within radius $r_{ko}$ and the set of all POIs within radius $r_{kp}$ centring $q$. Since it is a bandwidth saving mode, the visibility graph is not sent to the client as long as it can be computed using the existing data in the client side.\\
 
 \begin{algorithm}
-\caption{\textsc{QueryAlarmables}($q, r, v, S, A_{prev}$)}
-\label{GetAlarmablesFromServer}
-%\begin{algorithmic}[2]
-%\Procedure{GetAlarmablesFromServer}{}
+\caption{\textsc{InitClient}($q, r, v, S, A_{prev}$)}
+\label{InitClient}
 
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
-    \Input{Query point $q$, query radius $r$, velocity $v$, path history as a set of straight lines $S$, last answer set $A_{prev}$}
-    \Output{The answer set, $A \gets \left\{ {q, u, m_p, n_p, m_o, n_o, P, O}\right\}$}
+
+   \SetKwInOut{Input}{Input}
+   
+   \Input{Query point $q$, query radius $r$, velocity $v$, path history as a set of straight lines $S$, last answer set $A_{prev}$}
     
-	 $s_{dir} \gets \textsc{predictDirection}(S)$ \;
-	 $u \gets \textsc{getVertex}(q, s_{dir})$ \;
-	 $m_p \gets \textsc{varianceOfPath}(S)$ \;
-	 $n_p \gets ln( e + v )$ \;
-	 
-	 $O \gets \textsc{GetObstacleSet}(q, m_p * r, n_p)$ \;
-	 $V_G \gets \textsc{MakeVisGraph}(P, O)$ \;
-	 $m_o \gets m_p$ \;
-	 $n_o \gets n_p$ \;
-	 $p_{col} \gets \textsc{getCollisionPoint}(O, q, m_o, r, n_o)$ \;
-	 \While { \textsc{isPositivePoint}$(p_{col})$ } {
-	 	$O' \gets \emptyset$ \;
-	 	$P' \gets \emptyset$ \;
-	 	$b \gets \textsc{pointOnStraightLine} (p_{col}, n_o, r, q)$
-	 	\If{$b$}{
-			$O' \gets \textsc{GetObstacleSet}(q, u, m_o * r, n_o+1 )$ \;
-			$P' \gets \textsc{CheckNewPOI}(q, u, m_o * r, n_o+1 )$ \;
-			$n_o \gets (n_o + 1)$ \;
-		}
-		\Else{
-			$O' \gets \textsc{GetObstacleSet}(q, u, (m_o+1) * r, n_o )$ \;
-			$P' \gets \textsc{CheckNewPOI}(q, u, (m_o+1) * r, n_o )$ \;
-			$m_o \gets (m_o + 1)$ \;
-		}
-		
-		\If{$\left\vert{P'}\right\vert > \left\vert{P}\right\vert $}{
-			$P \gets P'$ \;
-			\If{$b$}{
-				$m_p \gets (m_p+1) $\;
-			}
-			\Else{
-				$n_p \gets (n_p+1) $\;
-			}
-	 		$V_G \gets \textsc{AttachToVisGraph}(V_G, P'-P, O'-O)$ 
-		}
-		$O \gets O'$ \;
-	 	$p_{col} \gets \textsc{getCollisionPoint}(O, q, m_o, r, n_o)$ \;
-	} \label{while}
+	 $s_{axis} \gets \textsc{predictDirection}(S)$ \;
 	
-	 \Return $A \gets \textsc{MakeAnswerSet}(q, u, m_p, n_p, m_o, n_o, P, O)$ 
-%\EndProcedure
-%\end{algorithmic}
-\end{algorithm}
+	 $m_p \gets \textsc{varianceOfPath}(S)$ \;
+	 $n_p \gets \textsc{max}( ln( e + v ),ln(e\times v))$ \;
+	 $u \gets \textsc{getVertex}(m_p \times r, s_{axis})$ \;
+	
+	
+	 $A \gets A \cup \textsc{getKnownRegionData}(q, r, s_{axis}, A_{prev}, m_p, n_p)$ \;
+	 $pi_r \gets \textsc{getReliableRegionParabola}(A.pi_p,m_p,n_,r)$ \;
+	$ \textsc{ConfigUpdate}(q)$\;
+	 
 
+\end{algorithm}
+\vspace{5pt}
+\begin{algorithm}
+\caption{\textsc{GetKnownRegionData}($q, r, s_{axis}, A_{prev}, m_p, n_p$)}
+\label{getKnownRegionData}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{Query point $q$, query radius $r$, axis of the parabola $s_{axis}$, $m_p$,$n_p$ last answer set $A_{prev}$}
+   \Output{The answer set, $A \gets \left\{ {q, u, m_p, n_p, m_o, n_o, P, O}\right\}$}
+
+$s_{dir} \gets \textsc{getDirectrix}(s_{axis},u,q)$\;
+$s_b \gets getBoundingLine(s_{axis},n_p \times r) $\;
+$pi_p \gets \textsc{BoundedParabola}( q, s_{directrix},  s_b)$\;
+$P \gets \textsc{getPoisWithinParabola}( pi_p )$\;
+\If{$a_{prev}.V_g == NULL$}{
+   $ a{prev}.V_g \gets \textsc{constructInitVisGraph}(P)$\;}
+  $ R_t \gets \textsc{getObstacleRtree}()$\;
+  $ D_O \gets \textsc{getObstructedDist}(a_{prev}.visGraph, q, P, R_t) $\;
+\Return $\textsc{MakeAnswerSet}(q, P, a_{prev}.visGraph, D_O )  $
+\end{algorithm}
 The input to the Algorithm \ref{ConfigAlarm} is the current location of the client $q$ and the answer set got from the Algorithm \ref{ClientGetAlarmables}. This algorithm is also responsible for triggering an alarm to the client if the client is within the alarming distance of any POI.
 \begin{algorithm}
 \caption{\textsc{ConfigUpdate}($q, A$)}
