@@ -1,25 +1,16 @@
 \chapter{Naive Solution}
 \label{chap:naivesoln}
 
-To compare the efficiency of our approach, we present a straightforward solution for processing Spatial Alarms in Obstucted Space. The naive approach is a straight forward approach with no safe region computation.  This approach searches for a new alarm in the known region as soon as the client changes it's position.
+To compare the efficiency of our approach, we present a straightforward solution for processing Spatial Alarms in Obstucted Space. The naive approach is a straight forward approach with region computation.  This approach searches for a new alarm in the known region as soon as the client changes it's position.
 
 
-In Section~\ref{naiveview}, we give an overview of the naive solution. Section~\ref{naivealgo} presents the algorithm of the solution. In Subsections 4.2.1, 4.2.2, 4.2.3, and 4.2.4, we discuss the steps of the algorithm in detail. Finally Section~\ref{flxQ2} proposes the improvements of this algorithm to save computational cost and client-server communication overheard.
+In Section~\ref{naiveview}, we give an overview of the naive solution. Section~\ref{naivealgo} presents the algorithm of the solution.
 
 \vspace*{12pt}
 
 \section{Overview}
 \label{naiveview}
-The naive algorithm has three steps, first it computes the known region for POIs , then it computes the known region for obstacles and then it sends the visibility graph for all the POIs to the client.lastly the client computes the answer on every location change of the user.
-
-
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.7\columnwidth]{figures/soln1/naive.pdf}
-\caption{Naive approach}
-\label{fig:naive}
-\end{figure}
+In this naive approach, the server is frequently queried to get the POIs and obstacles within the Euclidean distance $r$. Then the client checks the obstructed distance of each POI to be within $r$ obstructed distance and fire alarm if that is reached.\\
 
 
 \vspace*{12pt}
@@ -27,55 +18,63 @@ The naive algorithm has three steps, first it computes the known region for POIs
 \section{Algorithm}
 \label{naivealgo}
 
-Algorithm~\ref{alg:gtpqna} shows the pseudocode for the naive approach for processing ordered $k$GTP queries. The input to the algorithms are the source location set \textit{S}, the destination set \textit{D}, the category set \textit{C}, the aggregate function to be minimized \textit{f} and \textit{k}. The output \textit{A} is $k$ sets of POIs that have $k$ smallest trip distances.
+In the Algorithm \ref{GetAlarmables}, the \textsc{GetAllPOI}($q, r$) function populates the set $P$ of POIs within the radius $r$ centring the query point (the client's current location) $q$. Similarly, \textsc{GetObstacleSet}($q, r$) function returns the set of all obstacles within the radius $r$ centring $q$.\\
 
-\vspace*{8pt}
-We discuss the algorithm in the following four subsections. 
+\textsc{MakeVisGraph}$(P,O)$ function returns the \textit{visibility graph} $V_G$ with the set of POIs $P$ and the set of obstacles $O$.
 
+Here, a \textbf{Visibility Graph} is a graph $V_G(V,E)$ where each $v \in V$ is either a POI or a data-point and for each $(u,v) \in E$, there is an edge $e$ between $u$ and $v$ if and only if it does not intersect with any obstacles $i.e.$ $u$ and $v$ are \textit{visible} to each other along the edge $e$.\\
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{visibility_graph.jpg}
+  \caption{Visibility Graph}
+  \label{fig:visgraph}
+\end{figure}
+\vspace{5pt}
+$\textsc{MakeAnswerSet}(q, V_G)$ function returns a heterogeneous data-model consisting of its all parameters to be used by the caller client-side program.
+
+
+\DontPrintSemicolon
 \begin{algorithm}
-\caption{Initialization}
-\label{Init}
-\begin{algorithmic}[1]
-\Procedure{Initialization}{}
-\STATE incrementally increase r until it finds atleast 1 POI
-\STATE Make
-\STATE Retrieve all the obstacles inside the circular region of radius r$_kp$
+\caption{\textsc{GetAlarmables}($q$, $r$ , $A_{prev}$)}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Query point $q$ and the search radius $r$}
+    \Output{The visibility graph $V_G$} 
+	
+	 $P \gets \textsc{GetAllPOI}(q, r)$ \;
+	 $O \gets \textsc{GetObstacleSet}(q, r)$ \;
+	 $V_G \gets \textsc{MakeIncrementalVisGraph}(P, O, A_{prev},V_g)$ \;
+	 $D_O \gets \textsc{getAllObstructedDist}( q, V_g )$
+	\Return \textsc{MakeAnswerSet}$(q, V_G,D_O)$ \;
+\label{GetAlarmables}
+\end{algorithm}
 
-\STATE r$_ko$ = r$_kp$
-\STATE Construct the visibility graph V$_G$ for the POIs
-\\ \While{there is any unreachable POI in the V$_G $ and there are more than 1 collision of obstacle perimeter of the circle of radius r$_ko$}
-\State expand rko  until the unreachable POI gets reachable or there is less than 2 collisions
-\State retrieve new obstacles;
-\State If any new POI is found, then let r$_kp$ = r$_ko$ and go to the 3rd step
-\EndWhile
-\\Make O = {set of all obstacles inside the radius r$_ko$}
-\\Return the client a response with  r$_kp$, r$_ko$, P, O 
+The following method is triggered on any change of the user's location by the system checking whether to give any alarm to the client or not along with the check of necessity to fetch more POI and obstacle when the client goes outside of the farthest POI's alarming zone.
+Here, the function \textsc{AlarmUser}$(p_i)$ triggers an alarm to the user since the respective POI $p_i$ is reached and also marks $p_i$ to be reached in the set of POIs $P$. \\
+The inputs to this algorithm are the current client-location $q$ and the answer set $A$ consisting of the region's center $q$,% minimum distance to be covered by the client to trigger this update procedure $k{min}$,%
+POI set $P$, obstacle set $O$, and the visibility graph $V_G$.
+\begin{algorithm}
+\caption{\textsc{UpdateClient}$(q, A)$}
 
-
-\EndProcedure
-\end{algorithmic}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \Input{Client's current location $q$, latest answer set $A$}
+    
+	 \ForEach{$p_i \in P$} {
+		\If{$dist_O(q, p_i, V_G) > p_i.u$}{
+			$\textsc{AlarmUser}(p_i)$\;
+		}
+	}
+	 \If {$dist_E(A.q, q) > A.d_u$ }{
+		\textsc{GetAlarmables}$(q, 100)$
+	}
+\label{UpdateClient}
+%\end{algorithmic}
 \end{algorithm}
 
 
-
-
-
-\subsection{$r_kp$ Computation}
-
-The naive approach has two known regions, Known region for the POI and known region for the Obstacles. At first the known region for the POIs is computed. The radius of the known region is set to the alarming zone of the user upon initialization. The server, upon request of the client application, searches for POIs surrounding the user's current location. It incrementally increases the known regions radius, r$_kp$ until it finds atleast one POI. \\
-\subsection{$r_ko$ computation}
-\vspace*{5pt}
-%\textbf{$\sum d_p$ Formulation:}
-After computing r$_kp$ the server retrieves all the obstacles within this radius and sets the radius of the known region for obstacles,r$_ko$ as r$_kp$. Then it looks for any unreachable POIs within this region.The server incrementally increases r$_ko$ until all POIs are reachable.\\
-
-
-\subsection{Visibility graph generation}
-\vspace*{5pt}
-
-\subsection{Recomputation on every location change}
-\vspace*{5pt}
-%\textbf{Exhaustive Search:}
-Upon location change of the user the client application computes the obstructed distance from all the POI's in the known region and if any obstructed distance is less than the alarming distance, an alarm is invoked.
+%The run-time of the first line of the second procedure \ref{UpdateNaive1} is $O(\left\vert{P}\right\vert)$, whereas the second line depends on the amount of location-change and the FetchPOI procedure.
+In this naive-approach, the visibility-graph is constructed more times than necessary to hold accuracy, each of which constructions requires $O(n^2)$ \cite{mur}, where $n =$ the number of edges of the obstacles. A huge overhead is also sufficed to make $P$ and $O$ sets using such procedure. Again, the Algorithm \ref{GetAlarmables} can also be run much less time than in this approach, which is improvised in the later approach.
 
 
 

@@ -3,13 +3,13 @@
 \usepackage{verbatim}
 \usepackage[dvips]{graphicx}
 \usepackage{makeidx}
-%\usepackage{pst-plot}
-%\usepackage{psfrag}
+\usepackage{pst-plot}
+\usepackage{psfrag}
 \usepackage{paralist}
-%\usepackage{fancyhdr}
+\usepackage{fancyhdr}
 %\begin{comment}
-\usepackage{algorithm}
-\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{multicol}
@@ -19,7 +19,8 @@
 \usepackage{epstopdf}
 \usepackage{fixltx2e,amsthm,pifont,algpseudocode,pifont}
 
-
+%\usepackage{fixltx2e,algpseudocode,pifont,graphicx}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \newcounter{linenumber}
 \newenvironment{listprog}{%
         \begin{list}{%
@@ -70,26 +71,25 @@
 \newcommand{\bty}{\hspace{250pt}}
 \newcommand{\btz}{\hspace{260pt}}
 
-\newcommand{\Begin} {{\bf begin}}
-\newcommand{\End}   {{\bf end}}
-\newcommand{\If}    {{\bf if }}
-\newcommand{\Then}  {{\bf then }}
-\newcommand{\Else}  {{\bf else }}
-\newcommand{\For}   {{\bf for }}
-\newcommand{\To}    {{\bf to }}
-\newcommand{\DownTo}    {{\bf downto }}
-\newcommand{\Do}    {{\bf do }}
-\newcommand{\While} {{\bf while }}
-\newcommand{\Repeat}{{\bf repeat }}
-\newcommand{\Until} {{\bf until}}
-\newcommand{\Procedure} {{\bf Procedure }}
-\newcommand{\Function} {{\bf Function }}
-\newcommand{\Return} {{\bf return }}
-\newcommand{\Integer} {{\bf integer}}
-\newcommand{\Boolean} {{\bf Boolean}}
+%\newcommand{\Begin} {{\bf begin}}
+%\newcommand{\End}   {{\bf end}}
+%\renewcommand{\If}    {{\bf if }}
+%\newcommand{\Then}  {{\bf then }}
+%\renewcommand{\Else}  {{\bf else }}
+%\renewcommand{\For}   {{\bf for }}
+%\newcommand{\To}    {{\bf to }}
+%\newcommand{\DownTo}    {{\bf downto }}
+%\newcommand{\Do}    {{\bf do }}
+%\renewcommand{\While} {{\bf while }}
+%\renewcommand{\Repeat}{{\bf repeat }}
+%\renewcommand{\Until} {{\bf until}}
+%\renewcommand{\Procedure} {{\bf Procedure }}
+%\renewcommand{\Return} {{\bf return }}
+%\newcommand{\Integer} {{\bf integer}}
+%\newcommand{\Boolean} {{\bf Boolean}}
 
-\newcommand{\abc}[1]{#1\index{#1}}
-\newcommand{\bcd}[1]{\textit{#1}\index{#1}}
+%\newcommand{\abc}[1]{#1\index{#1}}
+%\newcommand{\bcd}[1]{\textit{#1}\index{#1}}
 
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{theorem}[lemma]{Theorem}
@@ -103,7 +103,7 @@
 \newtheorem{exmp}[thm]{Example} % same for example numbers
 
 
-\newcommand{\proof}{\noindent {\bf Proof.} \ \ }
+%\newcommand{\proof}{\noindent {\bf Proof.} \ \ }
 
 
 \def\squareforqed{\hbox{${\cal Q.E.D.}$}}             
@@ -116,7 +116,7 @@
 \addtolength{\textheight}{2cm}
 
 
-\makeindex
+%\makeindex
 
 \begin{document}
 \bibliographystyle{alpha}
@@ -124,16 +124,16 @@
 \pagestyle{plain}
 
 %\input coverpage.tex
-\input cover.tex
-\newpage
+%\input cover.tex
+%\newpage
 \pagenumbering{roman}
 
 %\input board.tex
-\input declaration.tex
-\tableofcontents
-\listoffigures
-\listoftables
-\input ack.tex
+%\input declaration.tex
+%\tableofcontents
+%\listoffigures
+%\listoftables
+%\input ack.tex
 \input abstract.tex
 
 
@@ -142,9 +142,9 @@
 \newpage
 \pagenumbering{arabic}
 \input chap1.tex
-\input chap2.tex
-\input chap3.tex
+%\input chap2.tex
 \input chap4.tex
+\input chap3.tex
 \input chap5.tex
 \input chap6.tex
 
