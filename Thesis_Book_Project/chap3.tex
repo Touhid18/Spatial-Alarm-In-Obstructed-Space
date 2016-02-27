@@ -114,7 +114,7 @@ The input to the Algorithm \ref{ConfigAlarm} is the current location of the clie
     
     \ForEach{$p_i \in P$}{
     		$p_i.d_O \gets dist_O(q, p_i)$\;
-    		\If{$p_i.d_O \leqslant r$}{
+    		\If{$p_i.d_O \leq r$}{
     			$\textsc{AlarmUser}(p_i)$\;
     		}
     		\ElseIf{$p_i.d_E<r_{safe}$}{
