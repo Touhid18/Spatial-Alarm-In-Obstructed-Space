@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \documentclass[12pt,notitlepage,oneside,a4paper]{book}
 
 \usepackage{verbatim}
@@ -167,3 +168,174 @@
 
 
 \end{document}
+=======
+\documentclass[12pt,notitlepage,oneside,a4paper]{book}
+
+\usepackage{verbatim}
+\usepackage[dvips]{graphicx}
+\usepackage{makeidx}
+\usepackage{pst-plot}
+\usepackage{psfrag}
+\usepackage{paralist}
+\usepackage{fancyhdr}
+%\begin{comment}
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{soul}
+%\usepackage[table]{xcolor}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{fixltx2e,amsthm,pifont,algpseudocode,pifont,graphicx}
+
+%\usepackage{fixltx2e,algpseudocode,pifont,graphicx}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\newcounter{linenumber}
+\newenvironment{listprog}{%
+        \begin{list}{%
+                \footnotesize\arabic{linenumber}}{%
+                   \usecounter{linenumber}%
+                   \setlength{\itemsep}{0pt}%
+                   \setlength{\parsep}{0pt}}}%
+        {\end{list}}
+
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+\newenvironment{listing}[1]{%
+        \begin{list}{*}{%
+                \let\makelabel\namelistlabel
+                 \settowidth{\labelwidth}{#1}%
+                 \setlength{\leftmargin}{1.1\labelwidth}%
+                 \advance \leftmargin by 18pt
+                  \setlength{\labelsep}{5pt}%
+                   \setlength{\itemsep}{0pt}%
+                   \setlength{\topsep}{5pt}%
+}%
+}{%
+\end{list}}
+
+\newcommand{\bta}{\hspace{7pt}}
+\newcommand{\btb}{\hspace{14pt}}
+\newcommand{\btc}{\hspace{21pt}}
+\newcommand{\btd}{\hspace{28pt}}
+\newcommand{\bte}{\hspace{35pt}}
+\newcommand{\btf}{\hspace{42pt}}
+\newcommand{\btg}{\hspace{49pt}}
+\newcommand{\bth}{\hspace{56pt}}
+\newcommand{\bti}{\hspace{63pt}}
+\newcommand{\btj}{\hspace{70pt}}
+\newcommand{\btk}{\hspace{77pt}}
+\newcommand{\btl}{\hspace{84pt}}
+\newcommand{\btm}{\hspace{91pt}}
+\newcommand{\btn}{\hspace{98pt}}
+\newcommand{\bto}{\hspace{150pt}}
+\newcommand{\btp}{\hspace{160pt}}
+\newcommand{\btq}{\hspace{170pt}}
+\newcommand{\btr}{\hspace{180pt}}
+\newcommand{\bts}{\hspace{190pt}}
+\newcommand{\btt}{\hspace{200pt}}
+\newcommand{\btu}{\hspace{210pt}}
+\newcommand{\btv}{\hspace{220pt}}
+\newcommand{\btw}{\hspace{230pt}}
+\newcommand{\btx}{\hspace{240pt}}
+\newcommand{\bty}{\hspace{250pt}}
+\newcommand{\btz}{\hspace{260pt}}
+
+%\newcommand{\Begin} {{\bf begin}}
+%\newcommand{\End}   {{\bf end}}
+%\renewcommand{\If}    {{\bf if }}
+%\newcommand{\Then}  {{\bf then }}
+%\renewcommand{\Else}  {{\bf else }}
+%\renewcommand{\For}   {{\bf for }}
+%\newcommand{\To}    {{\bf to }}
+%\newcommand{\DownTo}    {{\bf downto }}
+%\newcommand{\Do}    {{\bf do }}
+%\renewcommand{\While} {{\bf while }}
+%\renewcommand{\Repeat}{{\bf repeat }}
+%\renewcommand{\Until} {{\bf until}}
+%\renewcommand{\Procedure} {{\bf Procedure }}
+%\renewcommand{\Return} {{\bf return }}
+%\newcommand{\Integer} {{\bf integer}}
+%\newcommand{\Boolean} {{\bf Boolean}}
+
+%\newcommand{\abc}[1]{#1\index{#1}}
+%\newcommand{\bcd}[1]{\textit{#1}\index{#1}}
+
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{fact}[lemma]{Fact}
+\newtheorem{thm}{Theorem}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition} % definition numbers are dependent on theorem numbers
+\newtheorem{exmp}[thm]{Example} % same for example numbers
+
+
+%\newcommand{\proof}{\noindent {\bf Proof.} \ \ }
+
+
+\def\squareforqed{\hbox{${\cal Q.E.D.}$}}             
+\def\qed{\ifmmode\squareforqed\else{\unskip\nobreak\hfil
+\penalty50\hskip1em\null\nobreak\hfil\squareforqed
+\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi
+\vskip 10pt}
+
+\addtolength{\textwidth}{0.5cm}
+\addtolength{\textheight}{2cm}
+
+
+%\makeindex
+
+\begin{document}
+\bibliographystyle{alpha}
+\renewcommand{\baselinestretch}{1.3}\normalsize
+\pagestyle{plain}
+
+%\input coverpage.tex
+%\input cover.tex
+%\newpage
+\pagenumbering{roman}
+
+%\input board.tex
+%\input declaration.tex
+%\tableofcontents
+%\listoffigures
+%\listoftables
+%\input ack.tex
+\input abstract.tex
+
+
+
+
+\newpage
+\pagenumbering{arabic}
+%\input chap1.tex
+%\input chap2.tex
+%\input chap4.tex
+%\input chap3.tex
+\input chap5.tex
+%\input chap6.tex
+
+\newpage
+\renewcommand{\bibname}{References}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{References}
+
+\newpage
+%\addcontentsline{toc}{chapter}{Index}
+
+
+\appendix
+
+%\input appendix.tex
+
+
+
+%\printindex
+
+
+\end{document}
+>>>>>>> 5731ae1631caa1d6a0e2ae94210f386ccb26d409

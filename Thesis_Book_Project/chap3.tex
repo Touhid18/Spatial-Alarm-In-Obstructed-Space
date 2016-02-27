@@ -29,7 +29,7 @@ The computation of reliable region is comparatively less complex. We simply crea
 The safe region is computed using the nearest POI $p$, where $dist_E(p,q)>r$, then the safe region is the intersection of the circle centered at $q$ with radius $dist_E(p,q)$ and the reliable region.
 
 \begin{figure}[h]
-  \includegraphics[width=\linewidth]{regions_def.png}
+  \includegraphics[width=\linewidth]{region.png}
   \caption{Different regions}
   \label{fig:regions}
 \end{figure}
@@ -114,7 +114,7 @@ The input to the Algorithm \ref{ConfigAlarm} is the current location of the clie
     
     \ForEach{$p_i \in P$}{
     		$p_i.d_O \gets dist_O(q, p_i)$\;
-    		\If{$p_i.d_O \leqslant r$}{
+    		\If{$p_i.d_O \leq r$}{
     			$\textsc{AlarmUser}(p_i)$\;
     		}
     		\ElseIf{$p_i.d_E<r_{safe}$}{

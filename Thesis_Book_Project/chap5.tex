@@ -1,6 +1,6 @@
 \chapter{Experimental Study}
 \section{\label{sec:exp}Experiment Setup}
-\label{sec:exp}
+
 To test and support our theoretical approach to compute spatial alarms in the obstructed space efficiently, we have done extensive experiments using both real and synthetic data-sets. In this chapter, we are going to present the validation and comparison of the proposed approach against the naive approach regarding various effective parameters
 
 In this section, the detailed setup of the experiments is described as per the following sub-sections
@@ -30,11 +30,11 @@ In our experiments, we vary the following query parameters:\\ (i) Clients Veloci
  %after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
   Parameter& Values & Default\\
   \hline
-  Client’s Movement lenght($ v $) Range (km) & 40,100,300,400 &40 \\
+  Client’s Movement lenght($ v $) Range (Unit) & 500,1000,1500,2000 &2000 \\
   \hline
-  Alarm Range $r$& 40, 60, 100, 150,  200 &150\\
+  Alarm Range $r$& 60, 80, 100, 150 &150\\
   \hline
-  Synthetic data set size & 5K, 10K, 15K, 20K & - \\
+  Synthetic data set size & 5K, 7K, 15K, 38K & - \\
   \hline
 \end{tabular}
 \caption{Values of different query parameters used in our experiments} \label{table:exp_setup} \vspace{-2mm}
@@ -67,16 +67,16 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
  \vspace{-2mm}
   \begin{center}
     \begin{tabular}{cc}
-         \hspace{-5mm}
-      \resizebox{70mm}{!}{\includegraphics[]{Runtime.png}} &
+        \hspace{-5mm}
+     \resizebox{70mm}{!}{\includegraphics[]{exec_l.png}} &
         \hspace{-5mm}
          \vspace{-2mm}
-      \resizebox{70mm}{!}{\includegraphics[]{ServerQ.png}} \\
-     \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
+      \resizebox{70mm}{!}{\includegraphics[]{server_l.png}} \\
+    \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
+       \hspace{-5mm}
+      \resizebox{70mm}{!}{\includegraphics{io_l.png}} &
         \hspace{-5mm}
-       \resizebox{70mm}{!}{\includegraphics{io_obs.png}} &
-        \hspace{-5mm}
-     \resizebox{70mm}{!}{\includegraphics{io_poi.png}} \\
+     \resizebox{70mm}{!}{\includegraphics{io_l_obs.png}} \\
      \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
      \hspace{-5mm}
 %      \resizebox{40mm}{!}{\includegraphics{graph/sum/vk_answer.pdf}} &
@@ -84,12 +84,13 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
 %      \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
 %       \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
         \end{tabular}
-    \caption{Effect of Client's movement length  for Germany data  (a)query processing time and (b)Server Query (c)IO-obstacles (d)IO-POI}
+    \caption{Effect of Client's movement length  for Germany data  (a)query processing time and (b)Server Query (c)IO-POI (d)IO-obstacle}
     \label{graph:ClientVelocity}
   \end{center}
-   \vspace{-6mm}
+ %  \vspace{-6mm}
 \end{figure}
-
+\textbf{\emph{Effect of Alarm range $r$: }}
+\ref{graph:Alarm Range}(b)\ref{graph:Alarm Range}(c) and \ref{graph:Alarm Range}(d) show processing time,server query, i/o (obstacle) and i/o(POI) respectively, for processing spatial alarm queries using naive approach and our approach. We observe that for both algorithms processing time and server query increase with the increase in length of alarm range. We also observe that in every alarm range our approach outperforms the naive approach by multiple times.
 %\vspace*{10pt}
 %\textbf{\emph{Effect of answer set $k$: }} In this set of experiments, we vary $k$ as 2, 4, 8, and 16, and compare the experimental results $kGTPQ_{sum}$ and $kGTPQ-NA_{sum}$.
 
@@ -97,33 +98,34 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
 %From Figure ~\ref{graph:sum_k}(a) and Figure~\ref{graph:sum_k}(b), we observe that I/Os and processing time increase with the increase of $k$ for both $kGTPQ_{sum}$ and $kGTPQ-NA_{sum}$. Figures show that $kGTPQ-NA_{sum}$ takes almost one and half orders of magnitude more I/Os compared to $kGTPQ_{sum}$. We also see from Figure~\ref{graph:sum_k}(b) that the query processing time of $kGTPQ-NA_{sum}$ is on average one and
 %half orders of magnitude higher than that of $kGTPQ_{sum}$. The superiority of our approach over the naive approach comes from the ellipse based pruning strategies that reduces the search space significantly.
 
-%\vspace*{10pt}
+\vspace*{10pt}
 
-%\begin{figure}[htbp]
-% \vspace{-2mm}
- %%  \begin{tabular}{cc}
-      %   \hspace{-5mm}
-    %  \resizebox{70mm}{!}{\includegraphics[]{NaiveRuntime.png}} &
-      %  \hspace{-5mm}
-      %   \vspace{-2mm}
-     % \resizebox{70mm}{!}{\includegraphics[]{NaiveServerQ.png}} \\
-    % \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
-     %   \hspace{-5mm}
-      %  \resizebox{70mm}{!}{\includegraphics{NaiveServerQ.png}} &
-      %  \hspace{-5mm}
-   %  \resizebox{70mm}{!}{\includegraphics{NaiveServerQ.png}} \\
-    % \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
-%      \hspace{-5mm}
+\begin{figure}[htbp]
+ \vspace{-2mm}
+ \begin{center}
+   \begin{tabular}{cc}
+        \hspace{-5mm}
+     \resizebox{70mm}{!}{\includegraphics[]{exec_alarm.png}} &
+        \hspace{-5mm}
+         \vspace{-2mm}
+      \resizebox{70mm}{!}{\includegraphics[]{server_alarm.png}} \\
+     \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
+       \hspace{-5mm}
+       \resizebox{70mm}{!}{\includegraphics{io_r.png}} &
+        \hspace{-5mm}
+     \resizebox{70mm}{!}{\includegraphics{io_r_obs.png}} \\
+     \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
+      \hspace{-5mm}
 %      \resizebox{40mm}{!}{\includegraphics{graph/sum/vk_answer.pdf}} &
 %        \hspace{-5mm}
 %      \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
 %       \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
-      %  \end{tabular}
-    %\caption{Effect of Alarm Range $r$  for Germany data (a) I/O(obstacle),(b)I/O(POI), (c)query processing time and (d)Server Query}
-   % \label{graph:Alarm Range}
- % \end{center}
+        \end{tabular}
+    \caption{Effect of Alarm Range $r$  for Germany data  (a)query processing time ,(b)Server Query ,(c)I/O(obstacle) and (d)I/O(POI)}
+    \label{graph:Alarm Range}
+  \end{center}
  %  \vspace{-6mm}
-%\end{figure}
+\end{figure}
 %\vspace*{10pt}
 
 %\textbf{\emph{Effect of Query Area $M$: }}In this case, we vary the query area $M$ as 2\%, 4\%, 8\% and 16\% of the data space. Figure~\ref{graph:sum_m}(a) and ~\ref{graph:sum_m}(b) show I/Os and query processing time, required by $kGTPQ_{sum}$ and $kGTPQ-NA_{sum}$, respectively. Since we need to access more data points from $R$-trees of different data types for a larger $M$, both I/Os and processing time increase with the increase of $M$ for both approaches.
@@ -133,35 +135,35 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
 %magnitude more I/Os than that of $kGTPQ_{sum}$. Similarly, Figure ~\ref{graph:sum_m}(b)
 %shows that the processing time of $kGTPQ-NA_{sum}$ is on average one order of magnitude higher
 %than that of $kGTPQ_{sum}$.
+\ref{graph:dataset}(b)\ref{graph:dataset}(c) and \ref{graph:dataset}(d) show processing time,server query, i/o (obstacle) and i/o(POI) respectively, for processing spatial alarm queries using naive approach and our approach. We observe that for both algorithms processing time and server query increase with the increase in the size of synthetic dataset. We use uniform distribution of real dataset to produce datasets of size 5k,7k,15k and 38k. We also observe that in every synthetic dataset size our approach outperforms the naive approach by multiple times.
 
+\vspace*{10pt}
 
-%\vspace*{10pt}
-
-%\begin{figure}[htbp]
-% \vspace{-2mm}
- % \begin{center}
-  %  \begin{tabular}{cc}
-      %   \hspace{-5mm}
-     % \resizebox{70mm}{!}{\includegraphics[]{NaiveRuntime.png}} &
-      %  \hspace{-5mm}
-     %    \vspace{-2mm}
-     % \resizebox{70mm}{!}{\includegraphics[]{NaiveServerQ.png}} \\
-    % \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
-     %   \hspace{-5mm}
-    %%   \hspace{-5mm}
-    % \resizebox{70mm}{!}{\includegraphics{NaiveServerQ.png}} \\
-   %  \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
-%      \hspace{-5mm}
-%      \resizebox{40mm}{!}{\includegraphics{graph/sum/vk_answer.pdf}} &
-%        \hspace{-5mm}
-%      \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
-%       \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
-     %   \end{tabular}
-  %  \caption{Effect of synthetic data set size  for Germany data (a) I/O(obstacle),(b)I/O(POI), (c)query processing time and (d)Server Query}
-  %  \label{graph:ClientVelocity}
- % \end{center}
-  % \vspace{-6mm}
-%\end{figure}
+\begin{figure}[htbp]
+ \vspace{-2mm}
+  \begin{center}
+    \begin{tabular}{cc}
+         \hspace{-5mm}
+      \resizebox{70mm}{!}{\includegraphics[]{exec_d.png}} &
+       \hspace{-5mm}
+         \vspace{-2mm}
+    \resizebox{70mm}{!}{\includegraphics[]{server_d.png}} \\
+     \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
+        \hspace{-5mm}
+      % \hspace{-5mm}
+     \resizebox{70mm}{!}{\includegraphics{io_d.png}} \\
+   \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
+     \hspace{-5mm}
+    \resizebox{40mm}{!}{\includegraphics{io_d_obs.png}} &
+       \hspace{-5mm}
+ %     \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
+  %     \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
+        \end{tabular}
+    \caption{Effect of synthetic data set size  for Germany data (a)query processing time ,(b)Server Query ,(c)I/O(obstacle) and (d)I/O(POI)}
+    \label{graph:dataset}
+  \end{center}
+   \vspace{-6mm}
+\end{figure}
 %\vspace*{10pt}
 
 
