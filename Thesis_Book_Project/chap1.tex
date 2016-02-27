@@ -18,6 +18,15 @@ Existing research has categorized spatial alarms into three types: Public, Share
 In \cite{bamba} spatial alarms has been categorized into three different types: 1) Moving subscriber with Static target, 2) Static subscriber with Moving target 3) Moving subscriber with Moving target. In this paper we are only considering the first type, that is Moving subscriber with Static target. 
 In \cite{mur} spatial alarm region have been approximated by rectangular bounding box, in our approach we are considering the spatial alarm region as a circle with radius r.\\ \\
 \textit{Obstructed Space Path Problem} \cite{ognn} denotes the problem of finding the shortest route between two query-points  in Obstructed Space where non-intersecting 2D polygons represent \textit{obstacles} and where the route does not traverse through any obstacles. The length of the Obstructed route between points a and b is called the \textit{Obstructed Distance} between a and b, denoted by $dist_o(p_i,q)$.\\ \\
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{obstructed_distance.png}
+  \caption{Obstructed Distance}
+  \label{fig:odist}
+\end{figure}
+
+
+
 A \textbf{Spatial Alarm Query in Obstructed Space} is formally defined as follows:
 %\begin{defn}
 Given a moving query point q and a range r for an alarm, a Spatial Alarm Query returns $\forall p_i \in P=\left\lbrace p_1,p_2,p_3...p_n\right\rbrace  $ which have $dist_o(p_i,q)<r $
@@ -36,15 +45,16 @@ In this paper, We propose a novel approach to evaluate spatial alarms in obstruc
 
 We define three different type of regions: \textit{Known Region},\textit{Reliable Region} and \textit{Safe Region}\\ \\
 
-\textbf{Known Region:} We define two different known regions for the POIs and the obstacles. The region containing at least 1 POI is the known region for POI.\\
-The region circulating the POIs known region containing none or single colliding obstacles is the known region for the obstacles. The set of obstacles and POIs within this region is known to the client. 
+\textbf{Known Region:}\\ 
+The region within which all POIs (alarms) and  obstacles are known to the client
+ We define two different known regions for the POIs and the obstacles.
 Both of the known regions are represented by a parabola whose focus point is the users location q,with the equation $y^2=4ax$ where $a=mr$ which is bounded by a straight line. \\ \\
 
 
-\textbf{Reliable Region:} Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. The reliable region is also a parabolic region bounded by a straight line,where each bounding point of the parabolic curve is at a distance r from the known regions parabolic curve. $ \forall p_i=(x,y) $ in the known region, $ \forall p_j=(x_r,y_r) $ in the reliable region, $ dist_E(p_i,p_j)\geq r $ By this definition no further queries to the server has to be done to compute a consistent set of answers. Because, for any $q =p_j$ $ dist_E(q,p_j) \geq r$ where $p_j$ is a point on the boundary of the reliable region. And for all other points $ p_i $ inside the reliable region $  dist_E(q,p_i)>r$ \\ \\
+\textbf{Reliable Region:} \\Within which region, no further query to the server has to be done to compute a consistent set of answers, that is termed as a reliable region. The reliable region is also a parabolic region bounded by a straight line,where each bounding point of the parabolic curve is at a distance r from the known regions parabolic curve. $ \forall p_i=(x,y) $ in the known region, $ \forall p_j=(x_r,y_r) $ in the reliable region, $ dist_E(p_i,p_j)\geq r $ By this definition no further queries to the server has to be done to compute a consistent set of answers. Because, for any $q =p_j$ $ dist_E(q,p_j) \geq r$ where $p_j$ is a point on the boundary of the reliable region. And for all other points $ p_i $ inside the reliable region $  dist_E(q,p_i)>r$ \\ \\
 
 
-\textbf{Safe Region:} A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer. If the safe region surpasses the reliable region at some points 
+\textbf{Safe Region:}\\ A safe region is the region located inside reliable region within which the answer set of POIs remains unchanged for a moving client. We will denote the radius of the safe region as $r_{safe}$. Given the user's previous location $P_1$ and the current location $P_2$, if $(P_1 - P_2) < r_{safe}$, then no recalculation is needed to compute the answer. If the safe region surpasses the reliable region at some points 
 \\ \\
 
 \begin{table}[h]
