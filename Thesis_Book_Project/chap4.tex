@@ -29,7 +29,7 @@ In the Algorithm \ref{GetAlarmables}, the \textsc{GetAllPOI}($q, r$) function po
 
 \textsc{MakeVisGraph}$(P,O)$ function returns the \textit{visibility graph} $V_G$ with the set of POIs $P$ and the set of obstacles $O$.
 
-Here, a \textbf{Visibility Graph} is a graph $V_G(V,E)$ where each $v \in V$ is either a POI or a data-point and for each $(u,v) \in E$, there is an edge $e$ between $u$ and $v$ if and only if it does not intersect with any obstacles $i.e.$ $u$ and $v$ are \textit{visible} to each other along the edge $e$.\\
+Here, a \textbf{Visibility Graph} \cite{VG1},\cite{VG2},\cite{VG3},\cite{VG4} is a graph $V_G(V,E)$ where each $v \in V$ is either a POI or a data-point and for each $(u,v) \in E$, there is an edge $e$ between $u$ and $v$ if and only if it does not intersect with any obstacles $i.e.$ $u$ and $v$ are \textit{visible} to each other along the edge $e$.\\
 
 \begin{figure}[h]
   \includegraphics[width=\linewidth]{visibility_graph.jpg}
