@@ -1,7 +1,5 @@
 \chapter{Related Works}
 \label{chp:relworks}
-
-
 In this chapter, we give a description of previous works related to this thesis. Spatial alarm processing technique in Road Network and Euclidean Space has been extensively studied in recent years.In this chapter, we first show the related works on Spatial Alarm queries in Road Networks in \ref{sec:spatialalarms},then we show the related works on different queries in the Obstructed Space in the section \ref{sec:obstructed} finally in \ref{sec:R} we show the effectiveness of R-tree as an data structure. \\
 \vspace{15pt}
 %~\ref{sec:NN}, Group nearest neighbor (GNN) queries in Obstructed Space in Section~\ref{sec:ANN} Efficient Spatial Alarm finding techinques in Section~\ref{sec:GNN}, and finally a discussion on R-tree as an efficient data structure for indexing spatial alarms is given in Section ~\ref{sec:R}.
@@ -10,69 +8,70 @@ In this chapter, we give a description of previous works related to this thesis.
 \label{sec:spatialalarms}
 Extensive research has been performed and various  effective algorithms have been proposed \cite{roadalarm},\cite{mur},\cite{bamba} to process spatial alarms in Euclidean space and road network in recent years. Euclidean space considers the straight line distance between two points irrespective of obstacles between them on the other hand in road networks navigation is limited along predefined roads.\\ %Obstructed space considers the shortest distance between two points in the presence of obstacles. Various spatial range query algorithms have been presented in recent times \cite{obst1},\cite{obst2},\cite{ognn} such as nearest neighbour and group nearest neighbour in obstructed space.\\
 Again, comprehensive research \cite{liu} has been conducted to make spatial alarm evaluation energy-efficient and effective in road networks.\\ 
-However, to the best of our knowledge no research work has yet been published on the topic of spatial alarms in obstructed space.
-In this section we present the related research work in the computation of spatial alarms in the following subsections.\\
+However, to the best of our knowledge no research work has yet been published on the topic of spatial alarms in the obstructed space.
+In this section we present the related research work in the computation of spatial alarms.\\
 
 \label{sec:roadalarm}
-In \cite{roadalarm} the authors argue that spatial alarm queries are best approximated by road network scenarios as the clients movement is more likely to follow some specific road network. They show that the road network distance-based spatial alarm is best modeled using road network distance such as segment length-based an travel time-based distance. in their opinion, a road network spatial alarm is a star-like subgraph centered at the alarm target. \cite{roadalarm} introduced road network based spatial alarm and provided several optimization techniques to make spatial alarm computation in road network efficient.
-\vspace{10pt}
+In \cite{roadalarm} the authors argue that spatial alarm queries are best approximated by road network scenarios as the clients movement is more likely to follow some specific road network. They show that the road network distance-based spatial alarm is best modeled using road network distance such as segment length-based an travel time-based distance. in their opinion, a road network spatial alarm is a star-like subgraph centered at the alarm target. \cite{roadalarm} introduced road network based spatial alarm and provided several optimization techniques to make spatial alarm computation in road network efficient.\\
+
 
 Murugappan et al. in \cite{mur} have studied a middleware architecture for energy efficient processing of spatial alarms on mobile clients, while maintaining low computation and storage costs. Their research on  spatial alarms provides two systematic methods for minimizing energy consumption on mobile clients. They introduce  the concept of safe distance the number of unnecessary mobile client wakeups for spatial alarm
-evaluation.their approach enables mobile clients to sleep for longer intervals of time in the presence of active spatial alarms. Murugappan et.al have studied the computation of spatial alarm using a middle ware architecture in the road networks. 
-\vspace{10pt}
-In \cite{bamba} a safe region based approach has been introduced to effectively compute spatial alarms. The authors argue that, the conventional computation of spatial alarm queries using server centric architecture can be improved upon by introducing a distributed safe region based approach. The safe region based approach delegates some of the computational overhead to the client and results in optimal usage of resources. In this thesis , we adapt the concept of safe region and the distributed architecture in processing spatial alarms. Bamba et al. in \cite{bamba} have given three different approaches to compute the safe region. However, none of them are tailored to be used in obstructed space. 
- \vspace{10pt}
-In each of the above mentioned research works efficient and effective techniques have been studied to process spatial alarm queries in road networks and euclidean space. However, to the best of our knowledge, no research work has yet been published for the computation of spatial alarms in the obstructed space. 
+evaluation.their approach enables mobile clients to sleep for longer intervals of time in the presence of active spatial alarms. Murugappan et.al have studied the computation of spatial alarm using a middle ware architecture in the road networks. \\
+
+In \cite{bamba} a safe region based approach has been introduced to effectively compute spatial alarms. The authors argue that, the conventional computation of spatial alarm queries using server centric architecture can be improved upon by introducing a distributed safe region based approach. The safe region based approach delegates some of the computational overhead to the client and results in optimal usage of resources. In this thesis , we adapt the concept of safe region and the distributed architecture in processing spatial alarms. Bamba et al. in \cite{bamba} have given three different approaches to compute the safe region. However, none of them are tailored to be used in the obstructed space. \\
+ 
+In \cite{liu} an efficient indexing structure to process spatial alarms is discussed. In each of the above mentioned papers, efficient and effective techniques have been studied to process spatial alarm queries in road networks and euclidean space. However, to the best of our knowledge, no research work has yet been published for the computation of spatial alarms in the obstructed space. 
 
 \vspace{10pt}
 
 
-\section{\label{sec:obstructed}Different Queries in Obstucted Space}
-In this section we study various spatial queries that have been extensively researched in the obstructed space. Some of these queries have very little in common with spatial alarm queries, nevertheless we study the obstructed distance computation techniques used in them.
-\vspace{5pt}
-Papadias et al. in \cite{Obst1} have provided approaches to compute several important spatial alarm queries in the obstructed space, which include range search, nearest neighbors, e-distance joins and closest pairs. They use R-tree for indexing both data points and obstacles.  
-\vspace{5pt}
-Zhange et al in \cite{obst2} have introduced reverse nearest neighbour queries in obstructed space.Given a datapoint q, a reverse nearest neighbor finds all the points/objects that have q as their nearest neighbor. In \cite{obst2} the authors have introduced obstructed reverse nearest neighbour. They use effective pruning heuristics (via introducing a novel boundary region concept).However, spatial alarm queries and RNN queries are distinct from each other. A spatial alarm query returns all the points p that are within an alarm radius r of q.It can be argued that spatial alarm queries can be processed using RNN query solving algorithms, but it will not be as effective and efficient as a query that is specifically tailored to handle spatial alarms. 
-\vspace{5pt}
-Nutanong et al. in \cite{mknn} have studied moving knn queries in detail.Mknn queries can be defined as follows, given a set of datapoints P and a moving query point q,an MkNN query retrieves the k nearest data points of q from P. As the client is moving the answer set may need to be recomputed as the client moves. They have used the concept of safe region,reliable region and known region in their paper. They use the safe region to reduce unnecessary checks for knns near the user. They have also introduced known region and reliable region to find the safe region for a specific location of a client. They have used a unique V* diagram approach to compute knns in their paper.The V* diagram is constructed using $(k+x)^{th}$ nns' of a user.The V* diagram computes two types of safe regions :Safe region with respect to a data point and fixed rank region. Then both of them are intrigated to form a intrigated safe region. Many qualities of\cite{mknn} have been adapted in \cite{oknn} which is discussed next. In this thesis we also use the terms, safe region,reliable region and known region. But our thesis is distinct from \cite{mknn} on these points 
+\section{\label{sec:obstructed}Spatial Queries in the Obstucted Space}
+In this section we study various spatial queries that have been extensively researched in the obstructed space. Some of these queries have very little in common with spatial alarm queries, nevertheless we study the obstructed distance computation techniques used in them.\\
+
+Papadias et al. in \cite{Obst1} have provided approaches to compute several important spatial alarm queries in the obstructed space, which include range search, nearest neighbors, e-distance joins and closest pairs. They use R-tree for indexing both data points and obstacles.  \\
+
+Zhange et al in \cite{obst2} have introduced reverse nearest neighbour queries in the obstructed space.Given a datapoint $q$, a reverse nearest neighbor finds all the points/objects that have $q$ as their nearest neighbor. In \cite{obst2} the authors have introduced the obstructed reverse nearest neighbour. They use effective pruning heuristics (via introducing a novel boundary region concept).However, spatial alarm queries and RNN queries are distinct from each other. A spatial alarm query returns all the points p that are within an alarm radius $r$ of $q$.It can be argued that spatial alarm queries can be processed using RNN query solving algorithms, but it will not be as effective and efficient as a query that is specifically tailored to handle spatial alarms.\\ 
+
+Nutanong et al. in \cite{mknn} have studied moving knn queries in detail.Mknn queries can be defined as follows, given a set of datapoints P and a moving query point q,an MkNN query retrieves the k nearest data points of q from P. As the client is moving the answer set may need to be recomputed as the client moves. They have used the concept of safe region,reliable region and known region in their paper. They use the safe region to reduce unnecessary checks for knns near the user. They have also introduced known region and reliable region to find the safe region for a specific location of a client. They have used a unique V* diagram approach to compute knns in their paper.The V* diagram is constructed using $(k+x)^{th}$ nns' of a user.The V* diagram computes two types of safe regions : Safe region with respect to a data point and fixed rank region. Then both of them are intrigated to form a intrigated safe region. Many qualities of\cite{mknn} have been adapted in \cite{oknn} which is discussed next. In this thesis we also use the terms, safe region,reliable region and known region. But our thesis is distinct from \cite{mknn} on these points 
 \begin{itemize}
 \item We use the known region and reliable region not only to help compute the safe region, but also to reduce duplicate data transfer and number of server queries made.
 \item We use the concepts of these regions to efficiently compute spatial alarms. Here we would like to point out, that although spatial alarm queries can be solved using an extension of moving mknn queries , those extensions will result in wastage of resources and efficiency , as they are not specifically tailored for spatial alarms.
 \item We have used the above mentioned regions with respect to obstacles which is not considered in \cite{mknn} 
 \end{itemize} 
-\vspace{5pt}
+
 Li et al. in \cite{oknn} have proposed an algorithm to efficiently compute moving Knn queries with respect to obstacles.  However in their paper, Li et al. have proposed a safe region based approach, so that no recomputation is needed as long as the user is within the safe region. In \cite{oknn} no predefined trajectory of client is assumed. The algorithm proposed in \cite{oknn} can be summarized as follows:
 \begin{itemize}
-\item At the start of the query the algorithm first computes a  list of k+x nearest data points of q, where the x extra data point serve as a “cache” to reduce the number of safe region recomputation.
+\item At the start of the query the algorithm first computes a  list of k+x nearest data points of $q$, where the $x$ extra data point serve as a “cache” to reduce the number of safe region recomputation.
 \item After every movement of client the algorithm uses the \textit{obstructed safe region} and \textit{the obstructed fixed-rank region} to determine whether a safe region recomputation is required and which data points need to be accessed for the recomputation.
 \end{itemize}
 
-\textit{Obstructed safe region} w.r.t. datapoint is  a region where the movement of q will not cause p to be removed from the k + x nearest neighbors of q.\\
+\textit{Obstructed safe region} w.r.t. datapoint is  a region where the movement of $q$ will not cause $p$ to be removed from the $k + x$ nearest neighbors of $q$.\\
 \textit{Obstructed fixed rank region}  The obstructed fixed-rank region of a list
-$L_{k+x}$ of k + x data points ordered ascendingly by their distances to the query point at $q_b$,is a region in an obstructed space that, when q moves inside the region, the distance rank of the data points in $L_{k+x}$ to q is fixed.\\
+$L_{k+x}$ of $k + x$ data points ordered ascendingly by their distances to the query point at $q_b$,is a region in an obstructed space that, when q moves inside the region, the distance rank of the data points in $L_{k+x}$ to $q$ is fixed.\\
 
-In this paper they have also formulated an \textit{obstructed known region} with the help of an \textit{obstructed disk}. When the query point q is at position $q_{b}$ and its $(k+x)^{th}$ nearest data point is z, the obstructed known region of q, is defined as a region where the obstructed distance from any point t to $q_b$ is less than or equal to the obstructed distance of z to $q_{b}$. An obstructed disk in obstructed space is a disc where the points’ distances to $q_b$ are less than or equal to r. \\
+In this paper they have also formulated an \textit{obstructed known region} with the help of an \textit{obstructed disk}. When the query point $q$ is at position $q_{b}$ and its $(k+x)^{th}$ nearest data point is $z$, the obstructed known region of $q$, is defined as a region where the obstructed distance from any point $t$ to $q_b$ is less than or equal to the obstructed distance of $z$ to $q_{b}$. An obstructed disk in obstructed space is a disc where the points’ distances to $q_b$ are less than or equal to $r$. \\
 
 In this paper the concept of safe region and fixed rank region have been adapted from \cite{mknn}. In this thesis we have also adapted some of our key concepts from the same and manipulated them for using in the obstructed space. However, it is noteworthy that our approach and \cite{oknn} are distinct from each other. Apart from the obvious fact that our thesis and \cite{oknn} deal with two different type of spatial queries all together we would also like to point out two principle differences between them:
 \begin{itemize}
-\item Firstly, we adapt the concept of known region and reliable region from \cite{mknn} in obstructed space. In this thesis, two different known region for POIs and Obstacles have been introduced to reduce duplicate and frequent data retrieval from the server. Our definition of known region is distinct from \cite{oknn}.
-\item Secondly, We have developed an efficient approach to accurately answer the spatial alarm queries in obstructed space by predicting the user's next direction of movement, a prospect that has not been considered in \cite{oknn}.  
+\item Firstly, we adapt the concept of known region and reliable region from \cite{mknn} in the obstructed space. In this thesis, two different known region for POIs and Obstacles have been introduced to reduce duplicate and frequent data retrieval from the server. Our definition of known region is distinct from \cite{oknn}.
+\item Secondly, We have developed an efficient approach to accurately answer the spatial alarm queries in the obstructed space by predicting the user's next direction of movement, a prospect that has not been considered in \cite{oknn}.  
 \end{itemize}
-\vspace{5pt}
-In \cite{ognn} an efficient approach to solve the obstructed group nearest neighbour query is introduced.A GNN(Group Nearest Neighbor) query is a query that enables a group of users to meet at a point with minimum aggregate travel distance.   
-   \vspace{5pt}
-Obstructed distance computation is a inexplicable part of any query in obstructed space. To find the obstructed distance between two points we need the visibility graph \cite{ognn}. Usually, visibility graph construction is an $ O(n^2) $ time consuming algorithm. To overcome this particular hurdle, we have adapted the approach of incrementally constructing the visibility graph used in both \cite{ognn} and \cite{oknn}. In this approach only the datapoints and obstacles that are absolutely necessary to our query is kept in the visibility graph. At first an initial visibility graph is constructed and then only the obstacles and that are relevant in the obstructed distance computation of the active datapoint set are kept in the visibility graph, all other obstacles are removed. This initial visbility graph is incremented or decremented with necessary datapoints and obstacles as per our query. 
-\vspace{10pt}
+
+In \cite{ognn} an efficient approach to solve the obstructed group nearest neighbour query is introduced.A GNN(Group Nearest Neighbor) query is a query that enables a group of users to meet at a point with minimum aggregate travel distance. \\  
+  
+Obstructed distance computation is a inexplicable part of any query in the obstructed space. To find the obstructed distance between two points we need the visibility graph \cite{ognn}. Usually, visibility graph construction is an $ O(n^2) $ time consuming algorithm. To overcome this particular hurdle, we have adapted the approach of incrementally constructing the visibility graph used in both \cite{ognn} and \cite{oknn}. In this approach only the datapoints and obstacles that are absolutely necessary to our query is kept in the visibility graph. At first an initial visibility graph is constructed and then only the obstacles and that are relevant in the obstructed distance computation of the active datapoint set are kept in the visibility graph, all other obstacles are removed. This initial visbility graph is incremented or decremented with necessary datapoints and obstacles as per our query. \\
 
 
 
+\section{R-trees} 
+\label{sec:R}
 B-tree~\cite{BTREE} is a  popular data structure that is often used in file systems and database systems because of it's logarithmic insertion and deletion running times and as it's child nodes can be accessed at the same time. However, B-tree can not store new type of data (i.e. geometrical data, multi-dimensional data). So Guttman ~\cite{RT2} provided R-Tree for this task. R-tree has the following main properties
 \begin{itemize}
 \item  R-Trees represent data as a minimum bounding rectangle MBR which enables it to store any dimensional data
 \item It is height balanced.
 \item Each node bounds it's children. A node can have many objects in it.
 \item The leaves point to the actual objects which are stored on the disk.
-
+Various variations of R-tree have also been proposed in \cite{RT3}, \cite{RT4}.
 \end{itemize}
 
 

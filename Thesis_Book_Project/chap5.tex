@@ -1,12 +1,13 @@
 \chapter{Experimental Study}
-\section{\label{sec:exp}Experiment Setup}
+\label{chp:exp}
+
 
 To test and support our theoretical approach to compute spatial alarms in the obstructed space efficiently, we have done extensive experiments using both real and synthetic data-sets. In this chapter, we are going to present the validation and comparison of the proposed approach against the naive approach regarding various effective parameters
-
+\section{\label{sec:exp}Experiment Setup}
 In this section, the detailed setup of the experiments is described as per the following sub-sections
 \subsection{Data Set Used}
 
-We have used both real and synthetic data-sets to evaluate our solution. In case of real data-sets, we have used obstacles and point of interests (POIs) of Germany. The obstacle set has 30674 minimum bounded rectangles (MBRs) of railway lines (rrlines). In our experiment, we assume obstacles to be presented by MBRs, but our algorithm can handle any type of obstacles. The POI set has 76999 MBRs of hypsography data (hypsogr). We assume data-points to be endpoints of the hypsography data. In this way, the POIs and obstacles are in the same plane which allows us to simulate a real-life scenario. We do not allow intersections between POIs and obstacles, neither do we allow duplicate POIs or obstacles. In case of synthetic data-sets, we have generated the obstacles and POIs from the real datasets following a uniform distribution. Before using in the real experiment, we have always normalized both real and synthetic dataset in a $  10,000 \times 10,000 $ grid.\\
+We have used both real and synthetic data-sets  to evaluate our solution. In case of real data-sets, we have used obstacles and point of interests (POIs) of Germany \cite{Germany}. The obstacle set has 30674 minimum bounded rectangles (MBRs) of railway lines (rrlines). In our experiment, we assume obstacles to be presented by MBRs, but our algorithm can handle any type of obstacles. The POI set has 76999 MBRs of hypsography data (hypsogr). We assume data-points to be endpoints of the hypsography data. In this way, the POIs and obstacles are in the same plane which allows us to simulate a real-life scenario. We do not allow intersections between POIs and obstacles, neither do we allow duplicate POIs or obstacles. In case of synthetic data-sets, we have generated the obstacles and POIs from the real datasets following a uniform distribution. Before using in the real experiment, we have always normalized both real and synthetic dataset in a $  10,000 \times 10,000 $ grid.\\
 In our experiments, we have assumed only one type of POIs. However, our approach also can handle multiple types of POI. \\
 Prior to  running the main algorithms, two separate R-trees are built to store the POIs and the obstacles respectively from the used data-sets.\\
 
@@ -20,7 +21,7 @@ After determining the client’s new position along this path, in the naive appr
 The client’s velocity is also randomized within a certain range to give a new position of the client along the current direction in the next iteration, which again generates a new server-query accordingly.\\
 Meanwhile, the direction of the client is predicted in the main approach from the latest set of piecewise linear paths in the client’s movement history. This prediction procedure has already been described in the  Algorithm section.\\
 
-\subsection{Measurement of the performance parameters}
+\subsection{Measurement of the Performance Parameters}
 In our experiments, we vary the following query parameters:\\ (i) Clients Velocity Range\\ (ii) the Alarm Range r\\ (iii) the size of data sets (synthetic data set)\\. Table ~\ref{table:exp_setup} summarizes the parameter values used in our experiments. In all experiments, we estimate I/O accesses and the query processing time to measure the efficiency of our algorithms. In each set of experiments, we run the experiment for 100 queries and present the average result.
 \vspace*{10pt}
 \begin{table}[htbp]
@@ -44,7 +45,7 @@ In our experiments, we vary the following query parameters:\\ (i) Clients Veloci
 \subsection{Implementation Language and Tools}
 The project of our experiment is implemented using C++ language and have been compiled, debugged and tested using Microsoft Visual Studio 2015 Enterprise edition with a full version student-license from DreamSpark.
 
-\subsection{PC configuration}
+\subsection{PC Configuration}
 We have run our experiments in three PCs of the following configurations:\\
 1. Intel Core i5 2.9 GHz (Quad Core), 12 GB RAM \\
 2. Intel Core i5 2.3 GHz (Quad Core), 4 GB RAM \\
@@ -55,7 +56,7 @@ The average of these multiple runs is taken to measure and compare the performan
 In Section~\ref{subsec:naive}, we compare the results of two approaches.
 
 
-\subsection{Comparison of Our Approach with Naive aproach}
+\subsection{Comparison of Our Approach with Naive Aproach}
 \label{subsec:naive}
 %%TO DO :Write our naive approach experiment evaluation here
 %In this section, we present the experimental results for processing $k$GTP queries for aggregate function SUM. For SUM, we name our proposed approach and the naive approach as $kGTPQ_{sum}$ and $kGTPQ-NA_{sum}$, respectively. In the following sets of experiments, we vary group size, the answer set size, query area, and dataset size. When we vary one parameter, we set other parameters to default values as stated in Table~\ref{table:exp_setup}.
@@ -84,7 +85,7 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
 %      \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
 %       \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
         \end{tabular}
-    \caption{Effect of Client's movement length  for Germany data  (a)query processing time and (b)Server Query (c)IO-POI (d)IO-obstacle}
+    \caption{Effect of Client's movement length  for Germany data  (a) query processing time and (b) Server Query (c) IO-POI (d) IO-obstacle}
     \label{graph:ClientVelocity}
   \end{center}
  %  \vspace{-6mm}
@@ -121,7 +122,7 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
 %      \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
 %       \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
         \end{tabular}
-    \caption{Effect of Alarm Range $r$  for Germany data  (a)query processing time ,(b)Server Query ,(c)I/O(obstacle) and (d)I/O(POI)}
+    \caption{Effect of Alarm Range $r$  for Germany data  (a) query processing time ,(b) Server Query ,(c) I/O(obstacle) and (d) I/O(POI)}
     \label{graph:Alarm Range}
   \end{center}
  %  \vspace{-6mm}
@@ -151,15 +152,16 @@ In Section~\ref{subsec:naive}, we compare the results of two approaches.
      \scriptsize{(a) \textsc{}\hspace{0mm}} & \scriptsize{(b) \textsc{}}\\
         \hspace{-5mm}
       % \hspace{-5mm}
-     \resizebox{70mm}{!}{\includegraphics{io_d.png}} \\
-   \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
+     \resizebox{70mm}{!}{\includegraphics{io_d.png}} &
+   
      \hspace{-5mm}
-    \resizebox{40mm}{!}{\includegraphics{io_d_obs.png}} &
+    \resizebox{70mm}{!}{\includegraphics{io_d_obs.png}}\\
        \hspace{-5mm}
+       \scriptsize{(c) \hspace{0mm}} & \scriptsize{(d) }\\
  %     \resizebox{40mm}{!}{\includegraphics{graph/max/vk_answer.pdf}} \\
   %     \scriptsize{(e) \textsc{sum}\hspace{0mm}} & \scriptsize{(f) \textsc{max}}
         \end{tabular}
-    \caption{Effect of synthetic data set size  for Germany data (a)query processing time ,(b)Server Query ,(c)I/O(obstacle) and (d)I/O(POI)}
+    \caption{Effect of synthetic data set size  for Germany data (a) query processing time ,(b) Server Query ,(c) I/O(obstacle) and (d) I/O(POI)}
     \label{graph:dataset}
   \end{center}
    \vspace{-6mm}

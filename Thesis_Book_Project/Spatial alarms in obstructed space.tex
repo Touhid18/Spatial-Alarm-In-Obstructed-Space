@@ -119,11 +119,11 @@
 %\makeindex
 
 \begin{document}
-\bibliographystyle{alpha}
+\bibliographystyle{plain}
 \renewcommand{\baselinestretch}{1.3}\normalsize
 \pagestyle{plain}
 
-%\input coverpage.tex
+
 %\input cover.tex
 %\newpage
 \pagenumbering{roman}
@@ -134,7 +134,7 @@
 %\listoffigures
 %\listoftables
 %\input ack.tex
-\input abstract.tex
+%\input abstract.tex
 
 
 
@@ -151,6 +151,7 @@
 \newpage
 \renewcommand{\bibname}{References}
 \addcontentsline{toc}{chapter}{References}
+\bibliographystyle{plain}
 \bibliography{References}
 
 \newpage

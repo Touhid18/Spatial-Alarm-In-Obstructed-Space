@@ -1,23 +1,30 @@
 \chapter{Naive Solution}
 \label{chap:naivesoln}
 
-To compare the efficiency of our approach, we present a straightforward solution for processing Spatial Alarms in Obstucted Space. The naive approach is a straight forward approach with region computation.  This approach searches for a new alarm in the known region as soon as the client changes it's position.
-
-
+To compare the efficiency of our approach, we present a straightforward solution for processing Spatial Alarms in Obstucted Space. 
 In Section~\ref{naiveview}, we give an overview of the naive solution. Section~\ref{naivealgo} presents the algorithm of the solution.
 
 \vspace*{12pt}
 
 \section{Overview}
 \label{naiveview}
-In this naive approach, the server is frequently queried to get the POIs and obstacles within the Euclidean distance $r$. Then the client checks the obstructed distance of each POI to be within $r$ obstructed distance and fire alarm if that is reached.\\
+In a spatial alarm query a user provides a POI type and a distance and the query triggers the alarm. The naive approach to evaluate spatial alarm is a simple approach which works in the following steps:
+\begin{itemize}
+\item User's location and alarm range are sent to the server.
+\item Server constructs the visibility graph using the POIs and obstacles within radius $r$ of user
+\item Server returns the visibility graph to the client.
+\item Client computes the obstructed distance of POIs in range $r$.
+\item If any alarm's obstructed distance is less than $r$, then an alarm is triggered.
+\item As soon as the client moves again, the whole process is repeated.
+\end{itemize} 
+This approach searches for a new alarm in the known region as soon as the client changes it's position.
 
 
 \vspace*{12pt}
 
 \section{Algorithm}
 \label{naivealgo}
-
+The input to the Algorithm \ref{GetAlarmables} is the location of the client $q$ and the search radius $r$. The Output of the Algorithm is the visibility graph $V_G$.
 In the Algorithm \ref{GetAlarmables}, the \textsc{GetAllPOI}($q, r$) function populates the set $P$ of POIs within the radius $r$ centring the query point (the client's current location) $q$. Similarly, \textsc{GetObstacleSet}($q, r$) function returns the set of all obstacles within the radius $r$ centring $q$.\\
 
 \textsc{MakeVisGraph}$(P,O)$ function returns the \textit{visibility graph} $V_G$ with the set of POIs $P$ and the set of obstacles $O$.
@@ -51,7 +58,7 @@ $\textsc{MakeAnswerSet}(q, V_G)$ function returns a heterogeneous data-model con
 
 The following method is triggered on any change of the user's location by the system checking whether to give any alarm to the client or not along with the check of necessity to fetch more POI and obstacle when the client goes outside of the farthest POI's alarming zone.
 Here, the function \textsc{AlarmUser}$(p_i)$ triggers an alarm to the user since the respective POI $p_i$ is reached and also marks $p_i$ to be reached in the set of POIs $P$. \\
-The inputs to this algorithm are the current client-location $q$ and the answer set $A$ consisting of the region's center $q$,% minimum distance to be covered by the client to trigger this update procedure $k{min}$,%
+The inputs to the Algorithm \ref{UpdateClient} are the current client-location $q$ and the answer set $A$ consisting of the region's center $q$,% minimum distance to be covered by the client to trigger this update procedure $k{min}$,%
 POI set $P$, obstacle set $O$, and the visibility graph $V_G$.
 \begin{algorithm}
 \caption{\textsc{UpdateClient}$(q, A)$}
